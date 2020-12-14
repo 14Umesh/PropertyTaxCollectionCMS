@@ -32,7 +32,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
         EmployeeVM Login(EmployeeVM _userinfo);
         AppDetailsVM GetApplicationDetails(int AppId);
         List<TaxReceiptDetailsVM> getTaxPaymentReport(int q,string fromDate, string toDate);
-        List<TaxReceiptDetailsVM> getTaxReceiptReport(int q, string fromDate, string toDate);
+        List<TaxReceiptDetailsVM> getTaxReceiptReport(int q, string fromDate, string toDate,int AppId);
         List<TaxReceiptDetailsVM> getTaxReminderReport(int q, string fromDate, string toDate);
         List<AttendanceDetailsVM> getAttendenceReport(string fromDate, string toDate);
 

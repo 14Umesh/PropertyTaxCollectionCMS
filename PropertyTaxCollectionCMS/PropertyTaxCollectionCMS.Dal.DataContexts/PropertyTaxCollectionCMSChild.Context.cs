@@ -17,11 +17,11 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
     
     public partial class PropertyTaxCollectionCMSChild_Entities : DbContext
     {
-        public PropertyTaxCollectionCMSChild_Entities()
-            : base("name=PropertyTaxCollectionCMSChild_Entities")
+        public PropertyTaxCollectionCMSChild_Entities(int AppId)
+            : base(PropertyTaxAppConnection.GetConnectionString(AppId))
         {
         }
-    
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();

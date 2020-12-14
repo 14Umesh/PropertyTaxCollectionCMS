@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels.Master
         public string ADUM_PASSWORD { get; set; }
         public string ADUM_EMPLOYEE_ID { get; set; }
         public string ADUM_DESIGNATION { get; set; }
+
         public string ADUM_MOBILE { get; set; }
         public string ADUM_EMAIL { get; set; }
         public string LOCAL_USER_NAME { get; set; }

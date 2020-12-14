@@ -73,7 +73,7 @@
 
                                             <div class="col-sm-6">
                                                 <label class="col-form-label">Password</label>
-                                                @Html.TextBoxFor(model => model.ADUM_PASSWORD, new { @class = "form-control", required = "required", placeholder = "Password Here", type = "password" })
+                                                @Html.TextBoxFor(model => model.ADUM_PASSWORD, new { @class = "form-control", required = "required", placeholder = "Password Here", type = "text" })
                                             </div>
 
                                             <div class="col-sm-6">
@@ -87,14 +87,19 @@
                                             </div>
 
                                             <div class="col-sm-6">
-                                                <label class="col-form-label">Mobile</label>
-                                                @Html.TextBoxFor(model => model.ADUM_MOBILE, new { @class = "form-control", required = "required", placeholder = "Mobile Here", type = "text" })
+                                                @*<label class="col-form-label">Mobile</label>*@
+                                                @Html.Label("Mobile")
+                                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                @Html.TextBoxFor(model => model.ADUM_MOBILE, new { @class = "form-control", minlength = "10", maxlength = "10", required = "required", placeholder = "Mobile Here", type = "text"})
+                                                @Html.ValidationMessageFor(model => model.ADUM_MOBILE, "", new { @class = "text-danger" })
                                                 <span class="text-danger" id="err_mobile"></span>
+                                                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                                                <span class="help-block with-errors"></span>
                                             </div>
 
                                             <div class="col-sm-6">
                                                 <label class="col-form-label">Email</label>
-                                                @Html.TextBoxFor(model => model.ADUM_EMAIL, new { @class = "form-control", required = "required", placeholder = "Email Here", type = "text" })
+                                                @Html.TextBoxFor(model => model.ADUM_EMAIL, new { @class = "form-control", placeholder = "Email Here", type = "text" })
                                             </div>
 
 
@@ -197,6 +202,7 @@
        }
     }
     $("#ADUM_MOBILE").keypress(function (e) {
+        debugger;
         //if the letter is not digit then display error and don't type anything
         if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && e.which != 44) {
             //display error message
@@ -204,7 +210,12 @@
             $("#err_mobile").html("Digits Only").show().delay(1500).show().fadeOut('slow');
             return false;
         }
-    });
+    }
+
+
+   );
+
+    
 </script>
 
 

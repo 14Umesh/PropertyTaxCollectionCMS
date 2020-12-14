@@ -2,7 +2,7 @@
 
     var fdate = $('#txt_fdate').val();
     var tdate = $('#txt_tdate').val();
-
+    debugger;
     $('#datatable').DataTable({
         "pageLength": 10,
         "order": [[0, "desc"]],
@@ -18,15 +18,15 @@
         },
 
         "columns": [
-                { "data": "TC_ID" },
-                //{ "data": "TCAT_ID" },
-                { "data": "RECEIPT_NO" },
-                  { "data": "RECEIVER_NAME" },
-                { "data": "TOTAL_AMOUNT" },
-                { "data": "RECEIVED_AMOUNT" },
-                { "data": "REMAINING_AMOUNT" },
-                { "data": "PAYMENT_DATE" },
-                //{ "data": "RECEIVER_SIGNATURE" },
+              { "data": "ADUM_USER_NAME" },
+             { "data": "PAYMENT_DATE" },
+             { "data": "HOUSEID" },
+             { "data": "House_Owner_NAME" },
+             //{ "data": "TCAT_ID" },
+             { "data": "RECEIVER_NAME" },
+             { "data": "RECEIPT_NO" },
+             { "data": "TC_ID" },
+             { "data": "RECEIVER_SIGNATURE" },
         ]
     });
 
@@ -55,15 +55,15 @@ function Datatable() {
         },
 
         "columns": [
-                { "data": "TC_ID" },
-                //{ "data": "TCAT_ID" },
-                { "data": "RECEIPT_NO" },
-                  { "data": "RECEIVER_NAME" },
-                { "data": "TOTAL_AMOUNT" },
-                { "data": "RECEIVED_AMOUNT" },
-                { "data": "REMAINING_AMOUNT" },
-                { "data": "PAYMENT_DATE" },
-                //{ "data": "RECEIVER_SIGNATURE" },
+             { "data": "ADUM_USER_NAME" },
+             { "data": "PAYMENT_DATE" },
+             { "data": "HOUSEID" },
+             { "data": "House_Owner_NAME" },
+             //{ "data": "TCAT_ID" },
+             { "data": "RECEIVER_NAME" },
+             { "data": "RECEIPT_NO" },
+             { "data": "TC_ID" },
+             { "data": "RECEIVER_SIGNATURE" },
         ]
     });
 }

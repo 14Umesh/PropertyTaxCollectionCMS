@@ -3,7 +3,7 @@
     ViewBag.Title = "AttendenceReport";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
 <link href="~/Content/assets/css/datepicker.css" rel="stylesheet" />
 <script src="~/Content/DatatableGrid/Report/AttendenceReport.js"></script>
 
@@ -81,9 +81,9 @@
                                             <tr>
                                                 <th>Name</th>
                                                 <th>Start Date</th>
-                                                <th>Start Time</th>
                                                 <th>End Date</th>
-                                                <th>End Time</th>
+                                                <th data-sortable="false">House Route</th>
+                                                <th data-sortable="false">Employee Route</th>
                                                 @*<th>Action</th>*@
                                             </tr>
                                         </thead>
