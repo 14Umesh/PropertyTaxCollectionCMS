@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Property Tax Collection";
 }
-
+<head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
 <style>
     .rotate_img {
         animation: spinY 2s linear infinite;
@@ -34,7 +34,7 @@
                                         <h4 class="m-b-0">@Model.Attendence</h4>
                                     </div>
                                     <div class="col col-auto text-right">
-                                        <i class="feather icon-user f-50 text-c-yellow"></i>
+                                        <i class="feather icon-user f-50 text_card_white"></i>
                                     </div>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                                         <h4 class="m-b-0">@Model.TaxReceipt</h4>
                                     </div>
                                     <div class="col col-auto text-right">
-                                        <i class="feather icon-credit-card f-50 text-c-green"></i>
+                                        <i class="feather icon-credit-card f-50 text_card_white"></i>
                                     </div>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                                         <h4 class="m-b-0">@Model.TaxPayment</h4>
                                     </div>
                                     <div class="col col-auto text-right">
-                                        <i class="feather icon-book f-50 text-c-pink"></i>
+                                        <i class="feather icon-book f-50 text_card_white"></i>
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +79,7 @@
                                         <h4 class="m-b-0">@Model.Reminder</h4>
                                     </div>
                                     <div class="col col-auto text-right">
-                                        <i class="feather icon-shopping-cart f-50 text-c-blue"></i>
+                                        <i class="feather icon-shopping-cart f-50 text_card_white"></i>
                                     </div>
                                 </div>
                             </div>
@@ -94,6 +94,7 @@
             </div>*@
 
         @*<input class="form-control" type="date">*@
+   
         <div class="container-fluid">
             <!-- Tab panes -->
             <div class="tab-content row bg-white has-shadow" style="background-color:#fff">
@@ -117,6 +118,7 @@
         </div>
     </div>
 </div>
+
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6eobSmi6nEV2h0TkRolQ5x6JjShuaHEs&callback=myMap" type="text/javascript"></script>
 <script>
 
@@ -166,7 +168,8 @@
 
                         icon: {
                             labelOrigin: new google.maps.Point(16, 65),
-                            url: "../Content/assets/images/marker24.png"
+                            //url: "../Content/assets/images/marker24.png"
+                            url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
                         },
                         label: {
                             text: data[i].UserName,
@@ -197,5 +200,6 @@
 
         });
     }
+   
 
 </script>

@@ -25,7 +25,10 @@ namespace PropertyTaxCollectionCMS
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                   
+                      "~/Content/style.css",
+                      "~/Content/waves.css",
+                      "~/Content/animate.min.css"));
         }
     }
 }

@@ -17,7 +17,7 @@
                 { "data": "TOTAL_AMOUNT" },
                 { "data": "RECEIVED_AMOUNT" },
                 { "data": "REMAINING_AMOUNT" },
-                //{ "data": "RECEIVER_SIGNATURE" },
+                { "data": "RECEIVER_SIGNATURE" },
         ]
     });
 
