@@ -26,7 +26,13 @@
              { "data": "RECEIVER_NAME" },
              { "data": "RECEIPT_NO" },
              { "data": "TC_ID" },
-             { "data": "RECEIVER_SIGNATURE" },
+          {
+           data: "RECEIVER_SIGNATURE", name: "RECEIVER_SIGNATURE",
+              render: function (data, type, row, meta) {
+               var imgsrc = data; // here data should be in base64 string
+                  return '<img class="img-responsive" src="' + imgsrc + '" alt="RECEIVER_SIGNATURE"height="40px" width="60px">';
+                         }
+                     }, 
         ]
     });
 
@@ -63,7 +69,13 @@ function Datatable() {
              { "data": "RECEIVER_NAME" },
              { "data": "RECEIPT_NO" },
              { "data": "TC_ID" },
-             { "data": "RECEIVER_SIGNATURE" },
+               {
+                   data: "RECEIVER_SIGNATURE", name: "RECEIVER_SIGNATURE",
+                   render: function (data, type, row, meta) {
+                       var imgsrc = data; // here data should be in base64 string
+                       return '<img class="img-responsive" src="' + imgsrc + '" alt="RECEIVER_SIGNATURE"height="40px" width="60px">';
+                   }
+               }, 
         ]
     });
 }
