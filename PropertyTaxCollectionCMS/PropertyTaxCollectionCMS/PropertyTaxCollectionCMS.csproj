@@ -188,6 +188,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.min.css" />
     <Content Include="Content\assets\css\datepicker.css" />
     <Content Include="Content\assets\images\marker24.png" />
     <Content Include="Content\assets\images\QRcode.png" />
@@ -208,6 +209,7 @@
     <Content Include="Content\DatatableGrid\TaxReminderDetailsList.js" />
     <Content Include="Content\DatatableGrid\TaxReceiptDetailsList.js" />
     <Content Include="Content\DatatableGrid\Tehsil.js" />
+    <Content Include="Content\style.css" />
     <Content Include="Content\theme-assets\assets\css\component.css" />
     <Content Include="Content\theme-assets\assets\css\datepicker.css" />
     <Content Include="Content\theme-assets\assets\css\font-awesome.min.css" />
@@ -1749,6 +1751,7 @@
     <Content Include="Content\theme-assets\extra-pages\landingpage\assets\logos\logo6.png" />
     <Content Include="Content\theme-assets\extra-pages\landingpage\assets\logos\logo7.png" />
     <Content Include="Content\theme-assets\extra-pages\landingpage\index.htm" />
+    <Content Include="Content\waves.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -1756,6 +1759,7 @@
     <Content Include="Images\202 Dateformat.png" />
     <Content Include="Images\default-profile.png" />
     <Content Include="Images\NishiPhoto.png" />
+    <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\theme-assets\assets\fonts\fontawesome-webfont.ttf" />
@@ -1851,6 +1855,7 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1858,6 +1863,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sign-in.js" />
+    <Content Include="Scripts\waves.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
