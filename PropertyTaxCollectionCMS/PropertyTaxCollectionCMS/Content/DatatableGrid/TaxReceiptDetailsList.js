@@ -19,6 +19,7 @@
                 { "data": "REMAINING_AMOUNT" },
                 //{ "data": "RECEIVER_SIGNATURE" },
         ]
+
     });
 
 });
