@@ -19,8 +19,8 @@
                 { "data": "UserName" },
                 { "data": "StartDate" },
                 { "data": "EndDate" },
-               { "render": function (data, type, full, meta) { return '<a  data-toggle="modal" class="tooltip1" style="cursor:pointer" onclick="house_route(' + full["DA_ID"] + ')" ><i class="material-icons location-icon">location_on</i><span class="tooltiptext1">Route</span> </a>'; }, "width": "10%" },
-               { "render": function (data, type, full, meta) { return '<a  data-toggle="modal" class="tooltip1" style="cursor:pointer" onclick="user_route(' + full["DA_ID"] + ')" ><i class="material-icons location-icon">location_on</i><span class="tooltiptext1">Route</span> </a>'; }, "width": "10%" },
+               { "render": function (data, type, full, meta) { return '<a  data-toggle="modal" class="tooltip1" style="cursor:pointer" onclick="house_route(' + full["DA_ID"] + ')" ><i class="material-icons location-icon" style="color:rgb(244,67,54)!important">location_on</i><span class="tooltiptext1">Route</span> </a>'; }, "width": "10%" },
+               { "render": function (data, type, full, meta) { return '<a  data-toggle="modal" class="tooltip1" style="cursor:pointer" onclick="user_route(' + full["DA_ID"] + ')" ><i class="material-icons location-icon" style="color:rgb(244,67,54)!important">location_on</i><span class="tooltiptext1">Route</span> </a>'; }, "width": "10%" },
 
                 //{ "data": "Lat" },
                 //{ "data": "Long" },
@@ -53,7 +53,7 @@ function Datatable() {
                 { "data": "UserName" },
                 { "data": "StartDate" },
                 { "data": "EndDate" },
-                 { "render": function (data, type, full, meta) { return '<a  data-toggle="modal" class="tooltip1" style="cursor:pointer" onclick="house_route(' + full["DA_ID"] + ')" ><i class="material-icons location-icon" style="color:red">location_on</i><span class="tooltiptext1">Route</span> </a>'; }, "width": "10%" },
+                 { "render": function (data, type, full, meta) { return '<a  data-toggle="modal" class="tooltip1" style="cursor:pointer" onclick="house_route(' + full["DA_ID"] + ')" ><i class="material-icons location-icon" style="color:rgb(244,67,54)!important">location_on</i><span class="tooltiptext1">Route</span> </a>'; }, "width": "10%" },
               { "render": function (data, type, full, meta) { return '<a  data-toggle="modal" class="tooltip1" style="cursor:pointer" onclick="user_route(' + full["DA_ID"] + ')" ><i class="material-icons location-icon" style="color:rgb(244,67,54)!important">location_on</i><span class="tooltiptext1">Route</span> </a>'; }, "width": "10%" },
 
                 //{ "data": "Lat" },

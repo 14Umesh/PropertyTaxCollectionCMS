@@ -31,10 +31,12 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
         public string RECEIVER_SIGNATURE_IMAGE { get; set; }
         public string ADDRESS { get; set; }
         public Nullable<System.DateTime> REMINDER_NEW_DATE { get; set; }
+        public string REMARK { get; set; }
         public string CHEQUE_NO { get; set; }
         public Nullable<System.DateTime> CHEQUE_DATE { get; set; }
         public string CHEQUE_BANK_NAME { get; set; }
         public string CHEQUE_IMAGE { get; set; }
         public Nullable<System.DateTime> CREATED_DATE { get; set; }
+        public string CAMERA_IMAGE { get; set; }
     }
 }

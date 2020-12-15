@@ -26,7 +26,18 @@
              { "data": "RECEIVER_NAME" },
              { "data": "RECEIPT_NO" },
              { "data": "TC_ID" },
-             { "data": "RECEIVER_SIGNATURE" },
+             { data: "RECEIVER_SIGNATURE", name: "RECEIVER_SIGNATURE",
+             render: function (data, type, row, meta) { var imgsrc = data; // here data should be in base64 string
+             return '<img class="img-responsive" src="' + imgsrc + '" alt="RECEIVER_SIGNATURE" height="40px" width="60px">';} },
+              {
+                  data: "RECEIVER_SIGNATURE", name: "RECEIVER_SIGNATURE",
+                  render: function (data, type, row, meta) {
+                      var imgsrc = data; // here data should be in base64 string
+                      return '<img class="img-responsive" src="' + imgsrc + '" alt="RECEIVER_SIGNATURE" height="40px" width="60px">';
+                  }
+              },
+
+     
         ]
     });
 
@@ -39,6 +50,8 @@ function Datatable() {
     var fdate1 = $('#txt_fdate').val();
     var tdate1 = $('#txt_tdate').val();
     //var UserID1 = $('#EmployeeID').val();
+
+    debugger;
 
     $('#datatable').DataTable({
         "pageLength": 10,
@@ -63,7 +76,18 @@ function Datatable() {
              { "data": "RECEIVER_NAME" },
              { "data": "RECEIPT_NO" },
              { "data": "TC_ID" },
-             { "data": "RECEIVER_SIGNATURE" },
+          {
+              data: "RECEIVER_SIGNATURE", name: "RECEIVER_SIGNATURE",
+              render: function (data, type, row, meta) {
+                  var imgsrc = data; // here data should be in base64 string
+                  return '<img class="img-responsive" src="' + imgsrc + '" alt="RECEIVER_SIGNATURE" height="40px" width="60px">';
+              }
+          },
+
+        { data: "RECEIVER_SIGNATURE", name: "RECEIVER_SIGNATURE",
+    render: function (data, type, row, meta) { var imgsrc = data; // here data should be in base64 string
+        return '<img class="img-responsive" src="' + imgsrc + '" alt="RECEIVER_SIGNATURE" height="40px" width="60px">';} },
+
         ]
     });
 }

@@ -23,6 +23,7 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels
 
     public class AttendanceDetailsVM
     {
+        public int DA_ID { get; set; }
         public string UserName { get; set; }
         public string StartDate { get; set; }
         public string StartTime { get; set; }
