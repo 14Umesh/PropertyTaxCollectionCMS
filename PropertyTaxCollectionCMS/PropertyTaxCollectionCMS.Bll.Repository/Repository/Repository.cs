@@ -145,6 +145,45 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             return result;
         }
 
+
+        public EmployeeVM GetEmployeeList()
+        {
+            
+             
+                        EmployeeVM emplist = new EmployeeVM();
+
+            emplist.UserList = ListUser();
+                      
+
+                        return emplist;
+                        return new EmployeeVM();
+       }
+
+        private List<SelectListItem> ListUser()
+        {
+
+            PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities();
+            var user = new List<SelectListItem>();
+            SelectListItem itemAdd = new SelectListItem();
+
+            try
+            {
+                user = db.AD_USER_MST.ToList()
+                    .Select(x => new SelectListItem
+                    {
+                        Text = x.ADUM_USER_NAME,
+                        Value = x.ADUM_USER_CODE.ToString()
+                    }).OrderBy(t => t.Text).ToList();
+
+            }
+            catch (Exception ex) { throw ex; }
+
+            return user;
+        }
+    
+
+     
+
         public Result EmployeeSave(EmployeeVM _Employee)
         {
             Result Result = new Result();
@@ -220,32 +259,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             EmployeeVM data = new EmployeeVM();
             using (PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities())
             {
-
-                var AD_USER_MSTbl = db.AD_USER_MST.Where(c => c.ADUM_USER_CODE == q).ToList();
-
-                var DEVICE_DETAILSTbl = db.DEVICE_DETAILS.Where(c => c.ADUM_USER_CODE == q).ToList();
-                var task = (from AD in AD_USER_MSTbl
-                            join DD in DEVICE_DETAILSTbl on AD.ADUM_USER_CODE equals DD.ADUM_USER_CODE
-                            select new
-                            {
-                                ADUM_USER_CODE = AD.ADUM_USER_CODE,
-                                SERVER_ID = Convert.ToByte(AD.SERVER_ID),
-                                APP_ID = AD.APP_ID,
-                                ADUM_USER_ID = AD.ADUM_LOGIN_ID,
-                                ADUM_USER_NAME = AD.ADUM_USER_NAME,
-                                ADUM_LOGIN_ID = AD.ADUM_LOGIN_ID,
-                                ADUM_PASSWORD = AD.ADUM_PASSWORD,
-                                ADUM_EMPLOYEE_ID = AD.ADUM_EMPLOYEE_ID,
-                                ADUM_DESIGNATION = AD.ADUM_DESIGNATION,
-                                ADUM_MOBILE = AD.ADUM_MOBILE,
-                                ADUM_EMAIL = AD.ADUM_EMAIL,
-                                LOCAL_USER_NAME = AD.LOCAL_USER_NAME,
-                                PROFILE_IMAGE = "/Images/" + AD.PROFILE_IMAGE,
-                                UPDATE_FLAG = Convert.ToBoolean(AD.UPDATE_FLAG),
-                                AD_USER_TYPE_ID = Convert.ToInt32(AD.AD_USER_TYPE_ID),
-                                IS_ACTIVE = Convert.ToBoolean(AD.IS_ACTIVE),
-                                DEVICE_ID = DD.DEVICE_ID
-                            }).FirstOrDefault();
+                var task = db.AD_USER_MST.Where(c => c.ADUM_USER_CODE == q).FirstOrDefault();
 
                 if (task != null)
                 {
@@ -265,7 +279,6 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                     data.UPDATE_FLAG = Convert.ToBoolean(task.UPDATE_FLAG);
                     data.AD_USER_TYPE_ID = Convert.ToInt32(task.AD_USER_TYPE_ID);
                     data.IS_ACTIVE = Convert.ToBoolean(task.IS_ACTIVE);
-                    data.DEVICE_ID = task.DEVICE_ID;
                 }
             }
             return data;
@@ -498,7 +511,6 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    HOUSEID = TC.HOUSEID,
                                    RECEIVER_NAME = TC.RECEIVER_NAME,
                                    RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
-                                   CAMERA_IMAGE = TC.CAMERA_IMAGE,
                                }).ToList();
 
 
@@ -512,10 +524,9 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
                         RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
                         REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
-                        //    HOUSEID = x.HOUSEID,
+                        HOUSEID = x.HOUSEID,
                         RECEIVER_NAME = x.RECEIVER_NAME,
                         RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
-                        CAMERA_IMAGE = x.CAMERA_IMAGE,
                     });
                 }
             }
@@ -544,7 +555,6 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    HOUSEID = TC.HOUSEID,
                                    RECEIVER_NAME = TC.RECEIVER_NAME,
                                    RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
-                                   CAMERA_IMAGE = TC.CAMERA_IMAGE,
                                }).ToList();
 
 
@@ -558,10 +568,9 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
                         RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
                         REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
-                        //    HOUSEID = x.HOUSEID,
+                        HOUSEID = x.HOUSEID,
                         RECEIVER_NAME = x.RECEIVER_NAME,
                         RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
-                        CAMERA_IMAGE = x.CAMERA_IMAGE,
                     });
                 }
             }
@@ -621,7 +630,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             }
         }
 
-        public List<TaxReceiptDetailsVM> getTaxPaymentReport(int q, string fromDate, string toDate, int AppId)
+        public List<TaxReceiptDetailsVM> getTaxPaymentReport(int q, string fromDate, string toDate)
         {
             List<TaxReceiptDetailsVM> Result = new List<TaxReceiptDetailsVM>();
 
@@ -634,37 +643,21 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             using (PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities())
             {
 
-
-                PropertyTaxCollectionCMSChild_Entities db1 = new PropertyTaxCollectionCMSChild_Entities(AppId);
-
-                var house = db1.HouseMasters.ToList();
-
-                var AD_USER_MST = db.AD_USER_MST.ToList();
-
-                var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate & c.TCAT_ID == q).ToList();
-
-
-                var sqlData = (from TC in TAX_COLLECTION_DETAIL
-                               join UM in AD_USER_MST on TC.ADUM_USER_CODE equals UM.ADUM_USER_CODE
-                               join HS in house on TC.HOUSEID equals HS.houseId
+                var sqlData = (from TC in db.TAX_COLLECTION_DETAIL
+                                   //join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
                                where TC.PAYMENT_DATE >= _fdate & TC.PAYMENT_DATE < _tdate & TC.TCAT_ID == q
                                select new
                                {
-                                   ADUM_USER_NAME = UM.ADUM_USER_NAME,
                                    TC_ID = TC.TC_ID,
                                    TCAT_ID = TC.TCAT_ID,
                                    RECEIPT_NO = TC.RECIPT_NO,
                                    TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
                                    RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
                                    REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
-                                   HOUSEID = HS.ReferanceId,
+                                   HOUSEID = TC.HOUSEID,
                                    RECEIVER_NAME = TC.RECEIVER_NAME,
                                    RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
                                    PAYMENT_DATE = TC.PAYMENT_DATE,
-                                   houseOwner = HS.houseOwner,
-                                   CAMERA_IMAGE = TC.CAMERA_IMAGE,
-
-
                                }).ToList();
 
 
@@ -682,10 +675,6 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         RECEIVER_NAME = x.RECEIVER_NAME,
                         RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
                         PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
-                        House_Owner_NAME = x.houseOwner,
-                        ADUM_USER_NAME = x.ADUM_USER_NAME,
-                        CAMERA_IMAGE = x.CAMERA_IMAGE,
-
                     });
                 }
             }
@@ -711,12 +700,10 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
                 var AD_USER_MST = db.AD_USER_MST.ToList();
 
-                var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate
-                ///& c.TCAT_ID == q
-                     ).ToList();
+                var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate & c.ADUM_USER_CODE == q).ToList();
 
 
-
+              
                 var sqlData = (from TC in TAX_COLLECTION_DETAIL
                                join UM in AD_USER_MST on TC.ADUM_USER_CODE equals
                                UM.ADUM_USER_CODE
@@ -733,10 +720,12 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
                                    RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
                                    REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
-                                   HOUSEID = HS.ReferanceId,
+                                   HOUSEID = TC.HOUSEID,
                                    RECEIVER_NAME = TC.RECEIVER_NAME,
+
+
                                    RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
-                                   CAMERA_IMAGE = TC.CAMERA_IMAGE,
+
                                }).ToList();
                 foreach (var x in sqlData)
                 {
@@ -754,7 +743,6 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         HOUSEID = x.HOUSEID,
                         RECEIVER_NAME = x.RECEIVER_NAME,
                         RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
-                        CAMERA_IMAGE = x.CAMERA_IMAGE,
 
                     });
                 }
@@ -776,7 +764,6 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             using (PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities())
             {
 
-
                 var sqlData = (from TC in db.TAX_COLLECTION_DETAIL
                                    //join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
                                where TC.REMINDER_NEW_DATE >= _fdate & TC.REMINDER_NEW_DATE < _tdate
@@ -793,7 +780,6 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    RECEIVER_NAME = TC.RECEIVER_NAME,
                                    RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
                                    PAYMENT_DATE = TC.PAYMENT_DATE,
-                                   CAMERA_IMAGE = TC.CAMERA_IMAGE,
                                }).ToList();
 
 
@@ -807,11 +793,10 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
                         RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
                         REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
-                        //HOUSEID = x.HOUSEID,
+                        HOUSEID = x.HOUSEID,
                         RECEIVER_NAME = x.RECEIVER_NAME,
                         RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
                         PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
-                        CAMERA_IMAGE = x.CAMERA_IMAGE,
                     });
                 }
             }
@@ -1008,7 +993,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                             lat = d.EMP_LAT,
                             log = d.EMP_LONG,
                             address = x.ADDRESS,
-                            //     vehcileNumber = att.vehicleNumber,
+                       //     vehcileNumber = att.vehicleNumber,
                             userMobile = userName.ADUM_MOBILE,
                             type = Convert.ToInt32(x.LOC_TYPE),
                             HouseId = house.ReferanceId,
@@ -1023,41 +1008,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
             }
 
-            return userLocation;
-        }
-
-        public EmployeeVM GetEmployeeList()
-        {
-
-
-            EmployeeVM emplist = new EmployeeVM();
-            emplist.UserList = ListUser();
-
-            return emplist;
-            return new EmployeeVM();
-        }
-
-        private List<SelectListItem> ListUser()
-        {
-
-            PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities();
-            var user = new List<SelectListItem>();
-            SelectListItem itemAdd = new SelectListItem();
-            try
-            {
-                user = db.AD_USER_MST.ToList()
-                    .Select(x => new SelectListItem
-                    {
-                        Text = x.ADUM_USER_NAME,
-                        Value = x.ADUM_USER_CODE.ToString()
-                    }).OrderBy(t => t.Text).ToList();
-
+                return userLocation;
             }
-            catch (Exception ex) { throw ex; }
-
-            return user;
         }
-
-
     }
-}

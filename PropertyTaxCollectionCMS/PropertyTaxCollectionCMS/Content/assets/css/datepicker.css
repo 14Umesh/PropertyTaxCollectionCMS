@@ -84,7 +84,9 @@
   margin-top: -0.6px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
-  border-radius: 5px;
+  border-radius: 0px;
+  border:none;
+  border-bottom:1px solid #6c6969c9;
   /*.dow {
     border-top: 1px solid #ddd !important;
   }*/

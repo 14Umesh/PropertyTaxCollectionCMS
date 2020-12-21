@@ -1760,6 +1760,7 @@
     <Content Include="Images\202 Dateformat.png" />
     <Content Include="Images\default-profile.png" />
     <Content Include="Images\NishiPhoto.png" />
+    <Content Include="Images\Tax_Collection_Logo.png" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
