@@ -20,6 +20,11 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
         //List<SelectListItem> GetLanguageList();
         #endregion
         List<EmployeeVM> getEmployeeDetails();
+
+        EmployeeVM GetEmployeeList();
+
+
+
         Result EmployeeSave(EmployeeVM _Employee);
         EmployeeVM getEmployeeDetailsByID(int q);
         Result ClientSave(ClientVM _client);

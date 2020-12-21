@@ -145,6 +145,45 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             return result;
         }
 
+
+        public EmployeeVM GetEmployeeList()
+        {
+            
+             
+                        EmployeeVM emplist = new EmployeeVM();
+
+            emplist.UserList = ListUser();
+                      
+
+                        return emplist;
+                        return new EmployeeVM();
+       }
+
+        private List<SelectListItem> ListUser()
+        {
+
+            PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities();
+            var user = new List<SelectListItem>();
+            SelectListItem itemAdd = new SelectListItem();
+
+            try
+            {
+                user = db.AD_USER_MST.ToList()
+                    .Select(x => new SelectListItem
+                    {
+                        Text = x.ADUM_USER_NAME,
+                        Value = x.ADUM_USER_CODE.ToString()
+                    }).OrderBy(t => t.Text).ToList();
+
+            }
+            catch (Exception ex) { throw ex; }
+
+            return user;
+        }
+    
+
+     
+
         public Result EmployeeSave(EmployeeVM _Employee)
          {
             Result Result = new Result();
@@ -661,7 +700,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
                 var AD_USER_MST = db.AD_USER_MST.ToList();
 
-                var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate & c.TCAT_ID == q).ToList();
+                var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate & c.ADUM_USER_CODE == q).ToList();
 
                 var sqlData = (from TC in TAX_COLLECTION_DETAIL
                                join UM in AD_USER_MST on TC.ADUM_USER_CODE equals

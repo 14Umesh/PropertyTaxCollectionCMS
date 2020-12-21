@@ -57,7 +57,7 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         }
 
         [HttpGet]
-        public JsonResult getTaxReceiptReport(string fromDate, string toDate, int q = -1)
+        public JsonResult getTaxReceiptReport(string fromDate, string toDate, int q = 1)
         {
             int AppId = SessionHandler.Current.AppId;
             var griddata = Repository.getTaxReceiptReport(q, fromDate, toDate, AppId);
