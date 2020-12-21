@@ -37,7 +37,7 @@ namespace PropertyTaxCollectionCMS.Controllers.Master
 
                 obj = Repository.GetEmployeeList();
                 return Json(obj.UserList, JsonRequestBehavior.AllowGet);
-             
+
             }
             else
             {
@@ -45,22 +45,8 @@ namespace PropertyTaxCollectionCMS.Controllers.Master
             }
         }
 
-        [HttpGet]
-        public ActionResult GetEmployeeList()
-        {
 
-            if (SessionHandler.Current.AppId != 0)
-            {
 
-                EmployeeVM obj = new EmployeeVM();
-                obj = Repository.GetEmployeeList();
-                return Json(obj.UserList, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Redirect("/Account/Login");
-            }
-        }
 
 
         [HttpGet]

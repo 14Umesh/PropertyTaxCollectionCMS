@@ -44,7 +44,7 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels.Master
         public List<SelectListItem> UserList { get; set; }
 
 
-        public List<SelectListItem> UserList { get; set; }
+     
 
     }
 
