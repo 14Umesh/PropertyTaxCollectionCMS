@@ -1,5 +1,20 @@
 ﻿$(document).ready(function () {
-
+    var UserId = $('#selectnumber').val();
+    $.ajax({
+        type: "POST",
+        url: "/Master/EmployeeList",
+        data: { userId: UserId },
+        datatype: "json",
+        traditional: true,
+        success: function (data) {
+            district = '<option value="-1">Select Employee</option>';
+            for (var i = 0; i < data.length; i++) {
+                district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+            }
+            //district = district + '</select>';
+            $('#selectnumber').html(district);
+        }
+    });
     var fdate = $('#txt_fdate').val();
     var tdate = $('#txt_tdate').val();
 
@@ -63,6 +78,9 @@ function Datatable() {
     });
 
 }
+
+
+
 
 function user_route(id) {
     window.location.href = "/Attendence/UserRoute?daId=" + id;

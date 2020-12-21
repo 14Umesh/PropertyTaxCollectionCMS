@@ -43,9 +43,11 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels
         public decimal TOTAL_AMOUNT { get; set; }
         public decimal RECEIVED_AMOUNT { get; set; }
         public decimal REMAINING_AMOUNT { get; set; }
-        public int HOUSEID { get; set; }
+        public string HOUSEID { get; set; }
         public string RECEIVER_NAME { get; set; }
         public string RECEIVER_SIGNATURE { get; set; }
+
+        public string CAMERA_IMAGE { get; set; }
     }
 
 

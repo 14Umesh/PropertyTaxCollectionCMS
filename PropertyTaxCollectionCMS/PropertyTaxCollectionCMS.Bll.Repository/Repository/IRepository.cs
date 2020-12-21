@@ -22,6 +22,8 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
         List<EmployeeVM> getEmployeeDetails();
         Result EmployeeSave(EmployeeVM _Employee);
         EmployeeVM getEmployeeDetailsByID(int q);
+
+        EmployeeVM GetEmployeeList();
         Result ClientSave(ClientVM _client);
         List<ClientVM> getClientDetails();
         ClientVM getClientDetailsByID(int q);
@@ -31,7 +33,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
         List<TaxReceiptDetailsVM> getTaxReminderDetails(int q);
         EmployeeVM Login(EmployeeVM _userinfo);
         AppDetailsVM GetApplicationDetails(int AppId);
-        List<TaxReceiptDetailsVM> getTaxPaymentReport(int q,string fromDate, string toDate);
+        List<TaxReceiptDetailsVM> getTaxPaymentReport(int q,string fromDate, string toDate, int AppId);
         List<TaxReceiptDetailsVM> getTaxReceiptReport(int q, string fromDate, string toDate,int AppId);
         List<TaxReceiptDetailsVM> getTaxReminderReport(int q, string fromDate, string toDate);
         List<AttendanceDetailsVM> getAttendenceReport(string fromDate, string toDate);

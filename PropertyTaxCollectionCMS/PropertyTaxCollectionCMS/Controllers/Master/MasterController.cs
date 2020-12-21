@@ -27,11 +27,17 @@ namespace PropertyTaxCollectionCMS.Controllers.Master
         }
 
         // GET: Master
+
+        [HttpPost]
         public ActionResult EmployeeList()
         {
             if (SessionHandler.Current.AppId != 0)
             {
-                return View();
+                EmployeeVM obj = new EmployeeVM();
+
+                obj = Repository.GetEmployeeList();
+                return Json(obj.UserList, JsonRequestBehavior.AllowGet);
+             
             }
             else
             {

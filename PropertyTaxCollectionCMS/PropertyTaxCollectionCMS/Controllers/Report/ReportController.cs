@@ -80,7 +80,8 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         [HttpGet]
         public JsonResult getTaxPaymentReport(string fromDate, string toDate, int q = -1)
         {
-            var griddata = Repository.getTaxPaymentReport(q, fromDate, toDate);
+            int AppId = SessionHandler.Current.AppId;
+            var griddata = Repository.getTaxPaymentReport(q, fromDate, toDate, AppId);
             return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
         }
 

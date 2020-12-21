@@ -7,11 +7,37 @@
 <script src="~/Content/DatatableGrid/Report/TaxReceiptReport.js"></script>
 <link href="~/Content/assets/css/datepicker.css" rel="stylesheet" />
 
-<div class="pcoded-inner-content">
+<div class="pcoded-inner-content" >
     <div class="main-body">
         <div class="page-wrapper">
+            <div class="page-header">
+                <div class="row align-items-end">
+                    <div class="col-lg-8">
+                        <div class="page-header-title">
+                            <div class="d-inline">
+                                <h4>Tax Receipt</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="page-header-breadcrumb">
+                            <ul class="breadcrumb-title">
+                                <li class="breadcrumb-item">
+                                    <a href="/Home/Index"> <i class="feather icon-home"></i> </a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Report</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="#">Tax Receipt</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="page-body">
-                <div class="row">
+                <div class="row" id="bodydiv">
                     <div class="col-sm-12">
                         <center><div id="snackbar">Some text some message..</div></center>
                         <div class="card">
@@ -43,6 +69,7 @@
                                     </div>
                                 </div>
                             </div>
+                         
                             <div class="card-block">
                                 <div class="dt-responsive table-responsive">
                                     @*<a href="Client" type="button" class="btn btn-sm btn-primary float-right" style="margin-left: 10px;">Create</a>*@
@@ -54,8 +81,8 @@
                                                 <th>HOUSE ID</th>
                                                 <th>HOUSE OWNER NAME</th>
                                                 <th>RECEIVER NAME</th>
-                                                <th>RECEIPT NO</th>                                               
-                                                <th>TC ID</th>
+                                                <th>INDEX NO</th>                                               
+                                                @*<th>TC ID</th>*@
                                                 <th>PHOTO</th>
                                                 <th>SIGNATURE</th>
                                                                                             
@@ -69,10 +96,14 @@
 
                     </div>
                 </div>
+
+                <div id="divImageHolder"></div>
+
             </div>
         </div>
     </div>
 </div>
+
 
 <style>
     #snackbar {

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace PropertyTaxCollectionCMS.Bll.ViewModels.Master
 {
@@ -37,7 +38,11 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels.Master
         public bool IS_ACTIVE { get; set; }
 
         public string IMO_NO { get; set; }
+
+        public string DEVICE_ID { get; set; }
         public string status { get; set; }
+
+        public List<SelectListItem> UserList { get; set; }
 
     }
 
