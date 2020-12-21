@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PropertyTaxCollectionCMSMain_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PropertyTaxCollectionCMSMain_Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AD_CITY_MST">
           <Key>
             <PropertyRef Name="CITY_ID" />
@@ -165,6 +165,7 @@
           <Property Name="AD_USER_TYPE_ID" Type="int" />
           <Property Name="MOBILE_ID" Type="nvarchar" MaxLength="100" />
           <Property Name="IS_ACTIVE" Type="bit" />
+          <Property Name="IMO_NO" Type="nvarchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="AD_USER_ROLE_MST">
           <Key>
@@ -269,8 +270,8 @@
           <Property Name="ADUM_USER_CODE" Type="int" />
           <Property Name="START_LAT" Type="nvarchar" MaxLength="500" />
           <Property Name="START_LONG" Type="nvarchar" MaxLength="500" />
-          <Property Name="END_LAT" Type="nchar" MaxLength="10" />
-          <Property Name="END_LONG" Type="nchar" MaxLength="10" />
+          <Property Name="END_LAT" Type="nvarchar" MaxLength="500" />
+          <Property Name="END_LONG" Type="nvarchar" MaxLength="500" />
           <Property Name="DA_START_DATETIME" Type="datetime" />
           <Property Name="DA_END_DATETIME" Type="datetime" />
           <Property Name="VT_ID" Type="nchar" MaxLength="10" />
@@ -338,11 +339,13 @@
           <Property Name="RECEIVER_SIGNATURE_IMAGE" Type="nvarchar(max)" />
           <Property Name="ADDRESS" Type="nvarchar(max)" />
           <Property Name="REMINDER_NEW_DATE" Type="datetime" />
+          <Property Name="REMARK" Type="varchar" MaxLength="50" />
           <Property Name="CHEQUE_NO" Type="varchar" MaxLength="50" />
           <Property Name="CHEQUE_DATE" Type="datetime" />
           <Property Name="CHEQUE_BANK_NAME" Type="varchar" MaxLength="100" />
           <Property Name="CHEQUE_IMAGE" Type="nvarchar(max)" />
           <Property Name="CREATED_DATE" Type="datetime" />
+          <Property Name="CAMERA_IMAGE" Type="nvarchar" MaxLength="1" />
         </EntityType>
         <EntityType Name="TAX_PAYMENT_TYPE">
           <Key>
@@ -375,8 +378,7 @@
           <EntitySet Name="TAX_COLLECTION_DETAIL" EntityType="Self.TAX_COLLECTION_DETAIL" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TAX_PAYMENT_TYPE" EntityType="Self.TAX_PAYMENT_TYPE" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PropertyTaxCollectionCMSMain_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -515,32 +517,6 @@
           <Property Name="APP_ID" Type="Int32" Nullable="false" />
           <Property Name="LAST_UPDATE" Type="DateTime" Nullable="false" Precision="0" />
         </EntityType>
-        <EntityType Name="AD_USER_MST">
-          <Key>
-            <PropertyRef Name="ADUM_USER_CODE" />
-          </Key>
-          <Property Name="ADUM_USER_CODE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SERVER_ID" Type="Byte" />
-          <Property Name="APP_ID" Type="Int32" Nullable="false" />
-          <Property Name="ADUM_USER_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ADUM_USER_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ADUM_LOGIN_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ADUM_PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ADUM_EMPLOYEE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ADUM_DESIGNATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ADUM_MOBILE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="ADUM_EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="LOCAL_USER_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="PROFILE_IMAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ADUM_FRDT" Type="DateTime" Precision="3" />
-          <Property Name="ADUM_TODT" Type="DateTime" Precision="3" />
-          <Property Name="ADUM_STATUS" Type="Boolean" />
-          <Property Name="UPDATE_FLAG" Type="Boolean" />
-          <Property Name="LAST_UPDATE" Type="DateTime" Precision="0" />
-          <Property Name="AD_USER_TYPE_ID" Type="Int32" />
-          <Property Name="MOBILE_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IS_ACTIVE" Type="Boolean" />
-        </EntityType>
         <EntityType Name="AD_USER_ROLE_MST">
           <Key>
             <PropertyRef Name="ADURM_ID" />
@@ -644,8 +620,8 @@
           <Property Name="ADUM_USER_CODE" Type="Int32" />
           <Property Name="START_LAT" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="START_LONG" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="END_LAT" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="END_LONG" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="END_LAT" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="END_LONG" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="DA_START_DATETIME" Type="DateTime" Precision="3" />
           <Property Name="DA_END_DATETIME" Type="DateTime" Precision="3" />
           <Property Name="VT_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
@@ -692,6 +668,64 @@
           <Property Name="TCAT_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TCAT_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="TAX_PAYMENT_TYPE">
+          <Key>
+            <PropertyRef Name="TPAY_ID" />
+          </Key>
+          <Property Name="TPAY_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TPAY_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="PropertyTaxCollectionCMSMain_Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AD_CITY_MST" EntityType="Self.AD_CITY_MST" />
+          <EntitySet Name="AD_CLIENT_DETAIL_MST" EntityType="Self.AD_CLIENT_DETAIL_MST" />
+          <EntitySet Name="AD_CLIENT_MODULE" EntityType="Self.AD_CLIENT_MODULE" />
+          <EntitySet Name="AD_MODULE_MST" EntityType="Self.AD_MODULE_MST" />
+          <EntitySet Name="AD_MODULE_OBJECT" EntityType="Self.AD_MODULE_OBJECT" />
+          <EntitySet Name="AD_MODULE_OBJECT_CONTROL" EntityType="Self.AD_MODULE_OBJECT_CONTROL" />
+          <EntitySet Name="AD_STATE_MST" EntityType="Self.AD_STATE_MST" />
+          <EntitySet Name="AD_TALUKA_MST" EntityType="Self.AD_TALUKA_MST" />
+          <EntitySet Name="AD_USER_LOG_MST" EntityType="Self.AD_USER_LOG_MST" />
+          <EntitySet Name="AD_USER_MODULE" EntityType="Self.AD_USER_MODULE" />
+          <EntitySet Name="AD_USER_ROLE_MST" EntityType="Self.AD_USER_ROLE_MST" />
+          <EntitySet Name="ADMIN_CONTACT" EntityType="Self.ADMIN_CONTACT" />
+          <EntitySet Name="APP_CONNECTION" EntityType="Self.APP_CONNECTION" />
+          <EntitySet Name="APP_DETAILS" EntityType="Self.APP_DETAILS" />
+          <EntitySet Name="DEVICE_DETAILS" EntityType="Self.DEVICE_DETAILS" />
+          <EntitySet Name="EMPLOYEE_ATTENDANCE" EntityType="Self.EMPLOYEE_ATTENDANCE" />
+          <EntitySet Name="GOOGLE_API_HIT" EntityType="Self.GOOGLE_API_HIT" />
+          <EntitySet Name="LOCATIONs" EntityType="Self.LOCATION" />
+          <EntitySet Name="TAX_CATEGORY_TYPE" EntityType="Self.TAX_CATEGORY_TYPE" />
+          <EntitySet Name="TAX_PAYMENT_TYPE" EntityType="Self.TAX_PAYMENT_TYPE" />
+          <EntitySet Name="AD_USER_MST" EntityType="PropertyTaxCollectionCMSMain_Model.AD_USER_MST" />
+          <EntitySet Name="TAX_COLLECTION_DETAIL" EntityType="PropertyTaxCollectionCMSMain_Model.TAX_COLLECTION_DETAIL" />
+        </EntityContainer>
+        <EntityType Name="AD_USER_MST">
+          <Key>
+            <PropertyRef Name="ADUM_USER_CODE" />
+          </Key>
+          <Property Name="ADUM_USER_CODE" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SERVER_ID" Type="Byte" />
+          <Property Name="APP_ID" Type="Int32" Nullable="false" />
+          <Property Name="ADUM_USER_ID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_USER_NAME" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_LOGIN_ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADUM_PASSWORD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_EMPLOYEE_ID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ADUM_DESIGNATION" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_MOBILE" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="ADUM_EMAIL" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="LOCAL_USER_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="PROFILE_IMAGE" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ADUM_FRDT" Type="DateTime" Precision="3" />
+          <Property Name="ADUM_TODT" Type="DateTime" Precision="3" />
+          <Property Name="ADUM_STATUS" Type="Boolean" />
+          <Property Name="UPDATE_FLAG" Type="Boolean" />
+          <Property Name="LAST_UPDATE" Type="DateTime" Precision="0" />
+          <Property Name="AD_USER_TYPE_ID" Type="Int32" />
+          <Property Name="MOBILE_ID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IS_ACTIVE" Type="Boolean" />
+          <Property Name="IMO_NO" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="TAX_COLLECTION_DETAIL">
           <Key>
             <PropertyRef Name="TC_ID" />
@@ -713,43 +747,14 @@
           <Property Name="RECEIVER_SIGNATURE_IMAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ADDRESS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="REMINDER_NEW_DATE" Type="DateTime" Precision="3" />
+          <Property Name="REMARK" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CHEQUE_NO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CHEQUE_DATE" Type="DateTime" Precision="3" />
           <Property Name="CHEQUE_BANK_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CHEQUE_IMAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="CAMERA_IMAGE" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="TAX_PAYMENT_TYPE">
-          <Key>
-            <PropertyRef Name="TPAY_ID" />
-          </Key>
-          <Property Name="TPAY_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TPAY_TYPE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityContainer Name="PropertyTaxCollectionCMSMain_Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AD_CITY_MST" EntityType="Self.AD_CITY_MST" />
-          <EntitySet Name="AD_CLIENT_DETAIL_MST" EntityType="Self.AD_CLIENT_DETAIL_MST" />
-          <EntitySet Name="AD_CLIENT_MODULE" EntityType="Self.AD_CLIENT_MODULE" />
-          <EntitySet Name="AD_MODULE_MST" EntityType="Self.AD_MODULE_MST" />
-          <EntitySet Name="AD_MODULE_OBJECT" EntityType="Self.AD_MODULE_OBJECT" />
-          <EntitySet Name="AD_MODULE_OBJECT_CONTROL" EntityType="Self.AD_MODULE_OBJECT_CONTROL" />
-          <EntitySet Name="AD_STATE_MST" EntityType="Self.AD_STATE_MST" />
-          <EntitySet Name="AD_TALUKA_MST" EntityType="Self.AD_TALUKA_MST" />
-          <EntitySet Name="AD_USER_LOG_MST" EntityType="Self.AD_USER_LOG_MST" />
-          <EntitySet Name="AD_USER_MODULE" EntityType="Self.AD_USER_MODULE" />
-          <EntitySet Name="AD_USER_MST" EntityType="Self.AD_USER_MST" />
-          <EntitySet Name="AD_USER_ROLE_MST" EntityType="Self.AD_USER_ROLE_MST" />
-          <EntitySet Name="ADMIN_CONTACT" EntityType="Self.ADMIN_CONTACT" />
-          <EntitySet Name="APP_CONNECTION" EntityType="Self.APP_CONNECTION" />
-          <EntitySet Name="APP_DETAILS" EntityType="Self.APP_DETAILS" />
-          <EntitySet Name="DEVICE_DETAILS" EntityType="Self.DEVICE_DETAILS" />
-          <EntitySet Name="EMPLOYEE_ATTENDANCE" EntityType="Self.EMPLOYEE_ATTENDANCE" />
-          <EntitySet Name="GOOGLE_API_HIT" EntityType="Self.GOOGLE_API_HIT" />
-          <EntitySet Name="LOCATIONs" EntityType="Self.LOCATION" />
-          <EntitySet Name="TAX_CATEGORY_TYPE" EntityType="Self.TAX_CATEGORY_TYPE" />
-          <EntitySet Name="TAX_COLLECTION_DETAIL" EntityType="Self.TAX_COLLECTION_DETAIL" />
-          <EntitySet Name="TAX_PAYMENT_TYPE" EntityType="Self.TAX_PAYMENT_TYPE" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -898,33 +903,6 @@
                 <ScalarProperty Name="ADMM_MODULE_ID" ColumnName="ADMM_MODULE_ID" />
                 <ScalarProperty Name="APP_ID" ColumnName="APP_ID" />
                 <ScalarProperty Name="LAST_UPDATE" ColumnName="LAST_UPDATE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AD_USER_MST">
-            <EntityTypeMapping TypeName="PropertyTaxCollectionCMSMain_Model.AD_USER_MST">
-              <MappingFragment StoreEntitySet="AD_USER_MST">
-                <ScalarProperty Name="ADUM_USER_CODE" ColumnName="ADUM_USER_CODE" />
-                <ScalarProperty Name="SERVER_ID" ColumnName="SERVER_ID" />
-                <ScalarProperty Name="APP_ID" ColumnName="APP_ID" />
-                <ScalarProperty Name="ADUM_USER_ID" ColumnName="ADUM_USER_ID" />
-                <ScalarProperty Name="ADUM_USER_NAME" ColumnName="ADUM_USER_NAME" />
-                <ScalarProperty Name="ADUM_LOGIN_ID" ColumnName="ADUM_LOGIN_ID" />
-                <ScalarProperty Name="ADUM_PASSWORD" ColumnName="ADUM_PASSWORD" />
-                <ScalarProperty Name="ADUM_EMPLOYEE_ID" ColumnName="ADUM_EMPLOYEE_ID" />
-                <ScalarProperty Name="ADUM_DESIGNATION" ColumnName="ADUM_DESIGNATION" />
-                <ScalarProperty Name="ADUM_MOBILE" ColumnName="ADUM_MOBILE" />
-                <ScalarProperty Name="ADUM_EMAIL" ColumnName="ADUM_EMAIL" />
-                <ScalarProperty Name="LOCAL_USER_NAME" ColumnName="LOCAL_USER_NAME" />
-                <ScalarProperty Name="PROFILE_IMAGE" ColumnName="PROFILE_IMAGE" />
-                <ScalarProperty Name="ADUM_FRDT" ColumnName="ADUM_FRDT" />
-                <ScalarProperty Name="ADUM_TODT" ColumnName="ADUM_TODT" />
-                <ScalarProperty Name="ADUM_STATUS" ColumnName="ADUM_STATUS" />
-                <ScalarProperty Name="UPDATE_FLAG" ColumnName="UPDATE_FLAG" />
-                <ScalarProperty Name="LAST_UPDATE" ColumnName="LAST_UPDATE" />
-                <ScalarProperty Name="AD_USER_TYPE_ID" ColumnName="AD_USER_TYPE_ID" />
-                <ScalarProperty Name="MOBILE_ID" ColumnName="MOBILE_ID" />
-                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1088,39 +1066,69 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="TAX_COLLECTION_DETAIL">
-            <EntityTypeMapping TypeName="PropertyTaxCollectionCMSMain_Model.TAX_COLLECTION_DETAIL">
-              <MappingFragment StoreEntitySet="TAX_COLLECTION_DETAIL">
-                <ScalarProperty Name="TC_ID" ColumnName="TC_ID" />
-                <ScalarProperty Name="TCAT_ID" ColumnName="TCAT_ID" />
-                <ScalarProperty Name="APP_ID" ColumnName="APP_ID" />
-                <ScalarProperty Name="RECIPT_NO" ColumnName="RECIPT_NO" />
-                <ScalarProperty Name="TPAY_ID" ColumnName="TPAY_ID" />
-                <ScalarProperty Name="TOTAL_AMOUNT" ColumnName="TOTAL_AMOUNT" />
-                <ScalarProperty Name="RECEIVED_AMOUNT" ColumnName="RECEIVED_AMOUNT" />
-                <ScalarProperty Name="REMAINING_AMOUNT" ColumnName="REMAINING_AMOUNT" />
-                <ScalarProperty Name="PAYMENT_DATE" ColumnName="PAYMENT_DATE" />
-                <ScalarProperty Name="HOUSEID" ColumnName="HOUSEID" />
-                <ScalarProperty Name="EMP_LAT" ColumnName="EMP_LAT" />
-                <ScalarProperty Name="EMP_LONG" ColumnName="EMP_LONG" />
-                <ScalarProperty Name="ADUM_USER_CODE" ColumnName="ADUM_USER_CODE" />
-                <ScalarProperty Name="RECEIVER_NAME" ColumnName="RECEIVER_NAME" />
-                <ScalarProperty Name="RECEIVER_SIGNATURE_IMAGE" ColumnName="RECEIVER_SIGNATURE_IMAGE" />
-                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
-                <ScalarProperty Name="REMINDER_NEW_DATE" ColumnName="REMINDER_NEW_DATE" />
-                <ScalarProperty Name="CHEQUE_NO" ColumnName="CHEQUE_NO" />
-                <ScalarProperty Name="CHEQUE_DATE" ColumnName="CHEQUE_DATE" />
-                <ScalarProperty Name="CHEQUE_BANK_NAME" ColumnName="CHEQUE_BANK_NAME" />
-                <ScalarProperty Name="CHEQUE_IMAGE" ColumnName="CHEQUE_IMAGE" />
-                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="TAX_PAYMENT_TYPE">
             <EntityTypeMapping TypeName="PropertyTaxCollectionCMSMain_Model.TAX_PAYMENT_TYPE">
               <MappingFragment StoreEntitySet="TAX_PAYMENT_TYPE">
                 <ScalarProperty Name="TPAY_ID" ColumnName="TPAY_ID" />
                 <ScalarProperty Name="TPAY_TYPE" ColumnName="TPAY_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AD_USER_MST">
+            <EntityTypeMapping TypeName="PropertyTaxCollectionCMSMain_Model.AD_USER_MST">
+              <MappingFragment StoreEntitySet="AD_USER_MST">
+                <ScalarProperty Name="IMO_NO" ColumnName="IMO_NO" />
+                <ScalarProperty Name="IS_ACTIVE" ColumnName="IS_ACTIVE" />
+                <ScalarProperty Name="MOBILE_ID" ColumnName="MOBILE_ID" />
+                <ScalarProperty Name="AD_USER_TYPE_ID" ColumnName="AD_USER_TYPE_ID" />
+                <ScalarProperty Name="LAST_UPDATE" ColumnName="LAST_UPDATE" />
+                <ScalarProperty Name="UPDATE_FLAG" ColumnName="UPDATE_FLAG" />
+                <ScalarProperty Name="ADUM_STATUS" ColumnName="ADUM_STATUS" />
+                <ScalarProperty Name="ADUM_TODT" ColumnName="ADUM_TODT" />
+                <ScalarProperty Name="ADUM_FRDT" ColumnName="ADUM_FRDT" />
+                <ScalarProperty Name="PROFILE_IMAGE" ColumnName="PROFILE_IMAGE" />
+                <ScalarProperty Name="LOCAL_USER_NAME" ColumnName="LOCAL_USER_NAME" />
+                <ScalarProperty Name="ADUM_EMAIL" ColumnName="ADUM_EMAIL" />
+                <ScalarProperty Name="ADUM_MOBILE" ColumnName="ADUM_MOBILE" />
+                <ScalarProperty Name="ADUM_DESIGNATION" ColumnName="ADUM_DESIGNATION" />
+                <ScalarProperty Name="ADUM_EMPLOYEE_ID" ColumnName="ADUM_EMPLOYEE_ID" />
+                <ScalarProperty Name="ADUM_PASSWORD" ColumnName="ADUM_PASSWORD" />
+                <ScalarProperty Name="ADUM_LOGIN_ID" ColumnName="ADUM_LOGIN_ID" />
+                <ScalarProperty Name="ADUM_USER_NAME" ColumnName="ADUM_USER_NAME" />
+                <ScalarProperty Name="ADUM_USER_ID" ColumnName="ADUM_USER_ID" />
+                <ScalarProperty Name="APP_ID" ColumnName="APP_ID" />
+                <ScalarProperty Name="SERVER_ID" ColumnName="SERVER_ID" />
+                <ScalarProperty Name="ADUM_USER_CODE" ColumnName="ADUM_USER_CODE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TAX_COLLECTION_DETAIL">
+            <EntityTypeMapping TypeName="PropertyTaxCollectionCMSMain_Model.TAX_COLLECTION_DETAIL">
+              <MappingFragment StoreEntitySet="TAX_COLLECTION_DETAIL">
+                <ScalarProperty Name="CAMERA_IMAGE" ColumnName="CAMERA_IMAGE" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="CHEQUE_IMAGE" ColumnName="CHEQUE_IMAGE" />
+                <ScalarProperty Name="CHEQUE_BANK_NAME" ColumnName="CHEQUE_BANK_NAME" />
+                <ScalarProperty Name="CHEQUE_DATE" ColumnName="CHEQUE_DATE" />
+                <ScalarProperty Name="CHEQUE_NO" ColumnName="CHEQUE_NO" />
+                <ScalarProperty Name="REMARK" ColumnName="REMARK" />
+                <ScalarProperty Name="REMINDER_NEW_DATE" ColumnName="REMINDER_NEW_DATE" />
+                <ScalarProperty Name="ADDRESS" ColumnName="ADDRESS" />
+                <ScalarProperty Name="RECEIVER_SIGNATURE_IMAGE" ColumnName="RECEIVER_SIGNATURE_IMAGE" />
+                <ScalarProperty Name="RECEIVER_NAME" ColumnName="RECEIVER_NAME" />
+                <ScalarProperty Name="ADUM_USER_CODE" ColumnName="ADUM_USER_CODE" />
+                <ScalarProperty Name="EMP_LONG" ColumnName="EMP_LONG" />
+                <ScalarProperty Name="EMP_LAT" ColumnName="EMP_LAT" />
+                <ScalarProperty Name="HOUSEID" ColumnName="HOUSEID" />
+                <ScalarProperty Name="PAYMENT_DATE" ColumnName="PAYMENT_DATE" />
+                <ScalarProperty Name="REMAINING_AMOUNT" ColumnName="REMAINING_AMOUNT" />
+                <ScalarProperty Name="RECEIVED_AMOUNT" ColumnName="RECEIVED_AMOUNT" />
+                <ScalarProperty Name="TOTAL_AMOUNT" ColumnName="TOTAL_AMOUNT" />
+                <ScalarProperty Name="TPAY_ID" ColumnName="TPAY_ID" />
+                <ScalarProperty Name="RECIPT_NO" ColumnName="RECIPT_NO" />
+                <ScalarProperty Name="APP_ID" ColumnName="APP_ID" />
+                <ScalarProperty Name="TCAT_ID" ColumnName="TCAT_ID" />
+                <ScalarProperty Name="TC_ID" ColumnName="TC_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -171,6 +171,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Admin\AdminController.cs" />
+    <Compile Include="Controllers\AttendenceController.cs" />
     <Compile Include="Controllers\Dashboard\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -1914,6 +1915,8 @@
     <Content Include="Views\Report\TaxReceiptReport.cshtml" />
     <Content Include="Views\Report\TaxPaymentReport.cshtml" />
     <Content Include="Views\Report\TaxReminderReport.cshtml" />
+    <Content Include="Views\Attendence\UserRoute.cshtml" />
+    <Content Include="Views\Attendence\HouseRoute.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

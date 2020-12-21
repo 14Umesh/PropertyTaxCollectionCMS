@@ -35,7 +35,6 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
         public virtual DbSet<AD_TALUKA_MST> AD_TALUKA_MST { get; set; }
         public virtual DbSet<AD_USER_LOG_MST> AD_USER_LOG_MST { get; set; }
         public virtual DbSet<AD_USER_MODULE> AD_USER_MODULE { get; set; }
-        public virtual DbSet<AD_USER_MST> AD_USER_MST { get; set; }
         public virtual DbSet<AD_USER_ROLE_MST> AD_USER_ROLE_MST { get; set; }
         public virtual DbSet<ADMIN_CONTACT> ADMIN_CONTACT { get; set; }
         public virtual DbSet<APP_CONNECTION> APP_CONNECTION { get; set; }
@@ -43,9 +42,10 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
         public virtual DbSet<DEVICE_DETAILS> DEVICE_DETAILS { get; set; }
         public virtual DbSet<EMPLOYEE_ATTENDANCE> EMPLOYEE_ATTENDANCE { get; set; }
         public virtual DbSet<GOOGLE_API_HIT> GOOGLE_API_HIT { get; set; }
-        //public virtual DbSet<LOCATION> LOCATIONs { get; set; }
+        public virtual DbSet<LOCATION> LOCATIONs { get; set; }
         public virtual DbSet<TAX_CATEGORY_TYPE> TAX_CATEGORY_TYPE { get; set; }
-        public virtual DbSet<TAX_COLLECTION_DETAIL> TAX_COLLECTION_DETAIL { get; set; }
         public virtual DbSet<TAX_PAYMENT_TYPE> TAX_PAYMENT_TYPE { get; set; }
+        public virtual DbSet<AD_USER_MST> AD_USER_MST { get; set; }
+        public virtual DbSet<TAX_COLLECTION_DETAIL> TAX_COLLECTION_DETAIL { get; set; }
     }
 }

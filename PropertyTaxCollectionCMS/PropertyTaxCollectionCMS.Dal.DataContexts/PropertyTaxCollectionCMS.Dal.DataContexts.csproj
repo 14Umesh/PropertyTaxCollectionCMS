@@ -139,6 +139,9 @@
     <Compile Include="HouseMaster.cs">
       <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
     </Compile>
+    <Compile Include="LOCATION.cs">
+      <DependentUpon>PropertyTaxCollectionCMSMain.tt</DependentUpon>
+    </Compile>
     <Compile Include="PointDetails_Result.cs">
       <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
     </Compile>
@@ -272,7 +275,9 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <EntityDeploy Include="PropertyTaxCollectionCMSChild.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

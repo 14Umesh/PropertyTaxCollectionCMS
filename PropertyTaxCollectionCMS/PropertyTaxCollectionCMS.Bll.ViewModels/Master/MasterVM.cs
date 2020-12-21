@@ -36,6 +36,8 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels.Master
         public int AD_USER_TYPE_ID { get; set; }
         public string MOBILE_ID { get; set; }
         public bool IS_ACTIVE { get; set; }
+
+        public string IMO_NO { get; set; }
         public string status { get; set; }
         public List<SelectListItem> UserList { get; set; }
 

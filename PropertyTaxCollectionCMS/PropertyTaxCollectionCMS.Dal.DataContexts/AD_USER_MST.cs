@@ -35,5 +35,6 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
         public Nullable<int> AD_USER_TYPE_ID { get; set; }
         public string MOBILE_ID { get; set; }
         public Nullable<bool> IS_ACTIVE { get; set; }
+        public string IMO_NO { get; set; }
     }
 }

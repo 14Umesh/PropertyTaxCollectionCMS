@@ -13,7 +13,7 @@ using System.Web.Mvc;
 
 namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 {
-    public class Repository : IRepository
+    public class Repository : DBMain, IRepository
     {
         #region Common
 
@@ -23,9 +23,9 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
             using (PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities())
             {
-                var UserAttendence = db.EMPLOYEE_ATTENDANCE.Where(c => EntityFunctions.TruncateTime(c.DA_START_DATETIME) == EntityFunctions.TruncateTime(DateTime.Now) &c.DA_END_DATETIME == null & c.APP_ID == AppId).Count();
-                var TotalUser = db.AD_USER_MST.Where(c => c.APP_ID ==AppId).Count();
-                
+                var UserAttendence = db.EMPLOYEE_ATTENDANCE.Where(c => EntityFunctions.TruncateTime(c.DA_START_DATETIME) == EntityFunctions.TruncateTime(DateTime.Now) & c.DA_END_DATETIME == null & c.APP_ID == AppId).Count();
+                var TotalUser = db.AD_USER_MST.Where(c => c.APP_ID == AppId).Count();
+
                 var TaxReceipt = db.TAX_COLLECTION_DETAIL.Where(c => EntityFunctions.TruncateTime(c.PAYMENT_DATE) == EntityFunctions.TruncateTime(DateTime.Now) & c.TCAT_ID == 1 & c.APP_ID == AppId).Count();
                 var TaxPayment = db.TAX_COLLECTION_DETAIL.Where(c => EntityFunctions.TruncateTime(c.PAYMENT_DATE) == EntityFunctions.TruncateTime(DateTime.Now) & c.TCAT_ID == 2 & c.APP_ID == AppId).Count();
                 var Reminder = db.TAX_COLLECTION_DETAIL.Where(c => EntityFunctions.TruncateTime(c.REMINDER_NEW_DATE) == EntityFunctions.TruncateTime(DateTime.Now) & c.APP_ID == AppId).Count();
@@ -185,7 +185,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
      
 
         public Result EmployeeSave(EmployeeVM _Employee)
-         {
+        {
             Result Result = new Result();
             try
             {
@@ -246,7 +246,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                     Result.message = "success";
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Result.message = "error";
             }
@@ -361,14 +361,14 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
                  select new
                  {
-                    a.AppId,
-                    a.AppName,
-                    b.STATE_NAME,
-                    c.CITY,
-                    d.TALUKA_NAME,
-                    a.AppVersion,
-                    a.ForceUpdate,
-                    a.IsActive
+                     a.AppId,
+                     a.AppName,
+                     b.STATE_NAME,
+                     c.CITY,
+                     d.TALUKA_NAME,
+                     a.AppVersion,
+                     a.ForceUpdate,
+                     a.IsActive
 
                  }).ToList();
 
@@ -384,7 +384,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         AppVersion = x.AppVersion,
                         ForceUpdate = Convert.ToBoolean(x.ForceUpdate),
                         IsActive = Convert.ToBoolean(x.IsActive),
-                        
+
                     });
                 }
             }
@@ -430,7 +430,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
                 var UserAttendence = (from EA in db.EMPLOYEE_ATTENDANCE
                                       join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
-                                      where EntityFunctions.TruncateTime(EA.DA_START_DATETIME) == EntityFunctions.TruncateTime(DateTime.Now) & EA.APP_ID == AppID & EA.DA_END_DATETIME==null
+                                      where EntityFunctions.TruncateTime(EA.DA_START_DATETIME) == EntityFunctions.TruncateTime(DateTime.Now) & EA.APP_ID == AppID & EA.DA_END_DATETIME == null
                                       select new
                                       {
                                           UserName = UM.ADUM_USER_NAME,
@@ -497,21 +497,21 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             {
 
                 var sqlData = (from TC in db.TAX_COLLECTION_DETAIL
-                                      //join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
-                                      where EntityFunctions.TruncateTime(TC.PAYMENT_DATE) == EntityFunctions.TruncateTime(DateTime.Now) & TC.TCAT_ID == q
-                                      select new
-                                      {
-                                          
-                                          TC_ID = TC.TC_ID,
-                                          TCAT_ID = TC.TCAT_ID,
-                                          RECEIPT_NO = TC.RECIPT_NO,
-                                          TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
-                                          RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
-                                          REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
-                                          HOUSEID = TC.HOUSEID,
-                                          RECEIVER_NAME = TC.RECEIVER_NAME,
-                                          RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
-                                      }).ToList();
+                                   //join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
+                               where EntityFunctions.TruncateTime(TC.PAYMENT_DATE) == EntityFunctions.TruncateTime(DateTime.Now) & TC.TCAT_ID == q
+                               select new
+                               {
+
+                                   TC_ID = TC.TC_ID,
+                                   TCAT_ID = TC.TCAT_ID,
+                                   RECEIPT_NO = TC.RECIPT_NO,
+                                   TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
+                                   RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
+                                   REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
+                                   HOUSEID = TC.HOUSEID,
+                                   RECEIVER_NAME = TC.RECEIVER_NAME,
+                                   RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
+                               }).ToList();
 
 
                 foreach (var x in sqlData)
@@ -542,7 +542,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
                 var sqlData = (from TC in db.TAX_COLLECTION_DETAIL
                                    //join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
-                               where EntityFunctions.TruncateTime(TC.REMINDER_NEW_DATE) == EntityFunctions.TruncateTime(DateTime.Now) 
+                               where EntityFunctions.TruncateTime(TC.REMINDER_NEW_DATE) == EntityFunctions.TruncateTime(DateTime.Now)
                                select new
                                {
 
@@ -636,7 +636,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
             DateTime _fromDate = DateTime.ParseExact(fromDate, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime _fdate = new DateTime(_fromDate.Year, _fromDate.Month, _fromDate.Day, 00, 00, 00, 000);  //Today at 00:00:00
-            
+
             DateTime Dateeee = DateTime.ParseExact(toDate, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime _tdate = new DateTime(Dateeee.Year, Dateeee.Month, Dateeee.Day, 23, 59, 59, 999); // Dateeee.AddDays(1).AddTicks
 
@@ -681,7 +681,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             return Result;
         }
 
-        public List<TaxReceiptDetailsVM> getTaxReceiptReport(int q, string fromDate, string toDate,int AppId)
+        public List<TaxReceiptDetailsVM> getTaxReceiptReport(int q, string fromDate, string toDate, int AppId)
         {
             List<TaxReceiptDetailsVM> Result = new List<TaxReceiptDetailsVM>();
 
@@ -691,7 +691,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             DateTime Dateeee = DateTime.ParseExact(toDate, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime _tdate = new DateTime(Dateeee.Year, Dateeee.Month, Dateeee.Day, 23, 59, 59, 999); // Dateeee.AddDays(1).AddTicks
 
-            using ( PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities())
+            using (PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities())
             {
 
                 PropertyTaxCollectionCMSChild_Entities db1 = new PropertyTaxCollectionCMSChild_Entities(AppId);
@@ -702,6 +702,8 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
                 var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate & c.ADUM_USER_CODE == q).ToList();
 
+
+              
                 var sqlData = (from TC in TAX_COLLECTION_DETAIL
                                join UM in AD_USER_MST on TC.ADUM_USER_CODE equals
                                UM.ADUM_USER_CODE
@@ -720,6 +722,8 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
                                    HOUSEID = TC.HOUSEID,
                                    RECEIVER_NAME = TC.RECEIVER_NAME,
+
+
                                    RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
 
                                }).ToList();
@@ -731,7 +735,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         TC_ID = x.TC_ID,
                         TCAT_ID = x.TCAT_ID,
                         RECEIPT_NO = x.RECEIPT_NO,
-                        House_Owner_NAME=x.houseOwner,
+                        House_Owner_NAME = x.houseOwner,
                         PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy hh:mm tt"),
                         TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
                         RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
@@ -739,7 +743,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         HOUSEID = x.HOUSEID,
                         RECEIVER_NAME = x.RECEIVER_NAME,
                         RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
-                        
+
                     });
                 }
             }
@@ -805,7 +809,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             List<AttendanceDetailsVM> Result = new List<AttendanceDetailsVM>();
 
             DateTime _fromDate = DateTime.ParseExact(fromDate, "d/M/yyyy", CultureInfo.InvariantCulture);
-            DateTime _fdate = new DateTime(_fromDate.Year, _fromDate.Month, _fromDate.Day, 00, 00, 00, 000); 
+            DateTime _fdate = new DateTime(_fromDate.Year, _fromDate.Month, _fromDate.Day, 00, 00, 00, 000);
 
             DateTime Dateeee = DateTime.ParseExact(toDate, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime _tdate = new DateTime(Dateeee.Year, Dateeee.Month, Dateeee.Day, 23, 59, 59, 999);
@@ -819,6 +823,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                       orderby EA.DA_ID descending
                                       select new
                                       {
+                                          DA_ID = EA.DA_ID,
                                           UserName = UM.ADUM_USER_NAME,
                                           StartDate = EA.DA_START_DATETIME,
                                           EndDate = EA.DA_END_DATETIME,
@@ -831,14 +836,179 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                 {
                     Result.Add(new AttendanceDetailsVM()
                     {
+
+                        DA_ID = x.DA_ID,
                         UserName = x.UserName,
                         StartDate = Convert.ToDateTime(x.StartDate).ToString("dd/MM/yyyy hh:mm tt"),
-                        EndDate = (x.EndDate == null ? "" : Convert.ToDateTime(x.EndDate).ToString("dd/MM/yyyy hh:mm tt")),                       
+                        EndDate = (x.EndDate == null ? "" : Convert.ToDateTime(x.EndDate).ToString("dd/MM/yyyy hh:mm tt")),
                     });
                 }
             }
             return Result;
         }
 
+        public List<PTCUserLocationMapView> GetUserAttenRoute(int daId)
+        {
+            List<PTCUserLocationMapView> userLocation = new List<PTCUserLocationMapView>();
+            DateTime newdate = DateTime.Now.Date;
+            var datt = newdate;
+
+            var att = dbMain.EMPLOYEE_ATTENDANCE.Where(c => c.DA_ID == daId).FirstOrDefault();
+            //   string Time = att.startTime;
+            //    DateTime date = DateTime.Parse(Time, System.Globalization.CultureInfo.CurrentCulture);
+            //    string t = date.ToString("hh:mm:ss tt");
+            //string dt = Convert.ToDateTime(att.da).ToString("MM/dd/yyyy");
+            // DateTime? fdate = Convert.ToDateTime(dt + " " + t);
+            // DateTime? edate;
+            // if (att.endTime == "" | att.endTime == null)
+            // {
+            //     edate = DateTime.Now;
+            // }
+            // else
+            // {
+            //     string Time2 = att.endTime;
+            //     DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
+            //     string t2 = date2.ToString("hh:mm:ss tt");
+            //     string dt2 = Convert.ToDateTime(att.daEndDate).ToString("MM/dd/yyyy");
+            //     edate = Convert.ToDateTime(dt2 + " " + t2);
+            // }
+
+            string t = Convert.ToDateTime(att.DA_START_DATETIME).ToString("hh:mm:ss tt");
+            string fdt = Convert.ToDateTime(att.DA_START_DATETIME).ToString("MM/dd/yyyy");
+            DateTime? fdate = Convert.ToDateTime(fdt + " " + t);
+
+            string t1 = Convert.ToDateTime(att.DA_START_DATETIME).ToString("hh:mm:ss tt");
+            string Tdt = Convert.ToDateTime(att.DA_START_DATETIME).ToString("MM/dd/yyyy");
+            DateTime? Tdate = Convert.ToDateTime(Tdt + " " + t1);
+            var data = dbMain.LOCATIONs.Where(c => c.ADUM_USER_CODE == att.ADUM_USER_CODE & c.CREATED_DATE >= fdate & c.LOC_DATE_TIME <= Tdate).ToList();
+
+
+            foreach (var x in data)
+            {
+
+
+                string dat = Convert.ToDateTime(x.CREATED_DATE).ToString("dd/MM/yyyy");
+                string tim = Convert.ToDateTime(x.CREATED_DATE).ToString("hh:mm tt");
+                var userName = dbMain.AD_USER_MST.Where(c => c.ADUM_USER_CODE == att.ADUM_USER_CODE).FirstOrDefault();
+
+                userLocation.Add(new PTCUserLocationMapView()
+                {
+                    userId = userName.ADUM_USER_CODE,
+                    userName = userName.ADUM_USER_NAME,
+                    date = dat,
+                    time = tim,
+                    lat = x.LAT,
+                    log = x.LONG,
+                    address = checkNull(x.ADDRESS).Replace("Unnamed Road, ", ""),
+                    //   vehcileNumber = att.vehicleNumber,
+                    userMobile = userName.ADUM_MOBILE,
+                    // type = Convert.ToInt32(x.type),
+
+                });
+
+            }
+
+            return userLocation;
+        }
+
+
+        public string checkNull(string str)
+        {
+            string result = "";
+            if (str == null || str == "")
+            {
+                result = "";
+                return result;
+            }
+            else
+            {
+                result = str;
+                return result;
+            }
+        }
+
+        public List<PTCUserLocationMapView> GetHouseAttenRoute(int daId, int AppId)
+        {
+            List<PTCUserLocationMapView> userLocation = new List<PTCUserLocationMapView>();
+            PropertyTaxCollectionCMSChild_Entities dbChild = new PropertyTaxCollectionCMSChild_Entities(AppId);
+            DateTime newdate = DateTime.Now.Date;
+            var datt = newdate;
+            var att = dbMain.EMPLOYEE_ATTENDANCE.Where(c => c.DA_ID == daId).FirstOrDefault();
+            //string Time = att.startTime;
+            //DateTime date = DateTime.Parse(Time, System.Globalization.CultureInfo.CurrentCulture);
+            //string t = date.ToString("hh:mm:ss tt");
+            //string dt = Convert.ToDateTime(att.daDate).ToString("MM/dd/yyyy");
+            //DateTime? fdate = Convert.ToDateTime(dt + " " + t);
+            //DateTime? edate;
+            //if (att.endTime == "" | att.endTime == null)
+            //{
+            //    edate = DateTime.Now;
+            //}
+            //else
+            //{
+            //    string Time2 = att.endTime;
+            //    DateTime date2 = DateTime.Parse(Time2, System.Globalization.CultureInfo.CurrentCulture);
+            //    string t2 = date2.ToString("hh:mm:ss tt");
+            //    string dt2 = Convert.ToDateTime(att.daEndDate).ToString("MM/dd/yyyy");
+            //    edate = Convert.ToDateTime(dt2 + " " + t2);
+            //}
+
+            string t = Convert.ToDateTime(att.DA_START_DATETIME).ToString("hh:mm:ss tt");
+            string fdt = Convert.ToDateTime(att.DA_START_DATETIME).ToString("MM/dd/yyyy");
+            DateTime? fdate = Convert.ToDateTime(fdt + " " + t);
+
+            string t1 = Convert.ToDateTime(att.DA_START_DATETIME).ToString("hh:mm:ss tt");
+            string Tdt = Convert.ToDateTime(att.DA_START_DATETIME).ToString("MM/dd/yyyy");
+            DateTime? Tdate = Convert.ToDateTime(Tdt + " " + t1);
+            //  var data = dbMain.LOCATIONs.Where(c => c.ADUM_USER_CODE == att.ADUM_USER_CODE & c.CREATED_DATE >= fdate & c.LOC_DATE_TIME <= Tdate).ToList();
+
+            var data = dbMain.LOCATIONs.Where(c => c.ADUM_USER_CODE == att.ADUM_USER_CODE & c.CREATED_DATE >= fdate & c.LOC_DATE_TIME <= Tdate & c.LOC_TYPE == 1).OrderByDescending(a => a.CREATED_DATE).ToList();
+
+            foreach (var x in data)
+            {
+                if (x.LOC_TYPE == 1)
+                {
+
+                    // string dat = Convert.ToDateTime(x.datetime).ToString("dd/MM/yyyy");
+                    //string tim = Convert.ToDateTime(x.datetime).ToString("hh:mm tt");
+                    var userName = dbMain.AD_USER_MST.Where(c => c.ADUM_USER_CODE == att.ADUM_USER_CODE).FirstOrDefault();
+                    //var gcd = db.GarbageCollectionDetails.Where(c => (c.userId == x.userId & c.houseId != null) & EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(x.datetime)).FirstOrDefault();
+
+                    //var gcd = db.GarbageCollectionDetails.Where(c => (c.userId == x.userId & c.houseId != null) & EntityFunctions.TruncateTime(c.gcDate) == EntityFunctions.TruncateTime(x.datetime)).OrderBy(c => c.gcDate).ToList();//.ToList();
+
+                    var gcd = dbMain.TAX_COLLECTION_DETAIL.Where(c => (c.ADUM_USER_CODE == x.ADUM_USER_CODE & c.HOUSEID != null) & EntityFunctions.TruncateTime(c.CREATED_DATE) == EntityFunctions.TruncateTime(x.CREATED_DATE)).OrderBy(c => c.TC_ID).ToList();//.ToList();
+
+
+                    foreach (var d in gcd)
+                    {
+                        //DateTime dt = DateTime.Parse(x.gcDate == null ? DateTime.Now.ToString() : x.gcDate.ToString());
+                        string dat = Convert.ToDateTime(d.CREATED_DATE).ToString("dd/MM/yyyy");
+                        string tim = Convert.ToDateTime(d.CREATED_DATE).ToString("hh:mm tt");
+                        var house = dbChild.HouseMasters.Where(c => c.houseId == d.HOUSEID).FirstOrDefault();
+                        userLocation.Add(new PTCUserLocationMapView()
+                        {
+                            userName = userName.ADUM_USER_NAME,
+                            date = dat,
+                            time = tim,
+                            lat = d.EMP_LAT,
+                            log = d.EMP_LONG,
+                            address = x.ADDRESS,
+                       //     vehcileNumber = att.vehicleNumber,
+                            userMobile = userName.ADUM_MOBILE,
+                            type = Convert.ToInt32(x.LOC_TYPE),
+                            HouseId = house.ReferanceId,
+                            HouseAddress = (house.houseAddress == null ? "" : house.houseAddress.Replace("Unnamed Road, ", "")),
+                            HouseOwnerName = house.houseOwner,
+                            OwnerMobileNo = house.houseOwnerMobile
+                        });
+
+                    }
+                    break;
+                }
+
+            }
+
+                return userLocation;
+            }
+        }
     }
-}

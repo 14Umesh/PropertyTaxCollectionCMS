@@ -15,7 +15,6 @@
         <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.AD_TALUKA_MST" Width="1.5" PointX="2.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.AD_USER_LOG_MST" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.AD_USER_MODULE" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.AD_USER_MST" Width="1.5" PointX="4.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.AD_USER_ROLE_MST" Width="1.5" PointX="6.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.ADMIN_CONTACT" Width="1.5" PointX="8.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.APP_CONNECTION" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
@@ -25,8 +24,9 @@
         <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.GOOGLE_API_HIT" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.LOCATION" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.TAX_CATEGORY_TYPE" Width="1.5" PointX="6.75" PointY="12.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.TAX_COLLECTION_DETAIL" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.TAX_PAYMENT_TYPE" Width="1.5" PointX="8.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.AD_USER_MST" Width="1.5" PointX="3.375" PointY="10.75" />
+        <EntityTypeShape EntityType="PropertyTaxCollectionCMSMain_Model.TAX_COLLECTION_DETAIL" Width="1.5" PointX="11.375" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
