@@ -41,8 +41,7 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels.Master
 
         public string DEVICE_ID { get; set; }
         public string status { get; set; }
-        public List<SelectListItem> UserList { get; set; }
-
+       
 
         public List<SelectListItem> UserList { get; set; }
 
