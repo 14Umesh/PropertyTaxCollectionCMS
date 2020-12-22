@@ -38,5 +38,7 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
         public string CHEQUE_IMAGE { get; set; }
         public Nullable<System.DateTime> CREATED_DATE { get; set; }
         public string CAMERA_IMAGE { get; set; }
+        public string REASON { get; set; }
+        public string TaxRemImage { get; set; }
     }
 }
