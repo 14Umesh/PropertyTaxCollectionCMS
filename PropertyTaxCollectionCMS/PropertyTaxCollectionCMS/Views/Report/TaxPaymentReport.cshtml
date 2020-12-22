@@ -91,6 +91,7 @@
                                                 <th>PAYMENT DATE</th>
                                                 <th>HOUSE ID</th>
                                                 <th>HOUSE OWNER NAME</th>
+                                                <th>CHEQUE PHOTO</th>
                                                 <th>PHOTO</th>
                                                 <th>SIGNATURE</th>
 
@@ -108,6 +109,35 @@
         </div>
     </div>
 </div>
+
+<!--Model Img-->
+<div id="myModal_Image" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="header_data" class="modal-title"></h4>
+            </div>
+
+            <div class="modal-body">
+                <center>
+                    <img class="img-responsive" id="imggg" alt="Photo Not Found" style="width:35%">
+                    <br />
+                    <p> <b id="hide_date">Date: </b><span id="dateData"></span></p>
+                    <p> <b id="hide_add">Receiver Name: </b><span id="latlongData"></span></p>
+                </center>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Close</button>
+                    @*<a href="~/Images/Nagpur/Job/download.pdf" class="btn btn-default" download>Download</a>*@
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
 <style>
     #snackbar {

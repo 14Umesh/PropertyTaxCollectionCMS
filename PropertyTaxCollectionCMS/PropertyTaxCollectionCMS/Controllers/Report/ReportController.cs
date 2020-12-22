@@ -53,9 +53,9 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         }
 
         [HttpGet]
-        public JsonResult getAttendenceReport(string fromDate, string toDate)
+        public JsonResult getAttendenceReport(string fromDate, string toDate,int q)
         {
-            var griddata = Repository.getAttendenceReport(fromDate, toDate);
+            var griddata = Repository.getAttendenceReport(fromDate, toDate,q);
             return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
         }
 
