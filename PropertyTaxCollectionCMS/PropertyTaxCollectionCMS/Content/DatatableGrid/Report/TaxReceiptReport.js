@@ -12,7 +12,7 @@
             "data": {
                 "fromDate": fdate,
                 "toDate": tdate,
-                "q": UserId
+                "q": -1
             },
             "type": "GET",
             "datatype": "json",
