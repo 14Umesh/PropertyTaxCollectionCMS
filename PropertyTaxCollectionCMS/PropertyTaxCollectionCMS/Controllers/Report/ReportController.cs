@@ -1,4 +1,5 @@
 ﻿using PropertyTaxCollectionCMS.Bll.Repository.Repository;
+using PropertyTaxCollectionCMS.Bll.ViewModels.Master;
 using PropertyTaxCollectionCMS.Models.SessionHandler;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,22 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
             }
         }
 
+        [HttpPost]
+        public ActionResult GetEmployeeList()
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                EmployeeVM obj = new EmployeeVM();
+
+                obj = Repository.GetEmployeeList();
+                return Json(obj.UserList, JsonRequestBehavior.AllowGet);
+
+            }
+            else
+            {
+                return Redirect("/Account/Login");
+            }
+        }
 
         [HttpGet]
         public JsonResult getAttendenceReport(string fromDate, string toDate)
@@ -57,10 +74,10 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         }
 
         [HttpGet]
-        public JsonResult getTaxReceiptReport(string fromDate, string toDate, int q = 1)
+        public JsonResult getTaxReceiptReport(string fromDate, string toDate, int q = -1,int t=1)
         {
             int AppId = SessionHandler.Current.AppId;
-            var griddata = Repository.getTaxReceiptReport(q, fromDate, toDate, AppId);
+            var griddata = Repository.getTaxReceiptReport(q,t, fromDate, toDate, AppId);
             return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
         }
 
@@ -78,10 +95,10 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         }
 
         [HttpGet]
-        public JsonResult getTaxPaymentReport(string fromDate, string toDate, int q = -1)
+        public JsonResult getTaxPaymentReport(string fromDate, string toDate, int q = -1,int t=2)
         {
             int AppId = SessionHandler.Current.AppId;
-            var griddata = Repository.getTaxPaymentReport(q, fromDate, toDate, AppId);
+            var griddata = Repository.getTaxPaymentReport(q,t, fromDate, toDate, AppId);
             return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
         }
 
@@ -98,9 +115,10 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         }
 
         [HttpGet]
-        public JsonResult getTaxReminderReport(string fromDate, string toDate, int q = -1)
+        public JsonResult getTaxReminderReport(string fromDate, string toDate, int q = -1,int t=3)
         {
-            var griddata = Repository.getTaxReminderReport(q, fromDate, toDate);
+            int AppId = SessionHandler.Current.AppId;
+            var griddata = Repository.getTaxReminderReport(q,t, fromDate, toDate,AppId);
             return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
         }
     }

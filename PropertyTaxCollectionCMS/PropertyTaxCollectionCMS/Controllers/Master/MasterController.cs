@@ -26,10 +26,24 @@ namespace PropertyTaxCollectionCMS.Controllers.Master
                 Redirect("/Account/Login");
         }
 
+
+
         // GET: Master
 
-        [HttpPost]
         public ActionResult EmployeeList()
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/Account/Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GetEmployeeList()
         {
             if (SessionHandler.Current.AppId != 0)
             {

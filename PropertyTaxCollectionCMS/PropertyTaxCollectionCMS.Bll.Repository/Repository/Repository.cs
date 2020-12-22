@@ -28,7 +28,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
                 var TaxReceipt = db.TAX_COLLECTION_DETAIL.Where(c => EntityFunctions.TruncateTime(c.PAYMENT_DATE) == EntityFunctions.TruncateTime(DateTime.Now) & c.TCAT_ID == 1 & c.APP_ID == AppId).Count();
                 var TaxPayment = db.TAX_COLLECTION_DETAIL.Where(c => EntityFunctions.TruncateTime(c.PAYMENT_DATE) == EntityFunctions.TruncateTime(DateTime.Now) & c.TCAT_ID == 2 & c.APP_ID == AppId).Count();
-                var Reminder = db.TAX_COLLECTION_DETAIL.Where(c => EntityFunctions.TruncateTime(c.REMINDER_NEW_DATE) == EntityFunctions.TruncateTime(DateTime.Now) & c.APP_ID == AppId).Count();
+                var Reminder = db.TAX_COLLECTION_DETAIL.Where(c => EntityFunctions.TruncateTime(c.REMINDER_NEW_DATE) == EntityFunctions.TruncateTime(DateTime.Now) & c.APP_ID == AppId & c.TCAT_ID==3).Count();
 
                 Result.Attendence = UserAttendence + "/" + TotalUser;
                 Result.TaxReceipt = TaxReceipt.ToString();
@@ -259,8 +259,32 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             EmployeeVM data = new EmployeeVM();
             using (PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities())
             {
-                var task = db.AD_USER_MST.Where(c => c.ADUM_USER_CODE == q).FirstOrDefault();
 
+                var AD_USER_MST= db.AD_USER_MST.Where(c => c.ADUM_USER_CODE == q).ToList();
+                var DEVICE_DETAILS = db.DEVICE_DETAILS.ToList();
+                var task = (from UM in AD_USER_MST
+                           join DD in DEVICE_DETAILS on UM.ADUM_USER_CODE equals DD.ADUM_USER_CODE
+
+                           select new
+                           {
+                               ADUM_USER_CODE = UM.ADUM_USER_CODE,
+                               SERVER_ID = Convert.ToByte(UM.SERVER_ID),
+                               APP_ID = UM.APP_ID,
+                               ADUM_USER_ID = UM.ADUM_LOGIN_ID,
+                               ADUM_USER_NAME = UM.ADUM_USER_NAME,
+                               ADUM_LOGIN_ID = UM.ADUM_LOGIN_ID,
+                               ADUM_PASSWORD = UM.ADUM_PASSWORD,
+                               ADUM_EMPLOYEE_ID = UM.ADUM_EMPLOYEE_ID,
+                               ADUM_DESIGNATION = UM.ADUM_DESIGNATION,
+                               ADUM_MOBILE = UM.ADUM_MOBILE,
+                               ADUM_EMAIL = UM.ADUM_EMAIL,
+                               LOCAL_USER_NAME = UM.LOCAL_USER_NAME,
+                               PROFILE_IMAGE = "/Images/" + UM.PROFILE_IMAGE,
+                               UPDATE_FLAG = Convert.ToBoolean(UM.UPDATE_FLAG),
+                               AD_USER_TYPE_ID = Convert.ToInt32(UM.AD_USER_TYPE_ID),
+                               IS_ACTIVE = Convert.ToBoolean(UM.IS_ACTIVE),
+                               DEVICE_ID = DD.DEVICE_ID
+                           }).FirstOrDefault();
                 if (task != null)
                 {
                     data.ADUM_USER_CODE = task.ADUM_USER_CODE;
@@ -275,6 +299,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                     data.ADUM_MOBILE = task.ADUM_MOBILE;
                     data.ADUM_EMAIL = task.ADUM_EMAIL;
                     data.LOCAL_USER_NAME = task.LOCAL_USER_NAME;
+                    data.DEVICE_ID = task.DEVICE_ID;
                     data.PROFILE_IMAGE = "/Images/" + task.PROFILE_IMAGE;
                     data.UPDATE_FLAG = Convert.ToBoolean(task.UPDATE_FLAG);
                     data.AD_USER_TYPE_ID = Convert.ToInt32(task.AD_USER_TYPE_ID);
@@ -542,7 +567,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
                 var sqlData = (from TC in db.TAX_COLLECTION_DETAIL
                                    //join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
-                               where EntityFunctions.TruncateTime(TC.REMINDER_NEW_DATE) == EntityFunctions.TruncateTime(DateTime.Now)
+                               where EntityFunctions.TruncateTime(TC.REMINDER_NEW_DATE) == EntityFunctions.TruncateTime(DateTime.Now) 
                                select new
                                {
 
@@ -630,7 +655,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             }
         }
 
-        public List<TaxReceiptDetailsVM> getTaxPaymentReport(int q, string fromDate, string toDate,int AppId)
+        public List<TaxReceiptDetailsVM> getTaxPaymentReport(int q, int t, string fromDate, string toDate,int AppId)
         {
             List<TaxReceiptDetailsVM> Result = new List<TaxReceiptDetailsVM>();
 
@@ -644,47 +669,114 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             {
 
                 PropertyTaxCollectionCMSChild_Entities db1 = new PropertyTaxCollectionCMSChild_Entities(AppId);
-                var house = db1.HouseMasters.ToList();          
-                var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate & c.ADUM_USER_CODE == q).ToList();
-                var sqlData = (from TC in TAX_COLLECTION_DETAIL
-                                join HS in house on TC.HOUSEID equals HS.houseId
-                               where TC.PAYMENT_DATE >= _fdate & TC.PAYMENT_DATE < _tdate & TC.TCAT_ID == q
-                               select new
-                               {
-                                   TC_ID = TC.TC_ID,
-                                   TCAT_ID = TC.TCAT_ID,
-                                   RECEIPT_NO = TC.RECIPT_NO,
-                                   TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
-                                   RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
-                                   REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
-                                   HOUSEID = HS.ReferanceId,
-                                   RECEIVER_NAME = TC.RECEIVER_NAME,
-                                   RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
-                                   PAYMENT_DATE = TC.PAYMENT_DATE,
-                               }).ToList();
-
-
-                foreach (var x in sqlData)
+                var house = db1.HouseMasters.ToList();
+                var AD_USER_MST = db.AD_USER_MST.ToList();
+                var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate
+                //& c.ADUM_USER_CODE == q
+                ).ToList();
+                if (q == -1)
                 {
-                    Result.Add(new TaxReceiptDetailsVM()
+                    var sqlData = (from TC in TAX_COLLECTION_DETAIL
+                                   join HS in house on TC.HOUSEID equals HS.houseId
+                                   join UM in AD_USER_MST on TC.ADUM_USER_CODE equals
+                               UM.ADUM_USER_CODE
+                                   where TC.PAYMENT_DATE >= _fdate & TC.PAYMENT_DATE < _tdate
+                                  & TC.TCAT_ID == t
+                                  
+                                   select new
+                                   {
+                                       ADUM_USER_NAME = UM.ADUM_USER_NAME,
+                                       TC_ID = TC.TC_ID,
+                                       TCAT_ID = TC.TCAT_ID,
+                                       RECEIPT_NO = TC.RECIPT_NO,
+                                       TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
+                                       RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
+                                       REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
+                                       HOUSEID = HS.ReferanceId,
+                                       houseOwner = HS.houseOwner,
+                                       RECEIVER_NAME = TC.RECEIVER_NAME,
+                                       RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
+                                       PAYMENT_DATE = TC.PAYMENT_DATE,
+                                       CAMERA_IMAGE = TC.CAMERA_IMAGE,
+                                   }).ToList();
+
+
+                    foreach (var x in sqlData)
                     {
-                        TC_ID = x.TC_ID,
-                        TCAT_ID = x.TCAT_ID,
-                        RECEIPT_NO = x.RECEIPT_NO,
-                        TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
-                        RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
-                        REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
-                        HOUSEID = x.HOUSEID,
-                        RECEIVER_NAME = x.RECEIVER_NAME,
-                        RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
-                        PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
-                    });
+                        Result.Add(new TaxReceiptDetailsVM()
+                        {
+                            ADUM_USER_NAME = x.ADUM_USER_NAME,
+                            TC_ID = x.TC_ID,
+                            TCAT_ID = x.TCAT_ID,
+                            RECEIPT_NO = x.RECEIPT_NO,
+                            TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
+                            RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
+                            REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
+                            HOUSEID = x.HOUSEID,
+                            House_Owner_NAME=x.houseOwner,
+                            RECEIVER_NAME = x.RECEIVER_NAME,
+                            RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
+                            CAMERA_IMAGE = x.CAMERA_IMAGE,
+                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
+                        });
+                    }
                 }
+
+                else
+                {
+                     var sqlData = (from TC in TAX_COLLECTION_DETAIL
+                                   join HS in house on TC.HOUSEID equals HS.houseId
+                                    join UM in AD_USER_MST on TC.ADUM_USER_CODE equals
+                               UM.ADUM_USER_CODE
+                                    where TC.PAYMENT_DATE >= _fdate & TC.PAYMENT_DATE < _tdate
+                                   & TC.TCAT_ID == t 
+                                   & TC.ADUM_USER_CODE == q
+                                    select new
+                                   {
+                                        ADUM_USER_NAME = UM.ADUM_USER_NAME,
+                                        TC_ID = TC.TC_ID,
+                                       TCAT_ID = TC.TCAT_ID,
+                                       RECEIPT_NO = TC.RECIPT_NO,
+                                       TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
+                                       RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
+                                       REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
+                                       HOUSEID = HS.ReferanceId,
+                                        houseOwner = HS.houseOwner,
+                                        RECEIVER_NAME = TC.RECEIVER_NAME,
+                                       RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
+                                       PAYMENT_DATE = TC.PAYMENT_DATE,
+                                       CAMERA_IMAGE = TC.CAMERA_IMAGE,
+                                   }).ToList();
+
+
+                    foreach (var x in sqlData)
+                    {
+                        Result.Add(new TaxReceiptDetailsVM()
+                        {
+                            ADUM_USER_NAME = x.ADUM_USER_NAME,
+                            TC_ID = x.TC_ID,
+                            TCAT_ID = x.TCAT_ID,
+                            RECEIPT_NO = x.RECEIPT_NO,
+                            TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
+                            RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
+                            REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
+                            HOUSEID = x.HOUSEID,
+                            House_Owner_NAME = x.houseOwner,
+                            RECEIVER_NAME = x.RECEIVER_NAME,
+                            RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
+                            CAMERA_IMAGE = x.CAMERA_IMAGE,
+                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
+                        });
+                    }
+                }
+
             }
             return Result;
         }
 
-        public List<TaxReceiptDetailsVM> getTaxReceiptReport(int q, string fromDate, string toDate, int AppId)
+
+
+        public List<TaxReceiptDetailsVM> getTaxReceiptReport(int q,int t, string fromDate, string toDate, int AppId)
         {
             List<TaxReceiptDetailsVM> Result = new List<TaxReceiptDetailsVM>();
 
@@ -702,58 +794,117 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                 var house = db1.HouseMasters.ToList();
 
                 var AD_USER_MST = db.AD_USER_MST.ToList();
-
-                var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate & c.ADUM_USER_CODE == q).ToList();
-
-
               
-                var sqlData = (from TC in TAX_COLLECTION_DETAIL
-                               join UM in AD_USER_MST on TC.ADUM_USER_CODE equals
-                               UM.ADUM_USER_CODE
-                               join HS in house on TC.HOUSEID equals
-                                HS.houseId
-                               select new
-                               {
-                                   ADUM_USER_NAME = UM.ADUM_USER_NAME,
-                                   PAYMENT_DATE = TC.PAYMENT_DATE,
-                                   TC_ID = TC.TC_ID,
-                                   TCAT_ID = TC.TCAT_ID,
-                                   RECEIPT_NO = TC.RECIPT_NO,
-                                   houseOwner = HS.houseOwner,
-                                   TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
-                                   RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
-                                   REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
-                                   HOUSEID =HS.ReferanceId,
-                                   RECEIVER_NAME = TC.RECEIVER_NAME,
-
-
-                                   RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
-
-                               }).ToList();
-                foreach (var x in sqlData)
+                if (q == -1)
                 {
-                    Result.Add(new TaxReceiptDetailsVM()
-                    {
-                        ADUM_USER_NAME = x.ADUM_USER_NAME,
-                        TC_ID = x.TC_ID,
-                        TCAT_ID = x.TCAT_ID,
-                        RECEIPT_NO = x.RECEIPT_NO,
-                        House_Owner_NAME = x.houseOwner,
-                        PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy hh:mm tt"),
-                        TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
-                        RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
-                        REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
-                        HOUSEID = x.HOUSEID,
-                        RECEIVER_NAME = x.RECEIVER_NAME,
-                        RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
+                    var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate
+         & c.TCAT_ID == t
+          ).ToList();
+                    var sqlData = (from TC in TAX_COLLECTION_DETAIL
+                                   join UM in AD_USER_MST on TC.ADUM_USER_CODE equals
+                                   UM.ADUM_USER_CODE
+                                   join HS in house on TC.HOUSEID equals
+                                    HS.houseId
+                                   select new
+                                   {
+                                       ADUM_USER_NAME = UM.ADUM_USER_NAME,
+                                       PAYMENT_DATE = TC.PAYMENT_DATE,
+                                       TC_ID = TC.TC_ID,
+                                       TCAT_ID = TC.TCAT_ID,
+                                       RECEIPT_NO = TC.RECIPT_NO,
+                                       houseOwner = HS.houseOwner,
+                                       TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
+                                       RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
+                                       REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
+                                       HOUSEID = HS.ReferanceId,
+                                       RECEIVER_NAME = TC.RECEIVER_NAME,
+                                       CAMERA_IMAGE = TC.CAMERA_IMAGE,
 
-                    });
+                                       RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
+
+                                   }).ToList();
+
+
+                    foreach (var x in sqlData)
+                    {
+                        Result.Add(new TaxReceiptDetailsVM()
+                        {
+                            ADUM_USER_NAME = x.ADUM_USER_NAME,
+                            TC_ID = x.TC_ID,
+                            TCAT_ID = x.TCAT_ID,
+                            RECEIPT_NO = x.RECEIPT_NO,
+                            House_Owner_NAME = x.houseOwner,
+                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy hh:mm tt"),
+                            TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
+                            RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
+                            REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
+                            HOUSEID = x.HOUSEID,
+                            RECEIVER_NAME = x.RECEIVER_NAME,
+                            RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
+                            CAMERA_IMAGE = x.CAMERA_IMAGE,
+
+                        });
+                    }
                 }
+                else
+                {
+                        var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate
+                  & c.ADUM_USER_CODE == q  & c.TCAT_ID == t
+                    ).ToList();
+
+                        var sqlData = (from TC in TAX_COLLECTION_DETAIL
+                                       join UM in AD_USER_MST on TC.ADUM_USER_CODE equals
+                                       UM.ADUM_USER_CODE
+                                       join HS in house on TC.HOUSEID equals
+                                        HS.houseId
+                                       select new
+                                       {
+                                           ADUM_USER_NAME = UM.ADUM_USER_NAME,
+                                           PAYMENT_DATE = TC.PAYMENT_DATE,
+                                           TC_ID = TC.TC_ID,
+                                           TCAT_ID = TC.TCAT_ID,
+                                           RECEIPT_NO = TC.RECIPT_NO,
+                                           houseOwner = HS.houseOwner,
+                                           TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
+                                           RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
+                                           REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
+                                           HOUSEID = HS.ReferanceId,
+                                           RECEIVER_NAME = TC.RECEIVER_NAME,
+                                           CAMERA_IMAGE = TC.CAMERA_IMAGE,
+
+                                           RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
+
+                                       }).ToList();
+
+
+                        foreach (var x in sqlData)
+                        {
+                            Result.Add(new TaxReceiptDetailsVM()
+                            {
+                                ADUM_USER_NAME = x.ADUM_USER_NAME,
+                                TC_ID = x.TC_ID,
+                                TCAT_ID = x.TCAT_ID,
+                                RECEIPT_NO = x.RECEIPT_NO,
+                                House_Owner_NAME = x.houseOwner,
+                                PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy hh:mm tt"),
+                                TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
+                                RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
+                                REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
+                                HOUSEID = x.HOUSEID,
+                                RECEIVER_NAME = x.RECEIVER_NAME,
+                                RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
+                                CAMERA_IMAGE = x.CAMERA_IMAGE,
+
+                            });
+                        }
+
+                    }
+                
             }
             return Result;
         }
 
-        public List<TaxReceiptDetailsVM> getTaxReminderReport(int q, string fromDate, string toDate)
+        public List<TaxReceiptDetailsVM> getTaxReminderReport(int q, int t,string fromDate, string toDate,int AppId)
         {
             List<TaxReceiptDetailsVM> Result = new List<TaxReceiptDetailsVM>();
 
@@ -763,45 +914,105 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             DateTime Dateeee = DateTime.ParseExact(toDate, "d/M/yyyy", CultureInfo.InvariantCulture);
             DateTime _tdate = new DateTime(Dateeee.Year, Dateeee.Month, Dateeee.Day, 23, 59, 59, 999); // Dateeee.AddDays(1).AddTicks
 
+            PropertyTaxCollectionCMSChild_Entities db1 = new PropertyTaxCollectionCMSChild_Entities(AppId);
+            PropertyTaxCollectionCMSMain_Entities db2 = new PropertyTaxCollectionCMSMain_Entities();
+            var house = db1.HouseMasters.ToList();
+
+            var AD_USER_MST = db2.AD_USER_MST.ToList();
+
+            var TAX_COLLECTION_DETAIL = db2.TAX_COLLECTION_DETAIL.ToList();
 
             using (PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities())
             {
-
-                var sqlData = (from TC in db.TAX_COLLECTION_DETAIL
-                                   //join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
-                               where TC.REMINDER_NEW_DATE >= _fdate & TC.REMINDER_NEW_DATE < _tdate
-                               select new
-                               {
-
-                                   TC_ID = TC.TC_ID,
-                                   TCAT_ID = TC.TCAT_ID,
-                                   RECEIPT_NO = TC.RECIPT_NO,
-                                   TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
-                                   RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
-                                   REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
-                                   HOUSEID = TC.HOUSEID,
-                                   RECEIVER_NAME = TC.RECEIVER_NAME,
-                                   RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
-                                   PAYMENT_DATE = TC.PAYMENT_DATE,
-                               }).ToList();
-
-
-                foreach (var x in sqlData)
+                if (q == -1)
                 {
-                    Result.Add(new TaxReceiptDetailsVM()
+                    var sqlData = (from TC in TAX_COLLECTION_DETAIL
+                                   join UM in AD_USER_MST on TC.ADUM_USER_CODE equals UM.ADUM_USER_CODE
+                                   join HS in house on TC.HOUSEID equals HS.houseId
+                                   where TC.REMINDER_NEW_DATE >= _fdate & TC.REMINDER_NEW_DATE < _tdate & TC.TCAT_ID == t
+                                   select new
+                                   {
+                                       ADUM_USER_NAME = UM.ADUM_USER_NAME,
+                                       TC_ID = TC.TC_ID,
+                                       TCAT_ID = TC.TCAT_ID,
+                                       RECEIPT_NO = TC.RECIPT_NO,
+                                       TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
+                                       RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
+                                       REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
+                                       HOUSEID = HS.ReferanceId,
+                                       REASON = TC.REASON,
+                                       RECEIVER_NAME = TC.RECEIVER_NAME,
+                                       RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
+                                       PAYMENT_DATE = TC.PAYMENT_DATE,
+                                       TaxRemImage = TC.TaxRemImage,
+                                   }).ToList();
+
+
+                    foreach (var x in sqlData)
                     {
-                        TC_ID = x.TC_ID,
-                        TCAT_ID = x.TCAT_ID,
-                        RECEIPT_NO = x.RECEIPT_NO,
-                        TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
-                        RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
-                        REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
-                    //    HOUSEID = x.HOUSEID,
-                        RECEIVER_NAME = x.RECEIVER_NAME,
-                        RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
-                        PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
-                    });
+                        Result.Add(new TaxReceiptDetailsVM()
+                        {
+                            ADUM_USER_NAME = x.ADUM_USER_NAME,
+                            TC_ID = x.TC_ID,
+                            TCAT_ID = x.TCAT_ID,
+                            RECEIPT_NO = x.RECEIPT_NO,
+                            TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
+                            RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
+                            REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
+                            HOUSEID = x.HOUSEID,
+                            REASON = x.REASON,
+                            RECEIVER_NAME = x.RECEIVER_NAME,
+                            RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
+                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
+                            TaxRemImage = x.TaxRemImage,
+                        });
+                    }
                 }
+                else
+                {
+                    var sqlData = (from TC in TAX_COLLECTION_DETAIL
+                                   join UM in AD_USER_MST on TC.ADUM_USER_CODE equals UM.ADUM_USER_CODE
+                                   join HS in house on TC.HOUSEID equals HS.houseId
+                                   where TC.REMINDER_NEW_DATE >= _fdate & TC.REMINDER_NEW_DATE < _tdate & TC.TCAT_ID == t & TC.ADUM_USER_CODE==q
+                                   select new
+                                   {
+                                       ADUM_USER_NAME = UM.ADUM_USER_NAME,
+                                       TC_ID = TC.TC_ID,
+                                       TCAT_ID = TC.TCAT_ID,
+                                       RECEIPT_NO = TC.RECIPT_NO,
+                                       TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
+                                       RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
+                                       REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
+                                       HOUSEID = HS.ReferanceId,
+                                       RECEIVER_NAME = TC.RECEIVER_NAME,
+                                       REASON = TC.REASON,
+                                       RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
+                                       PAYMENT_DATE = TC.PAYMENT_DATE,
+                                       TaxRemImage = TC.TaxRemImage,
+                                   }).ToList();
+
+
+                    foreach (var x in sqlData)
+                    {
+                        Result.Add(new TaxReceiptDetailsVM()
+                        {
+                            ADUM_USER_NAME = x.ADUM_USER_NAME,
+                            TC_ID = x.TC_ID,
+                            TCAT_ID = x.TCAT_ID,
+                            RECEIPT_NO = x.RECEIPT_NO,
+                            TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
+                            RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
+                            REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
+                            HOUSEID = x.HOUSEID,
+                            REASON = x.REASON,
+                            RECEIVER_NAME = x.RECEIVER_NAME,
+                            RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
+                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
+                            TaxRemImage = x.TaxRemImage,
+                        });
+                    }
+                
+            }
             }
             return Result;
         }

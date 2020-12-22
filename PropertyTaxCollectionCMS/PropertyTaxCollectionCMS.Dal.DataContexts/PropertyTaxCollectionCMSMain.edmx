@@ -345,7 +345,9 @@
           <Property Name="CHEQUE_BANK_NAME" Type="varchar" MaxLength="100" />
           <Property Name="CHEQUE_IMAGE" Type="nvarchar(max)" />
           <Property Name="CREATED_DATE" Type="datetime" />
-          <Property Name="CAMERA_IMAGE" Type="nvarchar" MaxLength="1" />
+          <Property Name="CAMERA_IMAGE" Type="nvarchar(max)" />
+          <Property Name="REASON" Type="varchar" MaxLength="50" />
+          <Property Name="TaxRemImage" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TAX_PAYMENT_TYPE">
           <Key>
@@ -753,7 +755,9 @@
           <Property Name="CHEQUE_BANK_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="CHEQUE_IMAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CREATED_DATE" Type="DateTime" Precision="3" />
-          <Property Name="CAMERA_IMAGE" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Name="CAMERA_IMAGE" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="REASON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TaxRemImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1105,6 +1109,8 @@
           <EntitySetMapping Name="TAX_COLLECTION_DETAIL">
             <EntityTypeMapping TypeName="PropertyTaxCollectionCMSMain_Model.TAX_COLLECTION_DETAIL">
               <MappingFragment StoreEntitySet="TAX_COLLECTION_DETAIL">
+                <ScalarProperty Name="TaxRemImage" ColumnName="TaxRemImage" />
+                <ScalarProperty Name="REASON" ColumnName="REASON" />
                 <ScalarProperty Name="CAMERA_IMAGE" ColumnName="CAMERA_IMAGE" />
                 <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
                 <ScalarProperty Name="CHEQUE_IMAGE" ColumnName="CHEQUE_IMAGE" />

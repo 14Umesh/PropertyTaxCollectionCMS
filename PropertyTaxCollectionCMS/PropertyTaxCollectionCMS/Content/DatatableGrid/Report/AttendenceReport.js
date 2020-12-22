@@ -2,7 +2,7 @@
     var UserId = $('#selectnumber').val();
     $.ajax({
         type: "POST",
-        url: "/Master/EmployeeList",
+        url: "/Report/GetEmployeeList",
         data: { userId: UserId },
         datatype: "json",
         traditional: true,

@@ -11,13 +11,14 @@
             "data": {
                 "fromDate": fdate,
                 "toDate": tdate,
-                "q": 2
+                "q": -1
             },
             "tye": "GET",
             "datatype": "json",
         },
 
         "columns": [
+               { "data": "ADUM_USER_NAME" },
               { "data": "TC_ID" },
               //{ "data": "TCAT_ID" },
               { "data": "RECEIPT_NO" },
@@ -52,14 +53,30 @@
 
 });
 
-
+var UserId = $('#selectnumber').val();
+debugger
+$.ajax({
+    type: "POST",
+    url: "/Report/GetEmployeeList",
+    data: { ADUM_USER_CODE: UserId },
+    datatype: "json",
+    traditional: true,
+    success: function (data) {
+        district = '<option value="-1">Select Employee</option>';
+        for (var i = 0; i < data.length; i++) {
+            district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+        }
+        //district = district + '</select>';
+        $('#selectnumber').html(district);
+    }
+});
 function Datatable() {
 
     $("#datatable").dataTable().fnDestroy();
     var fdate1 = $('#txt_fdate').val();
     var tdate1 = $('#txt_tdate').val();
     //var UserID1 = $('#EmployeeID').val();
-
+    var UserId = $('#selectnumber').val();
     $('#datatable').DataTable({
         "pageLength": 10,
         "order": [[0, "desc"]],
@@ -68,13 +85,14 @@ function Datatable() {
             "data": {
                 "fromDate": fdate1,
                 "toDate": tdate1,
-                "q": 2
+                "q": UserId
             },
             "tye": "GET",
             "datatype": "json",
         },
 
         "columns": [
+               { "data": "ADUM_USER_NAME" },
                 { "data": "TC_ID" },
                 //{ "data": "TCAT_ID" },
                 { "data": "RECEIPT_NO" },
