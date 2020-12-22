@@ -43,7 +43,7 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels.Master
         public string status { get; set; }
        
 
-        public List<SelectListItem> UserList { get; set; }
+     
 
     }
 

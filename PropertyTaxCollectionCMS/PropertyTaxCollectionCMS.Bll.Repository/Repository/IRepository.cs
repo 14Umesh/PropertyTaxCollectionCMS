@@ -28,7 +28,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
         Result EmployeeSave(EmployeeVM _Employee);
         EmployeeVM getEmployeeDetailsByID(int q);
 
-       
+     
         Result ClientSave(ClientVM _client);
         List<ClientVM> getClientDetails();
         ClientVM getClientDetailsByID(int q);

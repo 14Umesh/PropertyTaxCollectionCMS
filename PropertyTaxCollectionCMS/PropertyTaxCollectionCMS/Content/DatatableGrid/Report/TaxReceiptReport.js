@@ -42,8 +42,8 @@
     var UserId = $('#selectnumber').val();
     debugger
     $.ajax({
-        type: "GET",
-        url: "/Master/GetEmployeeList",
+        type: "POST",
+        url: "/Master/EmployeeList",
         data: { ADUM_USER_CODE: UserId },
         datatype: "json",
         traditional: true,

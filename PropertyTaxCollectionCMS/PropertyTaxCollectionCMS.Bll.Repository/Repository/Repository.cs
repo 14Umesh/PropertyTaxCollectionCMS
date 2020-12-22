@@ -524,7 +524,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
                         RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
                         REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
-                        HOUSEID = x.HOUSEID,
+                        //HOUSEID = x.HOUSEID,
                         RECEIVER_NAME = x.RECEIVER_NAME,
                         RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
                     });
@@ -552,7 +552,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
                                    RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
                                    REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
-                                   HOUSEID = TC.HOUSEID,
+                                   //HOUSEID = TC.HOUSEID,
                                    RECEIVER_NAME = TC.RECEIVER_NAME,
                                    RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
                                }).ToList();
@@ -568,7 +568,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
                         RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
                         REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
-                        HOUSEID = x.HOUSEID,
+                        //HOUSEID = x.HOUSEID,
                         RECEIVER_NAME = x.RECEIVER_NAME,
                         RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
                     });
@@ -630,7 +630,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             }
         }
 
-        public List<TaxReceiptDetailsVM> getTaxPaymentReport(int q, string fromDate, string toDate)
+        public List<TaxReceiptDetailsVM> getTaxPaymentReport(int q, string fromDate, string toDate,int AppId)
         {
             List<TaxReceiptDetailsVM> Result = new List<TaxReceiptDetailsVM>();
 
@@ -643,8 +643,11 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             using (PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities())
             {
 
-                var sqlData = (from TC in db.TAX_COLLECTION_DETAIL
-                                   //join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
+                PropertyTaxCollectionCMSChild_Entities db1 = new PropertyTaxCollectionCMSChild_Entities(AppId);
+                var house = db1.HouseMasters.ToList();          
+                var TAX_COLLECTION_DETAIL = db.TAX_COLLECTION_DETAIL.Where(c => c.PAYMENT_DATE >= _fdate & c.PAYMENT_DATE < _tdate & c.ADUM_USER_CODE == q).ToList();
+                var sqlData = (from TC in TAX_COLLECTION_DETAIL
+                                join HS in house on TC.HOUSEID equals HS.houseId
                                where TC.PAYMENT_DATE >= _fdate & TC.PAYMENT_DATE < _tdate & TC.TCAT_ID == q
                                select new
                                {
@@ -654,7 +657,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
                                    RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
                                    REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
-                                   HOUSEID = TC.HOUSEID,
+                                   HOUSEID = HS.ReferanceId,
                                    RECEIVER_NAME = TC.RECEIVER_NAME,
                                    RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
                                    PAYMENT_DATE = TC.PAYMENT_DATE,
@@ -720,7 +723,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
                                    RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
                                    REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
-                                   HOUSEID = TC.HOUSEID,
+                                   HOUSEID =HS.ReferanceId,
                                    RECEIVER_NAME = TC.RECEIVER_NAME,
 
 
@@ -776,7 +779,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
                                    RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
                                    REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
-                                   HOUSEID = TC,
+                                   HOUSEID = TC.HOUSEID,
                                    RECEIVER_NAME = TC.RECEIVER_NAME,
                                    RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
                                    PAYMENT_DATE = TC.PAYMENT_DATE,
@@ -793,7 +796,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
                         RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
                         REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
-                        //HOUSEID = x.HOUSEID,
+                    //    HOUSEID = x.HOUSEID,
                         RECEIVER_NAME = x.RECEIVER_NAME,
                         RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
                         PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
@@ -1010,10 +1013,5 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
                 return userLocation;
             }
-
-        public List<TaxReceiptDetailsVM> getTaxPaymentReport(int q, string fromDate, string toDate, int AppId)
-        {
-            throw new NotImplementedException();
         }
-    }
     }
