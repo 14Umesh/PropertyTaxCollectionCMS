@@ -30,12 +30,12 @@
 
                 {
                     data: "RECEIVER_SIGNATURE", name: "RECEIVER_SIGNATURE",
-                    render: function (data, type, row, full, meta) {
+                    render: function (data, type, row, meta) {
                         //var imgsrc = data; // here data should be in base64 string
                         //return '<img class="img-responsive" src="' + imgsrc + '" alt="RECEIVER_SIGNATURE"height="40px" width="60px">';
                         return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img alt='No Photo'  src='" + data +
-                             "' style='height:43px;width:43px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + full["PAYMENT_DATE"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
-                             + full["RECEIVER_NAME"] + "</li><li style='display:none' class='li_title' >Photo </li></ul></span></div>";
+                             "' style='height:43px;width:43px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + row["PAYMENT_DATE"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
+                             + row["RECEIVER_NAME"] + "</li><li style='display:none' class='li_title' >Photo </li></ul></span></div>";
                     }
                 },
           {
@@ -75,7 +75,7 @@ function PopImages(cel) {
     $('#myModal_Image').modal('toggle');
     debugger
     var addr = $(cel).find('.addr-length').text();
-    var date = $(cel).find('.li_date').number();
+    var date = $(cel).find('.li_date').text();
     var imgsrc = $(cel).find('img').attr('src');
     var head = $(cel).find('.li_title').text();
     jQuery("#latlongData").text(addr);
