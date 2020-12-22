@@ -1,30 +1,18 @@
 ﻿$(document).ready(function () {
-    var UserId = $('#selectnumber').val();
-    $.ajax({
-        type: "POST",
-        url: "/Report/GetEmployeeList",
-        data: { userId: UserId },
-        datatype: "json",
-        traditional: true,
-        success: function (data) {
-            district = '<option value="-1">Select Employee</option>';
-            for (var i = 0; i < data.length; i++) {
-                district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
-            }
-            //district = district + '</select>';
-            $('#selectnumber').html(district);
-        }
-    });
+  
     var fdate = $('#txt_fdate').val();
     var tdate = $('#txt_tdate').val();
-
+    var UserId = $('#selectnumber').val();
     $('#datatable').DataTable({
         "pageLength": 10,
         "ajax": {
             "url": "/Report/getAttendenceReport/",
             "data": {
                 "fromDate": fdate,
-                "toDate": tdate
+                "toDate": tdate,
+                "q": -1
+
+
             },
             "tye": "GET",
             "datatype": "json",
@@ -45,12 +33,28 @@
 
 });
 
+var UserId = $('#selectnumber').val();
+$.ajax({
+    type: "POST",
+    url: "/Report/GetEmployeeList",
+    data: { userId: UserId },
+    datatype: "json",
+    traditional: true,
+    success: function (data) {
+        district = '<option value="-1">Select Employee</option>';
+        for (var i = 0; i < data.length; i++) {
+            district = district + '<option value=' + data[i].Value + '>' + data[i].Text + '</option>';
+        }
+        //district = district + '</select>';
+        $('#selectnumber').html(district);
+    }
+});
 function Datatable() {
 
     $("#datatable").dataTable().fnDestroy();
     var fdate = $('#txt_fdate').val();
     var tdate = $('#txt_tdate').val();
-    
+    var UserId = $('#selectnumber').val();
 
     $('#datatable').DataTable({
         "pageLength": 10,
@@ -58,7 +62,8 @@ function Datatable() {
             "url": "/Report/getAttendenceReport/",
             "data": {
                 "fromDate": fdate,
-                "toDate": tdate
+                "toDate": tdate,
+                "q": UserId
             },
             "tye": "GET",
             "datatype": "json",

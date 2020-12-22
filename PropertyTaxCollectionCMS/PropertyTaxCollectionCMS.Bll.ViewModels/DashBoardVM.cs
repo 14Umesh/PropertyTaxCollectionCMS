@@ -47,6 +47,8 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels
 
         public string REASON { get; set; }
         public string RECEIVER_NAME { get; set; }
+
+        public string CHEQUE_IMAGE { get; set; }
         public string RECEIVER_SIGNATURE { get; set; }
 
         public string CAMERA_IMAGE { get; set; }
