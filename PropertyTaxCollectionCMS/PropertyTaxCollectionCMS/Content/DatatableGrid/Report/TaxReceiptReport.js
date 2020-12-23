@@ -96,6 +96,7 @@ function Datatable() {
         "pageLength": 10,
         "order": [[0, "desc"]],
         "processing": true, // for show progress bar
+        "order": [[0, "desc"]],
         "ajax": {
             "url": "/Report/getTaxReceiptReport",
             "data": {

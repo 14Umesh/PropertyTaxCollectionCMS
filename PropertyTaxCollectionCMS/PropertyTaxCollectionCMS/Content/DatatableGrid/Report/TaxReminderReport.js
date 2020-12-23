@@ -6,7 +6,8 @@
     $('#datatable').DataTable({
         "pageLength": 10,
         "order": [[0, "desc"]],
-        "responsive":true,
+        "responsive": true,
+        "processing": true,
         "ajax": {
             "url": "/Report/getTaxReminderReport",
             "data": {

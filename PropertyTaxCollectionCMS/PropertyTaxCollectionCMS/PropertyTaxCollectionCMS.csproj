@@ -508,7 +508,9 @@
     <Content Include="Content\theme-assets\assets\icon\weather-icons\fonts\weathericons-regular-webfont.svg" />
     <Content Include="Content\theme-assets\assets\icon\weather-icons\weather-custom.js" />
     <Content Include="Content\theme-assets\assets\images\animate.jpg" />
+    <Content Include="Content\theme-assets\assets\images\auth\BC_Image_new.jpg" />
     <Content Include="Content\theme-assets\assets\images\auth\bg.jpg" />
+    <Content Include="Content\theme-assets\assets\images\auth\ic_launcher.png" />
     <Content Include="Content\theme-assets\assets\images\auth\Logo-small-bottom.png" />
     <Content Include="Content\theme-assets\assets\images\auth\logo.png" />
     <Content Include="Content\theme-assets\assets\images\avatar-1.jpg" />
@@ -553,6 +555,7 @@
     <Content Include="Content\theme-assets\assets\images\gallery-grid\masonry-6.jpg" />
     <Content Include="Content\theme-assets\assets\images\gallery-grid\masonry-7.jpg" />
     <Content Include="Content\theme-assets\assets\images\gallery-grid\masonry-8.jpg" />
+    <Content Include="Content\theme-assets\assets\images\ic_launcher.png" />
     <Content Include="Content\theme-assets\assets\images\light-box\l1.jpg" />
     <Content Include="Content\theme-assets\assets\images\light-box\l2.jpg" />
     <Content Include="Content\theme-assets\assets\images\light-box\l3.jpg" />
@@ -1758,7 +1761,9 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Images\202 Dateformat.png" />
+    <Content Include="Images\BC_Image_new.jpg" />
     <Content Include="Images\default-profile.png" />
+    <Content Include="Images\ic_launcher.png" />
     <Content Include="Images\NishiPhoto.png" />
     <Content Include="Images\Tax_Collection_Logo.png" />
     <Content Include="Scripts\admin.js" />
