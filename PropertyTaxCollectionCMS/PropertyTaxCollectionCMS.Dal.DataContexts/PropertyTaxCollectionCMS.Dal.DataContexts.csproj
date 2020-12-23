@@ -228,6 +228,9 @@
     <Compile Include="SP_EmployeeTarget_Result.cs">
       <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_EmployeeTaxCollectionType_Result.cs">
+      <DependentUpon>PropertyTaxCollectionCMSMain.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_GetLiveTracking_Result.cs">
       <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
     </Compile>

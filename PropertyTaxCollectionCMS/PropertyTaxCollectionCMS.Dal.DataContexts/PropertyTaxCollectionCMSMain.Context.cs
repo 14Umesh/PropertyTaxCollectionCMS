@@ -12,6 +12,8 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class PropertyTaxCollectionCMSMain_Entities : DbContext
     {
@@ -47,5 +49,10 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
         public virtual DbSet<TAX_PAYMENT_TYPE> TAX_PAYMENT_TYPE { get; set; }
         public virtual DbSet<AD_USER_MST> AD_USER_MST { get; set; }
         public virtual DbSet<TAX_COLLECTION_DETAIL> TAX_COLLECTION_DETAIL { get; set; }
+    
+        public virtual ObjectResult<SP_EmployeeTaxCollectionType_Result> SP_EmployeeTaxCollectionType()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_EmployeeTaxCollectionType_Result>("SP_EmployeeTaxCollectionType");
+        }
     }
 }

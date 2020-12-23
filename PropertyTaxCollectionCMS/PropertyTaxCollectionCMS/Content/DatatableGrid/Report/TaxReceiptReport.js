@@ -5,8 +5,9 @@
     debugger;
     $('#datatable').DataTable({
         "pageLength": 10,
-        "order": [[0, "desc"]],
-        "processing": true, // for show progress bar
+        //"order": [[0, "desc"]],
+        "responsive": true,
+        "processing": true,
         "ajax": {
             "url": "/Report/getTaxReceiptReport",
             "data": {
@@ -94,8 +95,9 @@ function Datatable() {
 
     $('#datatable').DataTable({
         "pageLength": 10,
-        "order": [[0, "desc"]],
-        "processing": true, // for show progress bar
+        //"order": [[0, "desc"]],
+        "responsive": true,
+        "processing": true,
         "ajax": {
             "url": "/Report/getTaxReceiptReport",
             "data": {

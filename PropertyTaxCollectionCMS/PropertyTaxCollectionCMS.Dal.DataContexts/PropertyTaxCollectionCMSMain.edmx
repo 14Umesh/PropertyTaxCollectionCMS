@@ -356,6 +356,7 @@
           <Property Name="TPAY_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TPAY_TYPE" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Function Name="SP_EmployeeTaxCollectionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="PropertyTaxCollectionCMSMain_ModelStoreContainer">
           <EntitySet Name="AD_CITY_MST" EntityType="Self.AD_CITY_MST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AD_CLIENT_DETAIL_MST" EntityType="Self.AD_CLIENT_DETAIL_MST" Schema="dbo" store:Type="Tables" />
@@ -700,6 +701,7 @@
           <EntitySet Name="TAX_PAYMENT_TYPE" EntityType="Self.TAX_PAYMENT_TYPE" />
           <EntitySet Name="AD_USER_MST" EntityType="PropertyTaxCollectionCMSMain_Model.AD_USER_MST" />
           <EntitySet Name="TAX_COLLECTION_DETAIL" EntityType="PropertyTaxCollectionCMSMain_Model.TAX_COLLECTION_DETAIL" />
+          <FunctionImport Name="SP_EmployeeTaxCollectionType" ReturnType="Collection(PropertyTaxCollectionCMSMain_Model.SP_EmployeeTaxCollectionType_Result)" />
         </EntityContainer>
         <EntityType Name="AD_USER_MST">
           <Key>
@@ -759,6 +761,16 @@
           <Property Name="REASON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TaxRemImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="SP_EmployeeTaxCollectionType_Result">
+          <Property Type="Int32" Name="ADUM_USER_CODE" Nullable="false" />
+          <Property Type="DateTime" Name="TodayDate" Nullable="true" />
+          <Property Type="String" Name="ADUM_USER_NAME" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="inTime" Nullable="true" MaxLength="5" />
+          <Property Type="Int32" Name="Count" Nullable="true" />
+          <Property Type="Int32" Name="TaxReceipt" Nullable="true" />
+          <Property Type="Int32" Name="TaxPayment" Nullable="true" />
+          <Property Type="Int32" Name="TaxRemainder" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1138,6 +1150,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_EmployeeTaxCollectionType" FunctionName="PropertyTaxCollectionCMSMain_Model.Store.SP_EmployeeTaxCollectionType">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PropertyTaxCollectionCMSMain_Model.SP_EmployeeTaxCollectionType_Result">
+                <ScalarProperty Name="ADUM_USER_CODE" ColumnName="ADUM_USER_CODE" />
+                <ScalarProperty Name="TodayDate" ColumnName="TodayDate" />
+                <ScalarProperty Name="ADUM_USER_NAME" ColumnName="ADUM_USER_NAME" />
+                <ScalarProperty Name="inTime" ColumnName="inTime" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="TaxReceipt" ColumnName="TaxReceipt" />
+                <ScalarProperty Name="TaxPayment" ColumnName="TaxPayment" />
+                <ScalarProperty Name="TaxRemainder" ColumnName="TaxRemainder" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

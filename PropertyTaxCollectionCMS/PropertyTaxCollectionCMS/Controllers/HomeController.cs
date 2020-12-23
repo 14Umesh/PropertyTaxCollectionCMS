@@ -1,5 +1,6 @@
 ﻿using PropertyTaxCollectionCMS.Bll.Repository.Repository;
 using PropertyTaxCollectionCMS.Bll.ViewModels;
+using PropertyTaxCollectionCMS.Bll.ViewModels.Master;
 using PropertyTaxCollectionCMS.Models.SessionHandler;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,22 @@ namespace PropertyTaxCollectionCMS.Controllers
             {
                 return Redirect("/Account/Login");
             }
+        }
+        [HttpGet]
+        public ActionResult EmployeeTaxCollectionType()
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+
+                IEnumerable<EmployeeTaxCollectionType> obj;
+
+              
+
+                obj = Repository.getEmployeeTaxCollectionType(SessionHandler.Current.AppId);
+                return Json(obj, JsonRequestBehavior.AllowGet);
+            }
+            else
+                return Redirect("/Account/Login");
         }
 
         public ActionResult About()
