@@ -479,6 +479,31 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             return Result;
         }
 
+        public IEnumerable<EmployeeTaxCollectionType> getEmployeeTaxCollectionType(int appId)
+        {
+            List<EmployeeTaxCollectionType> obj = new List<EmployeeTaxCollectionType>();
+            using (var db = new PropertyTaxCollectionCMSMain_Entities())
+            {
+                var data = db.SP_EmployeeTaxCollectionType().ToList();
+
+                foreach (var x in data)
+                {
+                    obj.Add(new EmployeeTaxCollectionType()
+                    {
+                        inTime = x.inTime,
+                        Count = x.Count,
+                        TodayDate = x.TodayDate.ToString(),
+                        TaxReceipt = x.TaxReceipt,
+                        TaxPayment = x.TaxPayment,
+                        TaxRemainder = x.TaxRemainder,
+                        ADUM_USER_CODE = x.ADUM_USER_CODE,
+                        ADUM_USER_NAME = x.ADUM_USER_NAME
+                    });
+                }
+                return obj.OrderBy(c => c.ADUM_USER_NAME);
+            }
+        }
+
         public List<AttendanceDetailsVM> getAttendenceDetails()
         {
             List<AttendanceDetailsVM> Result = new List<AttendanceDetailsVM>();
@@ -681,8 +706,8 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    join UM in AD_USER_MST on TC.ADUM_USER_CODE equals
                                UM.ADUM_USER_CODE
                                    where TC.PAYMENT_DATE >= _fdate & TC.PAYMENT_DATE < _tdate
-                                  & TC.TCAT_ID == t
-                                  
+                                  & TC.TCAT_ID == t   orderby TC.PAYMENT_DATE descending
+
                                    select new
                                    {
                                        ADUM_USER_NAME = UM.ADUM_USER_NAME,
@@ -719,7 +744,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                             CHEQUE_IMAGE = x.CHEQUE_IMAGE,
                             RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
                             CAMERA_IMAGE = x.CAMERA_IMAGE,
-                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
+                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy hh:mm tt"),
                         });
                     }
                 }
@@ -733,6 +758,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                     where TC.PAYMENT_DATE >= _fdate & TC.PAYMENT_DATE < _tdate
                                    & TC.TCAT_ID == t 
                                    & TC.ADUM_USER_CODE == q
+                                    orderby TC.PAYMENT_DATE descending
                                     select new
                                    {
                                         ADUM_USER_NAME = UM.ADUM_USER_NAME,
@@ -769,7 +795,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                             CHEQUE_IMAGE = x.CHEQUE_IMAGE,
                             RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
                             CAMERA_IMAGE = x.CAMERA_IMAGE,
-                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
+                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy hh:mm tt"),
                         });
                     }
                 }
@@ -809,6 +835,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    UM.ADUM_USER_CODE
                                    join HS in house on TC.HOUSEID equals
                                     HS.houseId
+                                   orderby TC.PAYMENT_DATE descending
                                    select new
                                    {
                                        ADUM_USER_NAME = UM.ADUM_USER_NAME,
@@ -861,6 +888,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                        UM.ADUM_USER_CODE
                                        join HS in house on TC.HOUSEID equals
                                         HS.houseId
+                                       orderby TC.PAYMENT_DATE descending
                                        select new
                                        {
                                            ADUM_USER_NAME = UM.ADUM_USER_NAME,
@@ -934,9 +962,11 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    join UM in AD_USER_MST on TC.ADUM_USER_CODE equals UM.ADUM_USER_CODE
                                    join HS in house on TC.HOUSEID equals HS.houseId
                                    where TC.REMINDER_NEW_DATE >= _fdate & TC.REMINDER_NEW_DATE < _tdate & TC.TCAT_ID == t
+                                   orderby TC.REMINDER_NEW_DATE descending
                                    select new
                                    {
                                        ADUM_USER_NAME = UM.ADUM_USER_NAME,
+                                       REMINDER_NEW_DATE = TC.REMINDER_NEW_DATE,
                                        TC_ID = TC.TC_ID,
                                        TCAT_ID = TC.TCAT_ID,
                                        RECEIPT_NO = TC.RECIPT_NO,
@@ -958,6 +988,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         Result.Add(new TaxReceiptDetailsVM()
                         {
                             ADUM_USER_NAME = x.ADUM_USER_NAME,
+                            REMINDER_NEW_DATE = Convert.ToDateTime(x.REMINDER_NEW_DATE).ToString("dd/MM/yyyy hh:mm tt"),
                             TC_ID = x.TC_ID,
                             TCAT_ID = x.TCAT_ID,
                             RECEIPT_NO = x.RECEIPT_NO,
@@ -969,7 +1000,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                             REASON = x.REASON,
                             RECEIVER_NAME = x.RECEIVER_NAME,
                             RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
-                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
+                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy hh:mm tt"),
                             TaxRemImage = x.TaxRemImage,
                         });
                     }
@@ -980,9 +1011,11 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    join UM in AD_USER_MST on TC.ADUM_USER_CODE equals UM.ADUM_USER_CODE
                                    join HS in house on TC.HOUSEID equals HS.houseId
                                    where TC.REMINDER_NEW_DATE >= _fdate & TC.REMINDER_NEW_DATE < _tdate & TC.TCAT_ID == t & TC.ADUM_USER_CODE==q
+                                   orderby TC.REMINDER_NEW_DATE descending
                                    select new
                                    {
                                        ADUM_USER_NAME = UM.ADUM_USER_NAME,
+                                       REMINDER_NEW_DATE = TC.REMINDER_NEW_DATE,
                                        TC_ID = TC.TC_ID,
                                        TCAT_ID = TC.TCAT_ID,
                                        RECEIPT_NO = TC.RECIPT_NO,
@@ -1004,6 +1037,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         Result.Add(new TaxReceiptDetailsVM()
                         {
                             ADUM_USER_NAME = x.ADUM_USER_NAME,
+                            REMINDER_NEW_DATE = Convert.ToDateTime(x.REMINDER_NEW_DATE).ToString("dd/MM/yyyy hh:mm tt"),
                             TC_ID = x.TC_ID,
                             TCAT_ID = x.TCAT_ID,
                             RECEIPT_NO = x.RECEIPT_NO,
@@ -1015,7 +1049,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                             REASON = x.REASON,
                             RECEIVER_NAME = x.RECEIVER_NAME,
                             RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
-                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy"),
+                            PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy hh:mm tt"),
                             TaxRemImage = x.TaxRemImage,
                         });
                     }

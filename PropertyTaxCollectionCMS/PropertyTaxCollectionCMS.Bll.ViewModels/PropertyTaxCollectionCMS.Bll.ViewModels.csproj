@@ -48,6 +48,7 @@
     <Compile Include="CommonVM.cs" />
     <Compile Include="DashBoardVM.cs" />
     <Compile Include="Master\BaseVM.cs" />
+    <Compile Include="Master\EmployeeTaxCollectionType.cs" />
     <Compile Include="Master\MasterVM.cs" />
     <Compile Include="Master\PTCUserLocationMapView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

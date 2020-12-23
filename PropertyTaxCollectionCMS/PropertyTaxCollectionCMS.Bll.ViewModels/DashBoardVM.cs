@@ -40,6 +40,8 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels
         public int TCAT_ID { get; set; }
         public string RECEIPT_NO { get; set; }
         public string PAYMENT_DATE { get; set; }
+
+        public string REMINDER_NEW_DATE { get; set; }
         public decimal TOTAL_AMOUNT { get; set; }
         public decimal RECEIVED_AMOUNT { get; set; }
         public decimal REMAINING_AMOUNT { get; set; }

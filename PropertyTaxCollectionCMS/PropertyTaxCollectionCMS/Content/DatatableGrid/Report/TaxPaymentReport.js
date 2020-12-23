@@ -5,7 +5,7 @@
 
     $('#datatable').DataTable({
         "pageLength": 10,
-        "order": [[0, "desc"]],
+        //"order": [[0, "desc"]],
         "responsive": true,
         "processing": true,
         "ajax": {
@@ -21,14 +21,15 @@
 
         "columns": [
                { "data": "ADUM_USER_NAME" },
-              { "data": "TC_ID" },
+                { "data": "PAYMENT_DATE" },
+             // { "data": "TC_ID" },
               //{ "data": "TCAT_ID" },
               { "data": "RECEIPT_NO" },
               { "data": "RECEIVER_NAME" },
               { "data": "TOTAL_AMOUNT" },
               { "data": "RECEIVED_AMOUNT" },
               { "data": "REMAINING_AMOUNT" },
-              { "data": "PAYMENT_DATE" },
+             
               { "data": "HOUSEID" },
               { "data": "House_Owner_NAME" },
 
@@ -86,7 +87,7 @@ $.ajax({
     }
 });
 function Datatable() {
-
+    debugger;
     $("#datatable").dataTable().fnDestroy();
     var fdate1 = $('#txt_fdate').val();
     var tdate1 = $('#txt_tdate').val();
@@ -94,7 +95,9 @@ function Datatable() {
     var UserId = $('#selectnumber').val();
     $('#datatable').DataTable({
         "pageLength": 10,
-        "order": [[0, "desc"]],
+        //"order": [[0, "desc"]],
+        "responsive": true,
+        "processing": true,
         "ajax": {
             "url": "/Report/getTaxPaymentReport",
             "data": {
@@ -108,14 +111,14 @@ function Datatable() {
 
         "columns": [
                { "data": "ADUM_USER_NAME" },
-                { "data": "TC_ID" },
+                 { "data": "PAYMENT_DATE" },
+                //{ "data": "TC_ID" },
                 //{ "data": "TCAT_ID" },
                 { "data": "RECEIPT_NO" },
                 { "data": "RECEIVER_NAME" },
                 { "data": "TOTAL_AMOUNT" },
                 { "data": "RECEIVED_AMOUNT" },
                 { "data": "REMAINING_AMOUNT" },
-                { "data": "PAYMENT_DATE" },
                 { "data": "HOUSEID" },
                 { "data": "House_Owner_NAME" },
 

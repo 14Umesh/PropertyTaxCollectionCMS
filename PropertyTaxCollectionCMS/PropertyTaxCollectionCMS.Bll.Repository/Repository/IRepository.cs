@@ -33,6 +33,9 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
         List<ClientVM> getClientDetails();
         ClientVM getClientDetailsByID(int q);
         List<DashBoardVM> getAttendenceDetailsOnMap(int AppID);
+
+
+        IEnumerable<EmployeeTaxCollectionType> getEmployeeTaxCollectionType(int AppID);
         List<AttendanceDetailsVM> getAttendenceDetails();
         List<TaxReceiptDetailsVM> getTaxReceiptDetails(int q);
         List<TaxReceiptDetailsVM> getTaxReminderDetails(int q);
