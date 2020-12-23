@@ -151,13 +151,93 @@ V330.674z" /><path d="M362.67,277.341c-11.76,0-21.333,9.573-21.333,21.333c0,11.7
     </div>
 </div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD6eobSmi6nEV2h0TkRolQ5x6JjShuaHEs&callback=myMap" type="text/javascript"></script>
     <!-- Resources -->
 <script>
-
     $(document).ready(function () {
+        $('#refresh').click(function () {
+            myMap2();
+        });
+    })
+    function myMap2() {
+        $("#wait").css("display", "block");
+        $("#googleMap").css("display", "none");
+        debugger;
         $.ajax({
-            type: "post",
-            url: "/Home/EmployeeHouseCollectionType",
+            type: "get",
+            url: "/Home/UserLocationList",
+            //url: "http://dummy.restapiexample.com/api/v1/employees",
+
+            datatype: "json",
+            traditional: true,
+            success: function (data) {
+
+                console.log(data);
+
+                $("#wait").css("display", "none");
+                $("#googleMap").css("display", "block");
+                if (data.length == 0) {
+                    var map = new google.maps.Map(document.getElementById('googleMap'), {
+                        zoom: 10,
+                        center: new google.maps.LatLng($('#deflat').val(), $('#deflang').val()),
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
+
+                }
+                var map = new google.maps.Map(document.getElementById('googleMap'), {
+
+                    center: new google.maps.LatLng(data[0].InLat, data[0].InLong),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                var infowindow = new google.maps.InfoWindow();
+                bounds = new google.maps.LatLngBounds();
+                var marker, i;
+                // Get Addres
+                for (i = 0; i < data.length; i++) {
+                    marker = new google.maps.Marker({
+                        position: new google.maps.LatLng(data[i].InLat, data[i].InLong),
+                        map: map,
+
+                        icon: {
+                            labelOrigin: new google.maps.Point(16, 65),
+                            url: "../Content/assets/images/marker24.png"
+                        },
+                        label: {
+                            text: data[i].UserName,
+                            color: "black",
+                            fontWeight: "bold",
+                            fontSize: "13px",
+                            margin: "55px"
+                        }
+                    });
+
+                    loc = new google.maps.LatLng(data[i].InLat, data[i].InLong),
+
+                    bounds.extend(loc);
+
+                    google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                        return function () {
+                            infowindow.setContent('<div class=infowindow> <h3 style="font-size:20px;">' + data[i].UserName + '</h3><p><b>In Time:</b>' + data[i].InTime + '</p></div>');
+                            infowindow.open(map, marker);
+                        }
+                    })(marker, i));
+
+
+                }
+                map.fitBounds(bounds);
+                map.panToBounds(bounds);
+
+            }
+
+        });
+    }
+//chart script
+    $(document).ready(function () {
+        debugger
+        $.ajax({
+            type: "get",
+            url: "/Home/EmployeeTaxCollectionType",
             //data: { userId: UserId, },
             datatype: "json",
             traditional: true,
@@ -170,7 +250,7 @@ V330.674z" /><path d="M362.67,277.341c-11.76,0-21.333,9.573-21.333,21.333c0,11.7
                // var emp_tar = [];
                 for (var i = 0; i < data.length; i++) {
                     // alert(data[i].inTime);
-                    var name = data[i].ADUM.USER.NAME;
+                    var name = data[i].ADUM_USER_NAME;
                     name = name.trim();
                     var lastname_array = name.split(' ');
                     var lastname_firstchar;
@@ -185,9 +265,9 @@ V330.674z" /><path d="M362.67,277.341c-11.76,0-21.333,9.573-21.333,21.333c0,11.7
                     //var fname = name.substring(0, name.indexOf(" "));
                     var fname = name.replace(/ .*/, ' ');
                     // alert(data[i]._Count)
-                    receipt.push({ y: data[i].TaxReceipt, label: 'TaxReceipt', color: '#0086c3', intime: data[i].inTime });
-                    payment.push({ y: data[i].TaxPayment, label: 'TaxPayment', color: '#fe9436', intime: data[i].inTime });
-                    remainder.push({ y: data[i].TaxRemainder, label: 'TaxRemainder', color: '#f44336', intime: data[i].inTime });
+                    receipt.push({ y: data[i].TaxReceipt, label: fname + lastname_firstchar, color: '#388e3c', intime: data[i].inTime });
+                    payment.push({ y: data[i].TaxPayment, label: fname + lastname_firstchar, color: '#f44336', intime: data[i].inTime });
+                    remainder.push({ y: data[i].TaxRemainder, label: fname + lastname_firstchar, color: '#fe9436', intime: data[i].inTime });
                    // seg.push({ y: data[i].Bifur, label: 'Segregated', color: '#388e3c', intime: data[i].inTime });
                  //   emp_tar.push({ y: parseInt(data[i].gcTarget), label: fname + lastname_firstchar, z: data[i].Count, intime: data[i].inTime });
                     // ary2.push({ y: parseInt(data[i].gcTarget), label: data[i].userName });
