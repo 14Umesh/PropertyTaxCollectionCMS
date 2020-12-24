@@ -202,6 +202,7 @@
     <Content Include="Content\DatatableGrid\dtable.js" />
     <Content Include="Content\DatatableGrid\Employee.js" />
     <Content Include="Content\DatatableGrid\Report\AttendenceReport.js" />
+    <Content Include="Content\DatatableGrid\Report\no_img_avaliable.png" />
     <Content Include="Content\DatatableGrid\Report\TaxPaymentReport.js" />
     <Content Include="Content\DatatableGrid\Report\TaxReceiptReport.js" />
     <Content Include="Content\DatatableGrid\Report\TaxReminderReport.js" />
@@ -1765,6 +1766,7 @@
     <Content Include="Images\default-profile.png" />
     <Content Include="Images\ic_launcher.png" />
     <Content Include="Images\NishiPhoto.png" />
+    <Content Include="Images\no_img_avaliable.png" />
     <Content Include="Images\Tax_Collection_Logo.png" />
     <Content Include="Scripts\admin.js" />
     <Content Include="Scripts\bootstrap.js" />

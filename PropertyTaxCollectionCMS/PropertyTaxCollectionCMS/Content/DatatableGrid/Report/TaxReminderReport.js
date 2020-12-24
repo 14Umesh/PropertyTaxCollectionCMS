@@ -2,10 +2,10 @@
 
     var fdate = $('#txt_fdate').val();
     var tdate = $('#txt_tdate').val();
-
+    debugger
     $('#datatable').DataTable({
         "pageLength": 10,
-        //"order": [[0, "desc"]],
+  
         "responsive": true,
         "processing": true,
         "ajax": {
@@ -18,33 +18,34 @@
             "tye": "GET",
             "datatype": "json",
         },
-
+        
         "columns": [
              { "data": "ADUM_USER_NAME" },
               { "data": "PAYMENT_DATE" },
-                //{ "data": "TC_ID" },
-                //{ "data": "TCAT_ID" },
-                 //{ "data": "REMINDER_NEW_DATE" },
+             
                  { "data": "RECEIPT_NO" },
                   { "data": "HOUSEID" },
                     { "data": "House_Owner_NAME" },
                     { "data": "REASON" },
-                //{ "data": "RECEIVER_NAME" },
+            
                 { "data": "TOTAL_AMOUNT" },
                 { "data": "RECEIVED_AMOUNT" },
                 { "data": "REMAINING_AMOUNT" },
                 
                     {
-                        data: "TaxRemImage", name: "TaxRemImage",
-                        render: function (data, type, row, full, meta) {
-                            //var imgsrc = data; // here data should be in base64 string
-                            //return '<img class="img-responsive" src="' + imgsrc + '" alt="RECEIVER_SIGNATURE"height="40px" width="60px">';
-                            return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img alt='No Photo'  src='" + data +
-                                 "' style='height:43px;width:43px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + row["PAYMENT_DATE"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
-                                 + row["RECEIVER_NAME"] + "</li><li style='display:none' class='li_title' >Photo </li></ul></span></div>";
+                        data: "TaxRemImage", name: "TaxRemImage",             
+                        render: function (data, type, row, full, meta) {                 
+                            if (row["TaxRemImage"] == null) {
+                                return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img alt='No Photo'  src='/Images/no_img_avaliable.png' style='height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + row["PAYMENT_DATE"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
+                                     + row["RECEIVER_NAME"] + "</li><li style='display:none' class='li_title' >Photo </li></ul></span></div>";
+                            }
+                            else {
+                                return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img alt='No Photo'  src='" + data +"' style='height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + row["PAYMENT_DATE"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
+                                     + row["RECEIVER_NAME"] + "</li><li style='display:none' class='li_title' >Photo </li></ul></span></div>";;
+                            }
                         }
                     },
-                //{ "data": "RECEIVER_SIGNATURE" },
+           
         ]
 
     });
@@ -105,17 +106,22 @@ function Datatable() {
                 { "data": "RECEIVED_AMOUNT" },
                 { "data": "REMAINING_AMOUNT" },
                
-                    {
-                        data: "TaxRemImage", name: "TaxRemImage",
-                        render: function (data, type, row, full, meta) {
-                            //var imgsrc = data; // here data should be in base64 string
-                            //return '<img class="img-responsive" src="' + imgsrc + '" alt="RECEIVER_SIGNATURE"height="40px" width="60px">';
-                            return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img alt='No Photo'  src='" + data +
-                                 "' style='height:43px;width:43px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + row["PAYMENT_DATE"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
-                                 + row["RECEIVER_NAME"] + "</li><li style='display:none' class='li_title' >Photo </li></ul></span></div>";
-                        }
-                    },
-                //{ "data": "RECEIVER_SIGNATURE" },
+                     {
+                         data: "TaxRemImage", name: "TaxRemImage",
+
+                         render: function (data, type, row, full, meta) {
+
+                             if (row["TaxRemImage"] == null) {
+                                 return "<div style='cursor:pointer;display:inline-flex;'  onclick=PopImages(this)><img alt='No Photo'  src='/Images/no_img_avaliable.png' style='height:35px;width:35px;cursor:pointer;margin-left:0px;'></img><span><ul class='dt_pop'  style='margin:2px -5px -5px -5px; padding:0px;list-style:none;display:none;'><li  class='li_date datediv' >" + row["PAYMENT_DATE"] + "</li><li class='addr-length' style='margin:0px 0px 0px 10px;'>"
+                                      + row["RECEIVER_NAME"] + "</li><li style='display:none' class='li_title' >Photo </li></ul></span></div>";
+                             }
+                             else {
+                                 return "<img alt='Photo Not Found' src='" + data +
+                                      "' style='height:35px;width:35px;cursor:pointer;'></img>";
+                             }
+                         }
+                     },
+             
         ]
     });
 
