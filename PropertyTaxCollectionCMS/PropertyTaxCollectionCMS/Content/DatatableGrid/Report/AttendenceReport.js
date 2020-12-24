@@ -3,8 +3,12 @@
     var fdate = $('#txt_fdate').val();
     var tdate = $('#txt_tdate').val();
     var UserId = $('#selectnumber').val();
+    debugger;
     $('#datatable').DataTable({
         "pageLength": 10,
+        //"order": [
+        //       [2, "desc"]
+        //],
         "ajax": {
             "url": "/Report/getAttendenceReport/",
             "data": {
@@ -58,6 +62,9 @@ function Datatable() {
 
     $('#datatable').DataTable({
         "pageLength": 10,
+        //"order": [
+        //       [2, "desc"]
+        //],
         "ajax": {
             "url": "/Report/getAttendenceReport/",
             "data": {

@@ -63,4 +63,24 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels.Master
         public Nullable<bool> IsActive { get; set; }
         public DateTime CreatedDate { get; set; }
     }
+
+
+    public class AD_USER_MSTVM
+    {
+        public int AppId { get; set; }
+        public string AppName { get; set; }
+        public Nullable<int> State { get; set; }
+        public Nullable<int> Tehsil { get; set; }
+        public Nullable<int> District { get; set; }
+        public string EmailId { get; set; }
+        public string website { get; set; }
+        public string Android_GCM_pushNotification_Key { get; set; }
+        public string AppVersion { get; set; }
+        public Nullable<bool> ForceUpdate { get; set; }
+        public Nullable<bool> IsActive { get; set; }
+        public DateTime CreatedDate { get; set; }
+
+
+    }
+
 }

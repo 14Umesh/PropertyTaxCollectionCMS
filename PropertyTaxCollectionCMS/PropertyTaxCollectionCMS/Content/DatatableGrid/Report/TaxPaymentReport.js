@@ -7,7 +7,7 @@
         "pageLength": 10,
         //"order": [[0, "desc"]],
         "responsive": true,
-        "processing": true,
+        //"processing": true,
         "ajax": {
             "url": "/Report/getTaxPaymentReport",
             "data": {
@@ -32,6 +32,7 @@
              
               { "data": "HOUSEID" },
               { "data": "House_Owner_NAME" },
+                  { "data": "House_Owner_Address" },
 
                 {
                     data: "CHEQUE_IMAGE", name: "CHEQUE_IMAGE",
@@ -97,7 +98,7 @@ function Datatable() {
         "pageLength": 10,
         //"order": [[0, "desc"]],
         "responsive": true,
-        "processing": true,
+        //"processing": true,
         "ajax": {
             "url": "/Report/getTaxPaymentReport",
             "data": {
@@ -121,7 +122,7 @@ function Datatable() {
                 { "data": "REMAINING_AMOUNT" },
                 { "data": "HOUSEID" },
                 { "data": "House_Owner_NAME" },
-
+                 { "data": "House_Owner_Address" },
                   {
                       data: "CHEQUE_IMAGE", name: "CHEQUE_IMAGE",
                       render: function (data, type, row, full, meta) {

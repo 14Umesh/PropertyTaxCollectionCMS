@@ -2,18 +2,21 @@
 
     $('#datatable').DataTable({
         "pageLength": 10,
+        "order": [
+               [0, "desc"]
+        ],
         "ajax": {
             "url": "/Master/getEmployeeDetails/",
             "tye": "GET",
             "datatype": "json",
         },
 
-        //"columnDefs":
-        //[{
-        //    "targets": [0],
-        //    "visible": false,
-        //    "searchable": false
-        //}],
+        "columnDefs":
+        [{
+            "targets": [0],
+            "visible": false,
+            "searchable": false
+        }],
         "columns": [
                 { "data": "ADUM_USER_CODE" },
                 { "data": "ADUM_USER_NAME" },
