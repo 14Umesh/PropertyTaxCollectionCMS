@@ -216,6 +216,11 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         obj.LAST_UPDATE = DateTime.Now;//Convert.ToDateTime(_Employee.LAST_UPDATE);
                         obj.AD_USER_TYPE_ID = _Employee.AD_USER_TYPE_ID;
                         obj.IS_ACTIVE = _Employee.IS_ACTIVE;
+                        var deviceid = db.DEVICE_DETAILS.Where(x => x.ADUM_USER_CODE == _Employee.ADUM_USER_CODE).LastOrDefault();
+                        if(deviceid!=null)
+                        {
+                            deviceid.DEVICE_ID = null;
+                        }
                     }
                     else
                     {
@@ -240,6 +245,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         Master.AD_USER_TYPE_ID = _Employee.AD_USER_TYPE_ID;
                         Master.IS_ACTIVE = _Employee.IS_ACTIVE;
                         db.AD_USER_MST.Add(Master);
+                        
                     }
 
                     db.SaveChanges();
@@ -261,7 +267,9 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
             {
 
                 var AD_USER_MST= db.AD_USER_MST.Where(c => c.ADUM_USER_CODE == q).ToList();
-                var DEVICE_DETAILS = db.DEVICE_DETAILS.ToList();
+                var DEVICE_DETAILS = db.DEVICE_DETAILS.Where(c => c.ADUM_USER_CODE == q).ToList();
+                if(DEVICE_DETAILS.Count>0)
+                { 
                 var task = (from UM in AD_USER_MST
                            join DD in DEVICE_DETAILS on UM.ADUM_USER_CODE equals DD.ADUM_USER_CODE
 
@@ -305,6 +313,54 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                     data.AD_USER_TYPE_ID = Convert.ToInt32(task.AD_USER_TYPE_ID);
                     data.IS_ACTIVE = Convert.ToBoolean(task.IS_ACTIVE);
                 }
+
+                }
+                else
+                {
+                    var task = (from UM in AD_USER_MST
+                                select new
+                                {
+                                    ADUM_USER_CODE = UM.ADUM_USER_CODE,
+                                    SERVER_ID = Convert.ToByte(UM.SERVER_ID),
+                                    APP_ID = UM.APP_ID,
+                                    ADUM_USER_ID = UM.ADUM_LOGIN_ID,
+                                    ADUM_USER_NAME = UM.ADUM_USER_NAME,
+                                    ADUM_LOGIN_ID = UM.ADUM_LOGIN_ID,
+                                    ADUM_PASSWORD = UM.ADUM_PASSWORD,
+                                    ADUM_EMPLOYEE_ID = UM.ADUM_EMPLOYEE_ID,
+                                    ADUM_DESIGNATION = UM.ADUM_DESIGNATION,
+                                    ADUM_MOBILE = UM.ADUM_MOBILE,
+                                    ADUM_EMAIL = UM.ADUM_EMAIL,
+                                    LOCAL_USER_NAME = UM.LOCAL_USER_NAME,
+                                    PROFILE_IMAGE = "/Images/" + UM.PROFILE_IMAGE,
+                                    UPDATE_FLAG = Convert.ToBoolean(UM.UPDATE_FLAG),
+                                    AD_USER_TYPE_ID = Convert.ToInt32(UM.AD_USER_TYPE_ID),
+                                    IS_ACTIVE = Convert.ToBoolean(UM.IS_ACTIVE),
+                                    DEVICE_ID = "",
+                                }).FirstOrDefault();
+                    if (task != null)
+                    {
+                        data.ADUM_USER_CODE = task.ADUM_USER_CODE;
+                        data.SERVER_ID = Convert.ToByte(task.SERVER_ID);
+                        data.APP_ID = task.APP_ID;
+                        data.ADUM_USER_ID = task.ADUM_LOGIN_ID;
+                        data.ADUM_USER_NAME = task.ADUM_USER_NAME;
+                        data.ADUM_LOGIN_ID = task.ADUM_LOGIN_ID;
+                        data.ADUM_PASSWORD = task.ADUM_PASSWORD;
+                        data.ADUM_EMPLOYEE_ID = task.ADUM_EMPLOYEE_ID;
+                        data.ADUM_DESIGNATION = task.ADUM_DESIGNATION;
+                        data.ADUM_MOBILE = task.ADUM_MOBILE;
+                        data.ADUM_EMAIL = task.ADUM_EMAIL;
+                        data.LOCAL_USER_NAME = task.LOCAL_USER_NAME;
+                        data.DEVICE_ID = task.DEVICE_ID;
+                        data.PROFILE_IMAGE = task.PROFILE_IMAGE;
+                        data.UPDATE_FLAG = Convert.ToBoolean(task.UPDATE_FLAG);
+                        data.AD_USER_TYPE_ID = Convert.ToInt32(task.AD_USER_TYPE_ID);
+                        data.IS_ACTIVE = Convert.ToBoolean(task.IS_ACTIVE);
+                        data.DEVICE_ID = "";
+                    }
+                }
+
             }
             return data;
         }
@@ -719,6 +775,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                        REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
                                        HOUSEID = HS.ReferanceId,
                                        houseOwner = HS.houseOwner,
+                                       houseAddress= HS.houseAddress,
                                        RECEIVER_NAME = TC.RECEIVER_NAME,
                                        CHEQUE_IMAGE= TC.CHEQUE_IMAGE,
                                        RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
@@ -740,6 +797,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                             REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
                             HOUSEID = x.HOUSEID,
                             House_Owner_NAME=x.houseOwner,
+                            House_Owner_Address = x.houseAddress,
                             RECEIVER_NAME = x.RECEIVER_NAME,
                             CHEQUE_IMAGE = x.CHEQUE_IMAGE,
                             RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
@@ -770,6 +828,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                        REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
                                        HOUSEID = HS.ReferanceId,
                                         houseOwner = HS.houseOwner,
+                                        houseAddress = HS.houseAddress,
                                         RECEIVER_NAME = TC.RECEIVER_NAME,
                                         CHEQUE_IMAGE = TC.CHEQUE_IMAGE,
                                         RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
@@ -791,6 +850,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                             REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
                             HOUSEID = x.HOUSEID,
                             House_Owner_NAME = x.houseOwner,
+                            House_Owner_Address = x.houseAddress,
                             RECEIVER_NAME = x.RECEIVER_NAME,
                             CHEQUE_IMAGE = x.CHEQUE_IMAGE,
                             RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
@@ -844,6 +904,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                        TCAT_ID = TC.TCAT_ID,
                                        RECEIPT_NO = TC.RECIPT_NO,
                                        houseOwner = HS.houseOwner,
+                                       houseAddress = HS.houseAddress,
                                        TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
                                        RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
                                        REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
@@ -865,6 +926,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                             TCAT_ID = x.TCAT_ID,
                             RECEIPT_NO = x.RECEIPT_NO,
                             House_Owner_NAME = x.houseOwner,
+                            House_Owner_Address = x.houseAddress,
                             PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy hh:mm tt"),
                             TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
                             RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
@@ -897,6 +959,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                            TCAT_ID = TC.TCAT_ID,
                                            RECEIPT_NO = TC.RECIPT_NO,
                                            houseOwner = HS.houseOwner,
+                                           houseAddress = HS.houseAddress,
                                            TOTAL_AMOUNT = TC.TOTAL_AMOUNT,
                                            RECEIVED_AMOUNT = TC.RECEIVED_AMOUNT,
                                            REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
@@ -918,6 +981,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                 TCAT_ID = x.TCAT_ID,
                                 RECEIPT_NO = x.RECEIPT_NO,
                                 House_Owner_NAME = x.houseOwner,
+                                House_Owner_Address = x.houseAddress,
                                 PAYMENT_DATE = Convert.ToDateTime(x.PAYMENT_DATE).ToString("dd/MM/yyyy hh:mm tt"),
                                 TOTAL_AMOUNT = Convert.ToDecimal(x.TOTAL_AMOUNT),
                                 RECEIVED_AMOUNT = Convert.ToDecimal(x.RECEIVED_AMOUNT),
@@ -962,7 +1026,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    join UM in AD_USER_MST on TC.ADUM_USER_CODE equals UM.ADUM_USER_CODE
                                    join HS in house on TC.HOUSEID equals HS.houseId
                                    where TC.REMINDER_NEW_DATE >= _fdate & TC.REMINDER_NEW_DATE < _tdate & TC.TCAT_ID == t
-                                   orderby TC.REMINDER_NEW_DATE descending
+                                   orderby TC.PAYMENT_DATE descending
                                    select new
                                    {
                                        ADUM_USER_NAME = UM.ADUM_USER_NAME,
@@ -975,6 +1039,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                        REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
                                        HOUSEID = HS.ReferanceId,
                                        houseOwner = HS.houseOwner,
+                                       houseAddress = HS.houseAddress,
                                        REASON = TC.REASON,
                                        RECEIVER_NAME = TC.RECEIVER_NAME,
                                        RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
@@ -997,6 +1062,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                             REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
                             HOUSEID = x.HOUSEID,
                             House_Owner_NAME=x.houseOwner,
+                            House_Owner_Address = x.houseAddress,
                             REASON = x.REASON,
                             RECEIVER_NAME = x.RECEIVER_NAME,
                             RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
@@ -1011,7 +1077,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                    join UM in AD_USER_MST on TC.ADUM_USER_CODE equals UM.ADUM_USER_CODE
                                    join HS in house on TC.HOUSEID equals HS.houseId
                                    where TC.REMINDER_NEW_DATE >= _fdate & TC.REMINDER_NEW_DATE < _tdate & TC.TCAT_ID == t & TC.ADUM_USER_CODE==q
-                                   orderby TC.REMINDER_NEW_DATE descending
+                                   orderby TC.PAYMENT_DATE descending
                                    select new
                                    {
                                        ADUM_USER_NAME = UM.ADUM_USER_NAME,
@@ -1024,6 +1090,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                        REMAINING_AMOUNT = TC.REMAINING_AMOUNT,
                                        HOUSEID = HS.ReferanceId,
                                        houseOwner = HS.houseOwner,
+                                       houseAddress = HS.houseAddress,
                                        RECEIVER_NAME = TC.RECEIVER_NAME,
                                        REASON = TC.REASON,
                                        RECEIVER_SIGNATURE = TC.RECEIVER_SIGNATURE_IMAGE,
@@ -1046,6 +1113,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                             REMAINING_AMOUNT = Convert.ToDecimal(x.REMAINING_AMOUNT),
                             HOUSEID = x.HOUSEID,
                             House_Owner_NAME = x.houseOwner,
+                            House_Owner_Address = x.houseAddress,
                             REASON = x.REASON,
                             RECEIVER_NAME = x.RECEIVER_NAME,
                             RECEIVER_SIGNATURE = x.RECEIVER_SIGNATURE,
@@ -1077,7 +1145,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                 var UserAttendence = (from EA in db.EMPLOYEE_ATTENDANCE
                                       join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
                                       where EA.DA_START_DATETIME >= _fdate & EA.DA_START_DATETIME < _tdate
-                                      orderby EA.DA_ID descending
+                                      orderby EA.DA_START_DATETIME descending
                                       select new
                                       {
                                           DA_ID = EA.DA_ID,
@@ -1106,7 +1174,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                     var UserAttendence = (from EA in db.EMPLOYEE_ATTENDANCE
                                           join UM in db.AD_USER_MST on EA.ADUM_USER_CODE equals UM.ADUM_USER_CODE
                                           where EA.DA_START_DATETIME >= _fdate & EA.DA_START_DATETIME < _tdate & EA.ADUM_USER_CODE==q
-                                          orderby EA.DA_ID descending
+                                          orderby EA.DA_START_DATETIME descending
                                           select new
                                           {
                                               DA_ID = EA.DA_ID,

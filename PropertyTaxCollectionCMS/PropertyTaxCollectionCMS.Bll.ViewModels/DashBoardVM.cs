@@ -36,6 +36,8 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels
         public string ADUM_USER_NAME { get; set; }
 
         public string House_Owner_NAME { get; set; }
+
+        public string House_Owner_Address { get; set; }
         public int TC_ID { get; set; }
         public int TCAT_ID { get; set; }
         public string RECEIPT_NO { get; set; }

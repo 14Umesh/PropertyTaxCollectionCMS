@@ -104,10 +104,17 @@
 
 
 
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <label class="col-form-label">IMEI Number</label>
                                                 @Html.TextBoxFor(model => model.DEVICE_ID, new { @class = "form-control", @readonly = "readonly", placeholder = "IMEI Number Here", type = "text" })
                                                </div>
+                                            <div class="col-md-2">
+                                                <br />
+                                                <div class="form-group" style="margin-top:10px">
+
+                                                    <label>Clear Login </label>   <input type="checkbox" id="check" />
+                                                </div>
+                                            </div>
 
                                             <div class="col-sm-6">
                                                 <br />
@@ -175,6 +182,26 @@
     alert(profileImage);*@
     //$('#btnSubmit').click(function () {
 
+  
+    $(document).ready(function () {
+        if ($("#DEVICE_ID").val().trim() != "") {
+            $('#check').not(this).prop('checked', false);
+        }
+        else {
+
+            $('#check').not(this).prop('checked', true);
+        }
+
+        $('#check').change(function ()
+        {
+            if ($(this).is(':checked')) {
+                // Do something...            
+                $("#DEVICE_ID").val("");
+            };
+          
+        });
+
+
     //    var srcc= $('#PROFILE_IMAGE').attr('src');
     //    $('#file').attr('value',src);
 
@@ -212,7 +239,10 @@
     }
 
 
+
+
    );
+    });
 
     
 </script>

@@ -7,7 +7,7 @@
         "pageLength": 10,
         //"order": [[0, "desc"]],
         "responsive": true,
-        "processing": true,
+        //"processing": true,
         "ajax": {
             "url": "/Report/getTaxReceiptReport",
             "data": {
@@ -24,6 +24,7 @@
              { "data": "PAYMENT_DATE", "name": "PAYMENT_DATE" },
              { "data": "HOUSEID" },
              { "data": "House_Owner_NAME" },
+                 { "data": "House_Owner_Address" },
              //{ "data": "TCAT_ID" },
              { "data": "RECEIVER_NAME" },
              { "data": "RECEIPT_NO" },
@@ -105,7 +106,7 @@ function Datatable() {
         "pageLength": 10,
         //"order": [[0, "desc"]],
         "responsive": true,
-        "processing": true,
+        //"processing": true,
         "ajax": {
             "url": "/Report/getTaxReceiptReport",
             "data": {
@@ -122,6 +123,7 @@ function Datatable() {
              { "data": "PAYMENT_DATE", "name": "PAYMENT_DATE" },
              { "data": "HOUSEID" },
              { "data": "House_Owner_NAME" },
+                 { "data": "House_Owner_Address" },
              //{ "data": "TCAT_ID" },
              { "data": "RECEIVER_NAME" },
              { "data": "RECEIPT_NO" },

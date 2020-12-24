@@ -7,7 +7,7 @@
         "pageLength": 10,
   
         "responsive": true,
-        "processing": true,
+        //"processing": true,
         "ajax": {
             "url": "/Report/getTaxReminderReport",
             "data": {
@@ -26,6 +26,7 @@
                  { "data": "RECEIPT_NO" },
                   { "data": "HOUSEID" },
                     { "data": "House_Owner_NAME" },
+                        { "data": "House_Owner_Address" },
                     { "data": "REASON" },
             
                 { "data": "TOTAL_AMOUNT" },
@@ -79,7 +80,7 @@ function Datatable() {
         "pageLength": 10,
         //"order": [[0, "desc"]],
         "responsive": true,
-        "processing": true,
+        //"processing": true,
         "ajax": {
             "url": "/Report/getTaxReminderReport",
             "data": {
@@ -100,6 +101,7 @@ function Datatable() {
                 { "data": "RECEIPT_NO" },
                   { "data": "HOUSEID" },
                     { "data": "House_Owner_NAME" },
+                        { "data": "House_Owner_Address" },
                     { "data": "REASON" },
                 //{ "data": "RECEIVER_NAME" },
                 { "data": "TOTAL_AMOUNT" },
