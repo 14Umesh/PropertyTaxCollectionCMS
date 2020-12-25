@@ -29,6 +29,7 @@
     svg.svg1 {
         fill: #fff;
     }
+    .canvasjs-chart-credit{display:none !important}
 </style>
 
 <div class="pcoded-inner-content">
@@ -133,7 +134,7 @@ V330.674z" /><path d="M362.67,277.341c-11.76,0-21.333,9.573-21.333,21.333c0,11.7
                 <div id="home" class="container tab-pane active" onload="myMap()">
                     <div class="row bg-white" style="position:relative; height:680px;padding-top:15px;">
                         <p id="wait" style="display:none;position:absolute;top:35%;left:50%;">
-                            <img class="rotate_img" src="~/Content/assets/images/marker24.png">
+                            <img class="rotate_img" src="~/Content/assets/images/location.svg">
                         </p>
                         <div class="col-sm-11">
                             <h3>Attendance Details</h3>
@@ -194,6 +195,7 @@ V330.674z" /><path d="M362.67,277.341c-11.76,0-21.333,9.573-21.333,21.333c0,11.7
                 bounds = new google.maps.LatLngBounds();
                 var marker, i;
                 // Get Addres
+                debugger
                 for (i = 0; i < data.length; i++) {
                     marker = new google.maps.Marker({
                         position: new google.maps.LatLng(data[i].InLat, data[i].InLong),
@@ -201,7 +203,7 @@ V330.674z" /><path d="M362.67,277.341c-11.76,0-21.333,9.573-21.333,21.333c0,11.7
 
                         icon: {
                             labelOrigin: new google.maps.Point(16, 65),
-                            url: "../Content/assets/images/marker24.png"
+                            url: "../Content/assets/images/location.svg"
                         },
                         label: {
                             text: data[i].UserName,
@@ -275,7 +277,7 @@ V330.674z" /><path d="M362.67,277.341c-11.76,0-21.333,9.573-21.333,21.333c0,11.7
                 }
 
                 var chart = new CanvasJS.Chart("chartContainerTarget2",
-           {
+           {animationEnabled: true,
                //title: {
                //    text: "Grouped Stacked Chart"
                //},
