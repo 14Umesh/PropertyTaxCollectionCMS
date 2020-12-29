@@ -44,6 +44,8 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
         List<TaxReceiptDetailsVM> getTaxPaymentReport(int q, int t, string fromDate, string toDate, int AppId);
         List<TaxReceiptDetailsVM> getTaxReceiptReport(int q, int t, string fromDate, string toDate,int AppId);
         List<TaxReceiptDetailsVM> getTaxReminderReport(int q, int t, string fromDate, string toDate, int AppId);
+
+        List<TaxReceiptDetailsVM> getTodaySchedule(int q, int t, string fromDate, string toDate, int AppId);
         List<AttendanceDetailsVM> getAttendenceReport(string fromDate, string toDate, int q);
 
         List<PTCUserLocationMapView> GetUserAttenRoute(int id);

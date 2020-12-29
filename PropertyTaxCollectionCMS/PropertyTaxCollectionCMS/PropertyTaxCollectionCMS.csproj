@@ -207,6 +207,7 @@
     <Content Include="Content\DatatableGrid\Report\TaxPaymentReport.js" />
     <Content Include="Content\DatatableGrid\Report\TaxReceiptReport.js" />
     <Content Include="Content\DatatableGrid\Report\TaxReminderReport.js" />
+    <Content Include="Content\DatatableGrid\Report\TodaySchedule.js" />
     <Content Include="Content\DatatableGrid\State.js" />
     <Content Include="Content\DatatableGrid\TaxPaymentDetailsList.js" />
     <Content Include="Content\DatatableGrid\TaxReminderDetailsList.js" />
@@ -1926,6 +1927,7 @@
     <Content Include="Views\Report\TaxReminderReport.cshtml" />
     <Content Include="Views\Attendence\UserRoute.cshtml" />
     <Content Include="Views\Attendence\HouseRoute.cshtml" />
+    <Content Include="Views\Report\TaxSchedule.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

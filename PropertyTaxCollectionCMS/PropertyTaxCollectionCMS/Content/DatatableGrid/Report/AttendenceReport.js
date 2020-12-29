@@ -6,9 +6,15 @@
     debugger;
     $('#datatable').DataTable({
         "pageLength": 10,
-        //"order": [
-        //       [2, "desc"]
-        //],
+         "order": [
+               [0, "desc"]
+        ],
+        "columnDefs": [
+         {
+             "targets": [0],
+             "visible": false,
+             "searchable": false
+         }, ],
         "ajax": {
             "url": "/Report/getAttendenceReport/",
             "data": {
@@ -23,6 +29,8 @@
         },
 
         "columns": [
+            
+                { "data": "DA_ID" },
                 { "data": "UserName" },
                 { "data": "StartDate" },
                 { "data": "EndDate" },
@@ -62,9 +70,15 @@ function Datatable() {
 
     $('#datatable').DataTable({
         "pageLength": 10,
-        //"order": [
-        //       [2, "desc"]
-        //],
+        "order": [
+              [0, "desc"]
+        ],
+        "columnDefs": [
+            {
+                "targets": [ 0 ],
+                "visible": false,
+                "searchable": false
+            },],
         "ajax": {
             "url": "/Report/getAttendenceReport/",
             "data": {
@@ -77,6 +91,7 @@ function Datatable() {
         },
 
         "columns": [
+                 { "data": "DA_ID" },
                 { "data": "UserName" },
                 { "data": "StartDate" },
                 { "data": "EndDate" },

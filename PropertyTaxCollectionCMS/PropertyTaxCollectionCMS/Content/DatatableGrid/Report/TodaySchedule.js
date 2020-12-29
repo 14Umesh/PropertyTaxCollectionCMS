@@ -7,15 +7,15 @@
         "pageLength": 10,
         "order": [[0, "desc"]],
         "responsive": true,
-        "columnDefs": [
-  {
-      "targets": [0],
-      "visible": false,
-      "searchable": false
-  }, ],
         //"processing": true,
+        "columnDefs": [
+    {
+        "targets": [0],
+        "visible": false,
+        "searchable": false
+    }, ],
         "ajax": {
-            "url": "/Report/getTaxReminderReport",
+            "url": "/Report/getTaxSchedule",
             "data": {
                 "fromDate": fdate,
                 "toDate": tdate,
@@ -27,15 +27,14 @@
         
         "columns": [
             { "data": "TC_ID" },
-             { "data": "ADUM_USER_NAME" },
+              { "data": "ADUM_USER_NAME" },
+              { "data": "REMINDER_NEW_DATE" },
               { "data": "PAYMENT_DATE" },
-             
-                 { "data": "RECEIPT_NO" },
-                  { "data": "HOUSEID" },
+                 { "data": "HOUSEID" },
+                 { "data": "RECEIPT_NO" },           
                     { "data": "House_Owner_NAME" },
                         { "data": "House_Owner_Address" },
-                    { "data": "REASON" },
-            
+                    { "data": "REASON" },        
                 { "data": "TOTAL_AMOUNT" },
                 { "data": "RECEIVED_AMOUNT" },
                 { "data": "REMAINING_AMOUNT" },
@@ -78,8 +77,6 @@ function PopImages(cel) {
 
 function Datatable() {
 
-    debugger;
-
     $("#datatable").dataTable().fnDestroy();
 
     var fdate = $('#txt_fdate').val();
@@ -90,7 +87,7 @@ function Datatable() {
         "order": [[0, "desc"]],
         "responsive": true,
         //"processing": true,
-   "columnDefs": [
+        "columnDefs": [
   {
       "targets": [0],
       "visible": false,
@@ -108,22 +105,20 @@ function Datatable() {
         },
 
         "columns": [
-            { "data": "TC_ID" },
-             { "data": "ADUM_USER_NAME" },
+              { "data": "TC_ID" },
+                { "data": "ADUM_USER_NAME" },
+              { "data": "REMINDER_NEW_DATE" },
+           
               { "data": "PAYMENT_DATE" },
-               
-                //{ "data": "TCAT_ID" },
-                   //{ "data": "REMINDER_NEW_DATE" },
-                { "data": "RECEIPT_NO" },
-                  { "data": "HOUSEID" },
+                 { "data": "HOUSEID" },
+                 { "data": "RECEIPT_NO" },
                     { "data": "House_Owner_NAME" },
                         { "data": "House_Owner_Address" },
                     { "data": "REASON" },
-                //{ "data": "RECEIVER_NAME" },
                 { "data": "TOTAL_AMOUNT" },
                 { "data": "RECEIVED_AMOUNT" },
                 { "data": "REMAINING_AMOUNT" },
-               
+             
                      {
                          data: "TaxRemImage", name: "TaxRemImage",
 

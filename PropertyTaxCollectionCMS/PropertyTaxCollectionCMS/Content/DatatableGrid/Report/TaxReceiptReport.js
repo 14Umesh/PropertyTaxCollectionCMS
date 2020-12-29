@@ -5,9 +5,15 @@
     debugger;
     $('#datatable').DataTable({
         "pageLength": 10,
-        //"order": [[0, "desc"]],
+        "order": [[0, "desc"]],
         "responsive": true,
         //"processing": true,
+     "columnDefs": [
+     {
+         "targets": [0],
+         "visible": false,
+         "searchable": false
+     }, ],
         "ajax": {
             "url": "/Report/getTaxReceiptReport",
             "data": {
@@ -20,6 +26,7 @@
         },
 
         "columns": [
+              { "data": "TC_ID" },
               { "data": "ADUM_USER_NAME" },
              { "data": "PAYMENT_DATE", "name": "PAYMENT_DATE" },
              { "data": "HOUSEID" },
@@ -28,7 +35,7 @@
              //{ "data": "TCAT_ID" },
              { "data": "RECEIVER_NAME" },
              { "data": "RECEIPT_NO" },
-             //{ "data": "TC_ID" },
+          
 
                      {
                          data: "CAMERA_IMAGE", name: "CAMERA_IMAGE",
@@ -104,9 +111,15 @@ function Datatable() {
 
     $('#datatable').DataTable({
         "pageLength": 10,
-        //"order": [[0, "desc"]],
+        "order": [[0, "desc"]],
         "responsive": true,
         //"processing": true,
+        "columnDefs": [
+     {
+         "targets": [0],
+         "visible": false,
+         "searchable": false
+     }, ],
         "ajax": {
             "url": "/Report/getTaxReceiptReport",
             "data": {
@@ -119,6 +132,7 @@ function Datatable() {
         },
 
         "columns": [
+             { "data": "TC_ID" },
              { "data": "ADUM_USER_NAME", },
              { "data": "PAYMENT_DATE", "name": "PAYMENT_DATE" },
              { "data": "HOUSEID" },
@@ -127,7 +141,7 @@ function Datatable() {
              //{ "data": "TCAT_ID" },
              { "data": "RECEIVER_NAME" },
              { "data": "RECEIPT_NO" },
-             //{ "data": "TC_ID" },
+          
                   {
                       data: "CAMERA_IMAGE", name: "CAMERA_IMAGE",
                       render: function (data, type, row, full, meta) {

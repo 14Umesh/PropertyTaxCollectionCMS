@@ -5,9 +5,16 @@
 
     $('#datatable').DataTable({
         "pageLength": 10,
-        //"order": [[0, "desc"]],
+         "order": [[0, "desc"]],
         "responsive": true,
         //"processing": true,
+
+        "columnDefs": [
+      {
+          "targets": [0],
+          "visible": false,
+          "searchable": false
+      }, ],
         "ajax": {
             "url": "/Report/getTaxPaymentReport",
             "data": {
@@ -20,9 +27,9 @@
         },
 
         "columns": [
+             { "data": "TC_ID" },
                { "data": "ADUM_USER_NAME" },
-                { "data": "PAYMENT_DATE" },
-             // { "data": "TC_ID" },
+                { "data": "PAYMENT_DATE" },         
               //{ "data": "TCAT_ID" },
               { "data": "RECEIPT_NO" },
               { "data": "RECEIVER_NAME" },
@@ -82,6 +89,18 @@
 
 });
 
+
+$(document).ready(function () {
+    debugger;
+    var columns = $("#datatable > tbody > tr:first > td").length;
+    for (var i = 0; i < columns; i++) {
+        if ($("#datatable > tbody > tr > td:nth-child(" + i + ")").filter(function () {
+          return $(this).text() != '';
+        }).length == 0) {
+            $("#datatable > tbody > tr > td:nth-child(" + i + "), #datatable > thead > tr > th:nth-child(" + i + ")").hide();
+        }
+    }
+});
 var UserId = $('#selectnumber').val();
 debugger
 $.ajax({
@@ -108,8 +127,14 @@ function Datatable() {
     var UserId = $('#selectnumber').val();
     $('#datatable').DataTable({
         "pageLength": 10,
-        //"order": [[0, "desc"]],
-        "responsive": true,
+       "order": [[0, "desc"]],
+       "responsive": true,
+       "columnDefs": [
+     {
+         "targets": [0],
+         "visible": false,
+         "searchable": false
+     }, ],
         //"processing": true,
         "ajax": {
             "url": "/Report/getTaxPaymentReport",
@@ -123,6 +148,7 @@ function Datatable() {
         },
 
         "columns": [
+              { "data": "TC_ID" },
                { "data": "ADUM_USER_NAME" },
                  { "data": "PAYMENT_DATE" },
                 //{ "data": "TC_ID" },
