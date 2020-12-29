@@ -127,7 +127,7 @@
                                                 <label class="col-form-label">Profile Image</label>
                                                 <div class="form-control card-block">
                                                     <div class="sub-title">Image Upload</div>
-                                                    <div>
+                                                    <div id="FileUpload_Preview">
                                                         @if (Model.PROFILE_IMAGE == null)
                                                         { <img src="~/Images/default-profile.png" id="PROFILE_IMAGE" height="100" width="90" style="border:solid" />}
                                                         else
@@ -227,6 +227,27 @@
           filerdr.readAsDataURL(input.files[0]);
        }
     }
+    $('#trash_badge').click(function () {
+        $("#FileUpload_Preview").html("");
+    });
+    $('#file').change(function () {
+        $("#FileUpload_Preview").html("");
+        $("#FileUpload_Preview").show();
+        $("#FileUpload_Preview").append("<img />");
+
+        if (typeof (FileReader) != "undefined") {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                //-----------------------------------
+                // Preview image
+                //-----------------------------------
+                $("#FileUpload_Preview img").attr("src", e.target.result);
+                $("#FileUpload_Preview img").attr("width", "200px");
+                $("#FileUpload_Preview img").attr("height", "150px");
+            }
+            reader.readAsDataURL($(this)[0].files[0]);
+        }
+    });
     $("#ADUM_MOBILE").keypress(function (e) {
         debugger;
         //if the letter is not digit then display error and don't type anything

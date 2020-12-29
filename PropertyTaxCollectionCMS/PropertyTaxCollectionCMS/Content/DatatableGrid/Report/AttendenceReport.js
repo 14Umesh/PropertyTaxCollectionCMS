@@ -6,9 +6,9 @@
     debugger;
     $('#datatable').DataTable({
         "pageLength": 10,
-        //"order": [
-        //       [2, "desc"]
-        //],
+        "order": [
+               [1, "desc"]
+        ],
         "ajax": {
             "url": "/Report/getAttendenceReport/",
             "data": {
