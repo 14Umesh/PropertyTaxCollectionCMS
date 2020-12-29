@@ -13,6 +13,9 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels
         public string TaxPayment { get; set; }
         public string Reminder { get; set; }
 
+        public string ReminderNEW_DATE { get; set; }
+
+
 
         public string UserName { get; set; }
         public string InTime { get; set; }

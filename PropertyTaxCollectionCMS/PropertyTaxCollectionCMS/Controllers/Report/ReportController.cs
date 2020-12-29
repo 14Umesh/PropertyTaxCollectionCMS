@@ -121,5 +121,27 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
             var griddata = Repository.getTaxReminderReport(q,t, fromDate, toDate,AppId);
             return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
         }
+
+
+        public ActionResult TaxSchedule()
+        {
+            if (SessionHandler.Current.AppId != 0)
+            {
+                return View();
+            }
+            else
+            {
+                return Redirect("/Account/Login");
+            }
+        }
+
+        [HttpGet]
+        public JsonResult getTaxSchedule(string fromDate, string toDate, int q = -1, int t = 3)
+        {
+            int AppId = SessionHandler.Current.AppId;
+            var griddata = Repository.getTodaySchedule(q, t, fromDate, toDate, AppId);
+            return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }
