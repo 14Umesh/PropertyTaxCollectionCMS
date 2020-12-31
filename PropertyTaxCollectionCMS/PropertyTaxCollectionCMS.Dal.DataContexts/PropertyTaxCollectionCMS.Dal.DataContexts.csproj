@@ -255,6 +255,9 @@
     <Compile Include="SP_Live_Entry_Tracker_Result.cs">
       <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_TaxCollection_Result.cs">
+      <DependentUpon>PropertyTaxCollectionCMSMain.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_TotalHouseCollection_Count_Result.cs">
       <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
     </Compile>

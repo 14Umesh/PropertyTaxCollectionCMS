@@ -54,5 +54,10 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_EmployeeTaxCollectionType_Result>("SP_EmployeeTaxCollectionType");
         }
+    
+        public virtual ObjectResult<SP_TaxCollection_Result> SP_TaxCollection()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TaxCollection_Result>("SP_TaxCollection");
+        }
     }
 }

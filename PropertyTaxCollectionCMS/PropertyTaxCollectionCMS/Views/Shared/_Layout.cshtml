@@ -297,7 +297,7 @@
                                         </li>
 
                                         <li class="">
-                                            <a href="Report/TaxSchedule">
+                                            <a href="/Report/TaxSchedule">
                                                 <span class="pcoded-mtext">Today Schedule</span>
                                             </a>
                                         </li>
@@ -503,7 +503,7 @@
 
     <script type="text/javascript">
         var pathname = window.location.pathname;
-        if (pathname == "/Admin/ClientList" || pathname == "/Master/EmployeeList" || pathname == "/Report/AttendenceReport" || pathname == "/Report/TaxPaymentReport" || pathname == "/Report/TaxReceiptReport" || pathname == "/Report/TaxReminderReport" || pathname == "/Profile/Profiles") {
+        if (pathname == "/Admin/ClientList" || pathname == "/Master/EmployeeList" || pathname == "/Report/AttendenceReport" || pathname == "/Report/TaxPaymentReport" || pathname == "/Report/TaxReceiptReport" || pathname == "/Report/TaxReminderReport" || pathname == "/Report/TaxSchedule" || pathname == "/Profile/Profiles") {
             //alert("sad")pcoded-trigger
             $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
             $('a[href="' + this.location.pathname + '"]').parents('li').addClass('pcoded-trigger');
