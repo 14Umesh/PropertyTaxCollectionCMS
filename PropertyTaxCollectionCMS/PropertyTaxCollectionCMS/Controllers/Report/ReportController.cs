@@ -78,7 +78,10 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         {
             int AppId = SessionHandler.Current.AppId;
             var griddata = Repository.getTaxReceiptReport(q,t, fromDate, toDate, AppId);
-            return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
+          
+            var jsonResult = Json(new { aaData = griddata }, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
 
@@ -99,7 +102,10 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         {
             int AppId = SessionHandler.Current.AppId;
             var griddata = Repository.getTaxPaymentReport(q,t, fromDate, toDate, AppId);
-            return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
+       
+            var jsonResult = Json(new { aaData = griddata }, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
         public ActionResult TaxReminderReport()
@@ -114,12 +120,14 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
             }
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult getTaxReminderReport(string fromDate, string toDate, int q = -1,int t=3)
         {
             int AppId = SessionHandler.Current.AppId;
             var griddata = Repository.getTaxReminderReport(q,t, fromDate, toDate,AppId);
-            return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
+            var jsonResult = Json(new { aaData = griddata }, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
 
@@ -140,7 +148,10 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         {
             int AppId = SessionHandler.Current.AppId;
             var griddata = Repository.getTodaySchedule(q, t, fromDate, toDate, AppId);
-            return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
+          
+            var jsonResult = Json(new { aaData = griddata }, JsonRequestBehavior.AllowGet);
+            jsonResult.MaxJsonLength = int.MaxValue;
+            return jsonResult;
         }
 
     }

@@ -7,6 +7,7 @@
         "pageLength": 10,
         "order": [[0, "desc"]],
         "responsive": true,
+        //"serverSide": true,
         "columnDefs": [
   {
       "targets": [0],
@@ -15,14 +16,16 @@
   }, ],
         //"processing": true,
         "ajax": {
+            "type": "POST",
+            "datatype": "json",
             "url": "/Report/getTaxReminderReport",
             "data": {
                 "fromDate": fdate,
                 "toDate": tdate,
                 "q": -1
             },
-            "tye": "GET",
-            "datatype": "json",
+            //"tye": "POST",
+            //"datatype": "json",
         },
         
         "columns": [
@@ -89,37 +92,38 @@ function Datatable() {
         "pageLength": 10,
         "order": [[0, "desc"]],
         "responsive": true,
-        //"processing": true,
+        //"serverSide": true,
+       // "processing": true,
    "columnDefs": [
   {
       "targets": [0],
       "visible": false,
       "searchable": false
   }, ],
-        "ajax": {
-            "url": "/Report/getTaxSchedule",
+   "ajax": {
+       "type": "POST",
+       "datatype": "json",
+            "url": "/Report/getTaxReminderReport",
             "data": {
                 "fromDate": fdate,
                 "toDate": tdate,
                 "q": UserId
             },
-            "tye": "GET",
-            "datatype": "json",
+            //"tye": "POST",
+            //"datatype": "json",
         },
 
         "columns": [
-            { "data": "TC_ID" },
+              { "data": "TC_ID" },
              { "data": "ADUM_USER_NAME" },
               { "data": "PAYMENT_DATE" },
-               
-                //{ "data": "TCAT_ID" },
-                   //{ "data": "REMINDER_NEW_DATE" },
-                { "data": "RECEIPT_NO" },
+
+                 { "data": "RECEIPT_NO" },
                   { "data": "HOUSEID" },
                     { "data": "House_Owner_NAME" },
                         { "data": "House_Owner_Address" },
                     { "data": "REASON" },
-                //{ "data": "RECEIVER_NAME" },
+
                 { "data": "TOTAL_AMOUNT" },
                 { "data": "RECEIVED_AMOUNT" },
                 { "data": "REMAINING_AMOUNT" },

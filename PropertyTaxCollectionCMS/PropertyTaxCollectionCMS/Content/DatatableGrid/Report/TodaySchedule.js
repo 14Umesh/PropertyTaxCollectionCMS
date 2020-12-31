@@ -9,7 +9,11 @@
         "responsive": true,
         //"processing": true,
         "columnDefs": [
+
+
     {
+        "width": "20%",
+        "targets": 1,
         "targets": [0],
         "visible": false,
         "searchable": false

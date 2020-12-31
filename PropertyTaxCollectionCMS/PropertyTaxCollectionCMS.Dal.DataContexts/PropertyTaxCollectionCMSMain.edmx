@@ -357,6 +357,7 @@
           <Property Name="TPAY_TYPE" Type="varchar" MaxLength="50" />
         </EntityType>
         <Function Name="SP_EmployeeTaxCollectionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_TaxCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="PropertyTaxCollectionCMSMain_ModelStoreContainer">
           <EntitySet Name="AD_CITY_MST" EntityType="Self.AD_CITY_MST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AD_CLIENT_DETAIL_MST" EntityType="Self.AD_CLIENT_DETAIL_MST" Schema="dbo" store:Type="Tables" />
@@ -702,6 +703,7 @@
           <EntitySet Name="AD_USER_MST" EntityType="PropertyTaxCollectionCMSMain_Model.AD_USER_MST" />
           <EntitySet Name="TAX_COLLECTION_DETAIL" EntityType="PropertyTaxCollectionCMSMain_Model.TAX_COLLECTION_DETAIL" />
           <FunctionImport Name="SP_EmployeeTaxCollectionType" ReturnType="Collection(PropertyTaxCollectionCMSMain_Model.SP_EmployeeTaxCollectionType_Result)" />
+          <FunctionImport Name="SP_TaxCollection" ReturnType="Collection(PropertyTaxCollectionCMSMain_Model.SP_TaxCollection_Result)" />
         </EntityContainer>
         <EntityType Name="AD_USER_MST">
           <Key>
@@ -770,6 +772,24 @@
           <Property Type="Int32" Name="TaxReceipt" Nullable="true" />
           <Property Type="Int32" Name="TaxPayment" Nullable="true" />
           <Property Type="Int32" Name="TaxRemainder" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_TaxCollection_Result">
+          <Property Type="String" Name="ADUM_USER_NAME" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="TC_ID" Nullable="false" />
+          <Property Type="Int32" Name="TCAT_ID" Nullable="false" />
+          <Property Type="String" Name="RECIPT_NO" Nullable="true" MaxLength="50" />
+          <Property Type="Decimal" Name="TOTAL_AMOUNT" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="RECEIVED_AMOUNT" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="REMAINING_AMOUNT" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Int32" Name="HOUSEID" Nullable="false" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="houseOwner" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="houseAddress" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="RECEIVER_NAME" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="CHEQUE_IMAGE" Nullable="true" />
+          <Property Type="String" Name="RECEIVER_SIGNATURE_IMAGE" Nullable="true" />
+          <Property Type="DateTime" Name="PAYMENT_DATE" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CAMERA_IMAGE" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1161,6 +1181,28 @@
                 <ScalarProperty Name="TaxReceipt" ColumnName="TaxReceipt" />
                 <ScalarProperty Name="TaxPayment" ColumnName="TaxPayment" />
                 <ScalarProperty Name="TaxRemainder" ColumnName="TaxRemainder" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_TaxCollection" FunctionName="PropertyTaxCollectionCMSMain_Model.Store.SP_TaxCollection">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PropertyTaxCollectionCMSMain_Model.SP_TaxCollection_Result">
+                <ScalarProperty Name="ADUM_USER_NAME" ColumnName="ADUM_USER_NAME" />
+                <ScalarProperty Name="TC_ID" ColumnName="TC_ID" />
+                <ScalarProperty Name="TCAT_ID" ColumnName="TCAT_ID" />
+                <ScalarProperty Name="RECIPT_NO" ColumnName="RECIPT_NO" />
+                <ScalarProperty Name="TOTAL_AMOUNT" ColumnName="TOTAL_AMOUNT" />
+                <ScalarProperty Name="RECEIVED_AMOUNT" ColumnName="RECEIVED_AMOUNT" />
+                <ScalarProperty Name="REMAINING_AMOUNT" ColumnName="REMAINING_AMOUNT" />
+                <ScalarProperty Name="HOUSEID" ColumnName="HOUSEID" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="houseOwner" ColumnName="houseOwner" />
+                <ScalarProperty Name="houseAddress" ColumnName="houseAddress" />
+                <ScalarProperty Name="RECEIVER_NAME" ColumnName="RECEIVER_NAME" />
+                <ScalarProperty Name="CHEQUE_IMAGE" ColumnName="CHEQUE_IMAGE" />
+                <ScalarProperty Name="RECEIVER_SIGNATURE_IMAGE" ColumnName="RECEIVER_SIGNATURE_IMAGE" />
+                <ScalarProperty Name="PAYMENT_DATE" ColumnName="PAYMENT_DATE" />
+                <ScalarProperty Name="CAMERA_IMAGE" ColumnName="CAMERA_IMAGE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
