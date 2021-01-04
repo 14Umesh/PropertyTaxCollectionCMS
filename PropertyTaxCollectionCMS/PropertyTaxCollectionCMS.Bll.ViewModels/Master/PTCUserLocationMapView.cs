@@ -22,6 +22,11 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels.Master
         public string HouseOwnerName { get; set; }
         public string OwnerMobileNo { get; set; }
         public string HouseAddress { get; set; }
+
+
+
         public int type { get; set; }
+
+        public int TCAT_ID { get; set; }
     }
 }

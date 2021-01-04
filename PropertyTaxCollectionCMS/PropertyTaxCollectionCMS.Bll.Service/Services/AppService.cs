@@ -9,15 +9,16 @@ namespace PropertyTaxCollectionCMS.Bll.Service.Services
 {
     public abstract class AppService
     {
-        public abstract class DBMain
-        {
-            protected PropertyTaxCollectionCMSMain_Entities dbMain;
-            public DBMain()
+        protected PropertyTaxCollectionCMSChild_Entities db;
+        protected PropertyTaxCollectionCMSMain_Entities dbMain;
+             public AppService(int AppId)
             {
-                dbMain = new PropertyTaxCollectionCMSMain_Entities();
-            }
+            db = new PropertyTaxCollectionCMSChild_Entities(AppId);
+            dbMain = new PropertyTaxCollectionCMSMain_Entities();        
+
+        }
 
        
         }
     }
-}
+

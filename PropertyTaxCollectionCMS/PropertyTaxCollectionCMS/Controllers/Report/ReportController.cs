@@ -74,10 +74,10 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         }
 
         [HttpGet]
-        public JsonResult getTaxReceiptReport(string fromDate, string toDate, int q = -1,int t=1)
+        public JsonResult getTaxReceiptReport(string fromDate, string toDate, int q = -1,int t=1, int TS = 0)
         {
             int AppId = SessionHandler.Current.AppId;
-            var griddata = Repository.getTaxReceiptReport(q,t, fromDate, toDate, AppId);
+            var griddata = Repository.getTaxReceiptReport(q,t, fromDate, toDate, AppId,TS);
           
             var jsonResult = Json(new { aaData = griddata }, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
@@ -98,10 +98,10 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         }
 
         [HttpGet]
-        public JsonResult getTaxPaymentReport(string fromDate, string toDate, int q = -1,int t=2)
+        public JsonResult getTaxPaymentReport(string fromDate, string toDate, int q = -1,int t=2, int TS = 0)
         {
             int AppId = SessionHandler.Current.AppId;
-            var griddata = Repository.getTaxPaymentReport(q,t, fromDate, toDate, AppId);
+            var griddata = Repository.getTaxPaymentReport(q,t, fromDate, toDate, AppId, TS);
        
             var jsonResult = Json(new { aaData = griddata }, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
@@ -121,10 +121,10 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         }
 
         [HttpPost]
-        public JsonResult getTaxReminderReport(string fromDate, string toDate, int q = -1,int t=3)
+        public JsonResult getTaxReminderReport(string fromDate, string toDate, int q = -1,int t=3,int TS = 0)
         {
             int AppId = SessionHandler.Current.AppId;
-            var griddata = Repository.getTaxReminderReport(q,t, fromDate, toDate,AppId);
+            var griddata = Repository.getTaxReminderReport(q,t, fromDate, toDate,AppId, TS);
             var jsonResult = Json(new { aaData = griddata }, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;
             return jsonResult;
@@ -144,10 +144,10 @@ namespace PropertyTaxCollectionCMS.Controllers.Report
         }
 
         [HttpGet]
-        public JsonResult getTaxSchedule(string fromDate, string toDate, int q = -1, int t = 3)
+        public JsonResult getTaxSchedule(string fromDate, string toDate, int q = -1, int t = 3, int TS=1)
         {
             int AppId = SessionHandler.Current.AppId;
-            var griddata = Repository.getTodaySchedule(q, t, fromDate, toDate, AppId);
+            var griddata = Repository.getTodaySchedule(q, t, fromDate, toDate, AppId,TS);
           
             var jsonResult = Json(new { aaData = griddata }, JsonRequestBehavior.AllowGet);
             jsonResult.MaxJsonLength = int.MaxValue;

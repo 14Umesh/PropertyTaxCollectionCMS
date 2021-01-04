@@ -21,7 +21,17 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels
         public string InTime { get; set; }
         public string InLat { get; set; }
         public string InLong { get; set; }
+
+        public Nullable<int> TotalHouseCount { get; set; }
+        public Nullable<int> TaxReceiptCount { get; set; }
+        public Nullable<int> TaxPaymentCount { get; set; }
+        public Nullable<int> TaxReminderCount { get; set; }
+
+        public Nullable<int> HouseCollection { get; set; }
+
         
+        public Nullable<int> TodayScheduleCount { get; set; }
+
     }
 
     public class AttendanceDetailsVM

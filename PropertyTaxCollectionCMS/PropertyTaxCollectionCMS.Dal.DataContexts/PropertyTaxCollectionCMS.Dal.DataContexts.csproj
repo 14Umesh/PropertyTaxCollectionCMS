@@ -234,6 +234,9 @@
     <Compile Include="SP_GetLiveTracking_Result.cs">
       <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_HouseOnMapDetailsForTax_Result.cs">
+      <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_HouseOnMapDetails_Result.cs">
       <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
     </Compile>
@@ -247,6 +250,9 @@
       <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_HouseScanify_Result.cs">
+      <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_HouseTaxCollection_Count_Result.cs">
       <DependentUpon>PropertyTaxCollectionCMSChild.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_IdelTime_Result.cs">

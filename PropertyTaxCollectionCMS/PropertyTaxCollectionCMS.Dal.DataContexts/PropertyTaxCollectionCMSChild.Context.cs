@@ -18,7 +18,8 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
     public partial class PropertyTaxCollectionCMSChild_Entities : DbContext
     {
         public PropertyTaxCollectionCMSChild_Entities(int AppId)
-            : base(PropertyTaxAppConnection.GetConnectionString(AppId))
+                 : base(PropertyTaxAppConnection.GetConnectionString(AppId))
+
         {
         }
 
@@ -477,6 +478,32 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
                 new ObjectParameter("typeId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UserLatLongDetail_Result>("SP_UserLatLongDetail", useridParameter, typeIdParameter);
+        }
+    
+        public virtual ObjectResult<SP_HouseTaxCollection_Count_Result> SP_HouseTaxCollection_Count()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseTaxCollection_Count_Result>("SP_HouseTaxCollection_Count");
+        }
+    
+        public virtual ObjectResult<SP_HouseOnMapDetailsForTax_Result> SP_HouseOnMapDetailsForTax(Nullable<System.DateTime> gcDate, Nullable<int> userId, Nullable<int> garbageType, Nullable<int> filterType)
+        {
+            var gcDateParameter = gcDate.HasValue ?
+                new ObjectParameter("gcDate", gcDate) :
+                new ObjectParameter("gcDate", typeof(System.DateTime));
+    
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("UserId", userId) :
+                new ObjectParameter("UserId", typeof(int));
+    
+            var garbageTypeParameter = garbageType.HasValue ?
+                new ObjectParameter("GarbageType", garbageType) :
+                new ObjectParameter("GarbageType", typeof(int));
+    
+            var filterTypeParameter = filterType.HasValue ?
+                new ObjectParameter("FilterType", filterType) :
+                new ObjectParameter("FilterType", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_HouseOnMapDetailsForTax_Result>("SP_HouseOnMapDetailsForTax", gcDateParameter, userIdParameter, garbageTypeParameter, filterTypeParameter);
         }
     }
 }

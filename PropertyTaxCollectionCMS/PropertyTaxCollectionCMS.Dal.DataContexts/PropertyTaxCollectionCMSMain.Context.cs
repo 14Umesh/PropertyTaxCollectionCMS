@@ -55,9 +55,29 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_EmployeeTaxCollectionType_Result>("SP_EmployeeTaxCollectionType");
         }
     
-        public virtual ObjectResult<SP_TaxCollection_Result> SP_TaxCollection()
+        public virtual ObjectResult<SP_TaxCollection_Result> SP_TaxCollection(Nullable<int> userid, Nullable<System.DateTime> fdate, Nullable<System.DateTime> tdate, Nullable<int> cat, Nullable<int> ts)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TaxCollection_Result>("SP_TaxCollection");
+            var useridParameter = userid.HasValue ?
+                new ObjectParameter("userid", userid) :
+                new ObjectParameter("userid", typeof(int));
+    
+            var fdateParameter = fdate.HasValue ?
+                new ObjectParameter("fdate", fdate) :
+                new ObjectParameter("fdate", typeof(System.DateTime));
+    
+            var tdateParameter = tdate.HasValue ?
+                new ObjectParameter("tdate", tdate) :
+                new ObjectParameter("tdate", typeof(System.DateTime));
+    
+            var catParameter = cat.HasValue ?
+                new ObjectParameter("cat", cat) :
+                new ObjectParameter("cat", typeof(int));
+    
+            var tsParameter = ts.HasValue ?
+                new ObjectParameter("Ts", ts) :
+                new ObjectParameter("Ts", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_TaxCollection_Result>("SP_TaxCollection", useridParameter, fdateParameter, tdateParameter, catParameter, tsParameter);
         }
     }
 }

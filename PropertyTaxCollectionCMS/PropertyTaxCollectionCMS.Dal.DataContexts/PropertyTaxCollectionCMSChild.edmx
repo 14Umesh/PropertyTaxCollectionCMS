@@ -128,6 +128,12 @@
           <Parameter Name="GarbageType" Type="int" Mode="In" />
           <Parameter Name="FilterType" Type="int" Mode="In" />
         </Function>
+        <Function Name="SP_HouseOnMapDetailsForTax" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="gcDate" Type="datetime" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="GarbageType" Type="int" Mode="In" />
+          <Parameter Name="FilterType" Type="int" Mode="In" />
+        </Function>
         <Function Name="SP_HousePointDumpDetails_Scanify" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ReferenceId" Type="nvarchar" Mode="In" />
           <Parameter Name="gcType" Type="int" Mode="In" />
@@ -139,6 +145,7 @@
         </Function>
         <Function Name="SP_HouseScanify_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_HouseScanifyDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_HouseTaxCollection_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_IdelTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userId" Type="int" Mode="In" />
           <Parameter Name="fdate" Type="date" Mode="In" />
@@ -285,6 +292,13 @@
             <Parameter Name="typeId" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="HouseMasters" EntityType="PropertyTaxCollectionCMSChildModel.HouseMaster" />
+          <FunctionImport Name="SP_HouseTaxCollection_Count" ReturnType="Collection(PropertyTaxCollectionCMSChildModel.SP_HouseTaxCollection_Count_Result)" />
+          <FunctionImport Name="SP_HouseOnMapDetailsForTax" ReturnType="Collection(PropertyTaxCollectionCMSChildModel.SP_HouseOnMapDetailsForTax_Result)">
+            <Parameter Name="gcDate" Mode="In" Type="DateTime" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="GarbageType" Mode="In" Type="Int32" />
+            <Parameter Name="FilterType" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="CollecctionArea_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -655,6 +669,27 @@
           <Property Name="lastModifiedEntry" Type="DateTime" Precision="3" />
           <Property Name="RFIDTagId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="SP_HouseTaxCollection_Count_Result">
+          <Property Type="Int32" Name="TotalHouseCount" Nullable="true" />
+          <Property Type="Int32" Name="TotalHouseLatLongCount" Nullable="true" />
+          <Property Type="Int32" Name="TaxReceiptCount" Nullable="true" />
+          <Property Type="Int32" Name="TaxPaymentCount" Nullable="true" />
+          <Property Type="Int32" Name="TaxReminderCount" Nullable="true" />
+          <Property Type="Int32" Name="TodayScheduleCount" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_HouseOnMapDetailsForTax_Result">
+          <Property Type="Int32" Name="userId" Nullable="true" />
+          <Property Type="Int32" Name="houseId" Nullable="false" />
+          <Property Type="String" Name="ReferanceId" Nullable="true" MaxLength="350" />
+          <Property Type="String" Name="houseNumber" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="houseOwner" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="houseOwnerMobile" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="houseAddress" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="TCAT_ID" Nullable="true" />
+          <Property Type="Int32" Name="PAYMENT_DATE" Nullable="true" />
+          <Property Type="String" Name="houseLat" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="houseLong" Nullable="true" MaxLength="500" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1187,6 +1222,35 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_HouseTaxCollection_Count" FunctionName="PropertyTaxCollectionCMSChildModel.Store.SP_HouseTaxCollection_Count">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PropertyTaxCollectionCMSChildModel.SP_HouseTaxCollection_Count_Result">
+                <ScalarProperty Name="TotalHouseCount" ColumnName="TotalHouseCount" />
+                <ScalarProperty Name="TotalHouseLatLongCount" ColumnName="TotalHouseLatLongCount" />
+                <ScalarProperty Name="TaxReceiptCount" ColumnName="TaxReceiptCount" />
+                <ScalarProperty Name="TaxPaymentCount" ColumnName="TaxPaymentCount" />
+                <ScalarProperty Name="TaxReminderCount" ColumnName="TaxReminderCount" />
+                <ScalarProperty Name="TodayScheduleCount" ColumnName="TodayScheduleCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_HouseOnMapDetailsForTax" FunctionName="PropertyTaxCollectionCMSChildModel.Store.SP_HouseOnMapDetailsForTax">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PropertyTaxCollectionCMSChildModel.SP_HouseOnMapDetailsForTax_Result">
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="houseId" ColumnName="houseId" />
+                <ScalarProperty Name="ReferanceId" ColumnName="ReferanceId" />
+                <ScalarProperty Name="houseNumber" ColumnName="houseNumber" />
+                <ScalarProperty Name="houseOwner" ColumnName="houseOwner" />
+                <ScalarProperty Name="houseOwnerMobile" ColumnName="houseOwnerMobile" />
+                <ScalarProperty Name="houseAddress" ColumnName="houseAddress" />
+                <ScalarProperty Name="TCAT_ID" ColumnName="garbageType" />
+                <ScalarProperty Name="PAYMENT_DATE" ColumnName="gcDate" />
+                <ScalarProperty Name="houseLat" ColumnName="houseLat" />
+                <ScalarProperty Name="houseLong" ColumnName="houseLong" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
