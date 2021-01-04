@@ -6,14 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PropertyTaxCollectionCMS.Bll.Service.Services
+namespace PropertyTaxCollectionCMS.Bll.Repository.ChildRepository
 {
-    public interface IScreenService
+  public  interface IChildRepository
     {
-        //List<PTCUserLocationMapView> GetUserAttenRoute(int userId);
-
         DashBoardVM GetHouseOnMapDetails(int AppId);
 
+
         List<PTCUserLocationMapView> GetAllHouseLocation(string date, int userid, string SearchString, int? GarbageType, int FilterType);
+
     }
 }

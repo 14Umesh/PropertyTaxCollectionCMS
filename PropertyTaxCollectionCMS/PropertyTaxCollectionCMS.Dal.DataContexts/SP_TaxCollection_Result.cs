@@ -13,6 +13,7 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
     
     public partial class SP_TaxCollection_Result
     {
+        public Nullable<int> ADUM_USER_CODE { get; set; }
         public string ADUM_USER_NAME { get; set; }
         public int TC_ID { get; set; }
         public int TCAT_ID { get; set; }
@@ -28,6 +29,9 @@ namespace PropertyTaxCollectionCMS.Dal.DataContexts
         public string CHEQUE_IMAGE { get; set; }
         public string RECEIVER_SIGNATURE_IMAGE { get; set; }
         public Nullable<System.DateTime> PAYMENT_DATE { get; set; }
+        public string REASON { get; set; }
+        public string TaxRemImage { get; set; }
+        public Nullable<System.DateTime> REMINDER_NEW_DATE { get; set; }
         public string CAMERA_IMAGE { get; set; }
     }
 }

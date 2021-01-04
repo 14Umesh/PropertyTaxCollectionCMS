@@ -34,6 +34,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
         ClientVM getClientDetailsByID(int q);
         List<DashBoardVM> getAttendenceDetailsOnMap(int AppID);
 
+        //DashBoardVM GetHouseOnMapDetails();
 
         IEnumerable<EmployeeTaxCollectionType> getEmployeeTaxCollectionType(int AppID);
         List<AttendanceDetailsVM> getAttendenceDetails();
@@ -41,11 +42,11 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
         List<TaxReceiptDetailsVM> getTaxReminderDetails(int q);
         EmployeeVM Login(EmployeeVM _userinfo);
         AppDetailsVM GetApplicationDetails(int AppId);
-        List<TaxReceiptDetailsVM> getTaxPaymentReport(int q, int t, string fromDate, string toDate, int AppId);
-        List<TaxReceiptDetailsVM> getTaxReceiptReport(int q, int t, string fromDate, string toDate,int AppId);
-        List<TaxReceiptDetailsVM> getTaxReminderReport(int q, int t, string fromDate, string toDate, int AppId);
+        List<TaxReceiptDetailsVM> getTaxPaymentReport(int q, int t, string fromDate, string toDate, int AppId, int TS);
+        List<TaxReceiptDetailsVM> getTaxReceiptReport(int q, int t, string fromDate, string toDate,int AppId, int TS);
+        List<TaxReceiptDetailsVM> getTaxReminderReport(int q, int t, string fromDate, string toDate, int AppId, int TS);
 
-        List<TaxReceiptDetailsVM> getTodaySchedule(int q, int t, string fromDate, string toDate, int AppId);
+        List<TaxReceiptDetailsVM> getTodaySchedule(int q, int t, string fromDate, string toDate, int AppId, int TS);
         List<AttendanceDetailsVM> getAttendenceReport(string fromDate, string toDate, int q);
 
         List<PTCUserLocationMapView> GetUserAttenRoute(int id);

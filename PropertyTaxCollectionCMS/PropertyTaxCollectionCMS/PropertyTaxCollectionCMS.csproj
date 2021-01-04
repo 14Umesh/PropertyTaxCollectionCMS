@@ -173,8 +173,8 @@
     <Compile Include="Controllers\Admin\AdminController.cs" />
     <Compile Include="Controllers\AttendenceController.cs" />
     <Compile Include="Controllers\Dashboard\DashboardController.cs" />
-    <Compile Include="Controllers\Datatable\DatatableController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\Master\MasterController.cs" />
     <Compile Include="Controllers\Report\ReportController.cs" />
@@ -1928,10 +1928,10 @@
     <Content Include="Views\Attendence\UserRoute.cshtml" />
     <Content Include="Views\Attendence\HouseRoute.cshtml" />
     <Content Include="Views\Report\TaxSchedule.cshtml" />
+    <Content Include="Views\Location\AllHouseLocation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Datatable\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

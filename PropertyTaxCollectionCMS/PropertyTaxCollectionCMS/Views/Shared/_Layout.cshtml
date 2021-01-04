@@ -242,6 +242,12 @@
                                     </a>
                                 </li>
 
+                                <li class="">
+                                    <a href="/Location/AllHouseLocation">
+                                        <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                                        <span class="pcoded-mtext">House On Map</span>
+                                    </a>
+                                </li>
                                 @*<li class="">
                                         <a href="/Home/Dtable">
                                             <span class="pcoded-micon"><i class="feather icon-users"></i></span>
@@ -503,7 +509,7 @@
 
     <script type="text/javascript">
         var pathname = window.location.pathname;
-        if (pathname == "/Admin/ClientList" || pathname == "/Master/EmployeeList" || pathname == "/Report/AttendenceReport" || pathname == "/Report/TaxPaymentReport" || pathname == "/Report/TaxReceiptReport" || pathname == "/Report/TaxReminderReport" || pathname == "/Report/TaxSchedule" || pathname == "/Profile/Profiles") {
+        if (pathname == "/Admin/ClientList" || pathname == "/Master/EmployeeList" || pathname == "/Report/AttendenceReport" || pathname == "/Report/TaxPaymentReport" || pathname == "/Report/TaxReceiptReport" || pathname == "/Report/TaxReminderReport" || pathname == "/Report/TaxSchedule" || pathname == "/Profile/Profiles" || pathname == "/Location/AllHouseLocation1") {
             //alert("sad")pcoded-trigger
             $('a[href="' + this.location.pathname + '"]').parents('li,ul').addClass('active');
             $('a[href="' + this.location.pathname + '"]').parents('li').addClass('pcoded-trigger');

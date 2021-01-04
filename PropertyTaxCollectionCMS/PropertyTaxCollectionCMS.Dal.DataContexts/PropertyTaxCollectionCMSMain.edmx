@@ -357,7 +357,13 @@
           <Property Name="TPAY_TYPE" Type="varchar" MaxLength="50" />
         </EntityType>
         <Function Name="SP_EmployeeTaxCollectionType" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <Function Name="SP_TaxCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_TaxCollection" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userid" Type="int" Mode="In" />
+          <Parameter Name="fdate" Type="date" Mode="In" />
+          <Parameter Name="tdate" Type="date" Mode="In" />
+          <Parameter Name="cat" Type="int" Mode="In" />
+          <Parameter Name="Ts" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="PropertyTaxCollectionCMSMain_ModelStoreContainer">
           <EntitySet Name="AD_CITY_MST" EntityType="Self.AD_CITY_MST" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AD_CLIENT_DETAIL_MST" EntityType="Self.AD_CLIENT_DETAIL_MST" Schema="dbo" store:Type="Tables" />
@@ -703,7 +709,13 @@
           <EntitySet Name="AD_USER_MST" EntityType="PropertyTaxCollectionCMSMain_Model.AD_USER_MST" />
           <EntitySet Name="TAX_COLLECTION_DETAIL" EntityType="PropertyTaxCollectionCMSMain_Model.TAX_COLLECTION_DETAIL" />
           <FunctionImport Name="SP_EmployeeTaxCollectionType" ReturnType="Collection(PropertyTaxCollectionCMSMain_Model.SP_EmployeeTaxCollectionType_Result)" />
-          <FunctionImport Name="SP_TaxCollection" ReturnType="Collection(PropertyTaxCollectionCMSMain_Model.SP_TaxCollection_Result)" />
+          <FunctionImport Name="SP_TaxCollection" ReturnType="Collection(PropertyTaxCollectionCMSMain_Model.SP_TaxCollection_Result)">
+            <Parameter Name="userid" Mode="In" Type="Int32" />
+            <Parameter Name="fdate" Mode="In" Type="DateTime" />
+            <Parameter Name="tdate" Mode="In" Type="DateTime" />
+            <Parameter Name="cat" Mode="In" Type="Int32" />
+            <Parameter Name="Ts" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="AD_USER_MST">
           <Key>
@@ -774,6 +786,7 @@
           <Property Type="Int32" Name="TaxRemainder" Nullable="true" />
         </ComplexType>
         <ComplexType Name="SP_TaxCollection_Result">
+          <Property Type="Int32" Name="ADUM_USER_CODE" Nullable="true" />
           <Property Type="String" Name="ADUM_USER_NAME" Nullable="false" MaxLength="200" />
           <Property Type="Int32" Name="TC_ID" Nullable="false" />
           <Property Type="Int32" Name="TCAT_ID" Nullable="false" />
@@ -789,6 +802,9 @@
           <Property Type="String" Name="CHEQUE_IMAGE" Nullable="true" />
           <Property Type="String" Name="RECEIVER_SIGNATURE_IMAGE" Nullable="true" />
           <Property Type="DateTime" Name="PAYMENT_DATE" Nullable="true" Precision="23" />
+          <Property Type="String" Name="REASON" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="TaxRemImage" Nullable="true" />
+          <Property Type="DateTime" Name="REMINDER_NEW_DATE" Nullable="true" Precision="23" />
           <Property Type="String" Name="CAMERA_IMAGE" Nullable="true" />
         </ComplexType>
       </Schema>
@@ -1187,6 +1203,7 @@
           <FunctionImportMapping FunctionImportName="SP_TaxCollection" FunctionName="PropertyTaxCollectionCMSMain_Model.Store.SP_TaxCollection">
             <ResultMapping>
               <ComplexTypeMapping TypeName="PropertyTaxCollectionCMSMain_Model.SP_TaxCollection_Result">
+                <ScalarProperty Name="ADUM_USER_CODE" ColumnName="ADUM_USER_CODE" />
                 <ScalarProperty Name="ADUM_USER_NAME" ColumnName="ADUM_USER_NAME" />
                 <ScalarProperty Name="TC_ID" ColumnName="TC_ID" />
                 <ScalarProperty Name="TCAT_ID" ColumnName="TCAT_ID" />
@@ -1202,6 +1219,9 @@
                 <ScalarProperty Name="CHEQUE_IMAGE" ColumnName="CHEQUE_IMAGE" />
                 <ScalarProperty Name="RECEIVER_SIGNATURE_IMAGE" ColumnName="RECEIVER_SIGNATURE_IMAGE" />
                 <ScalarProperty Name="PAYMENT_DATE" ColumnName="PAYMENT_DATE" />
+                <ScalarProperty Name="REASON" ColumnName="REASON" />
+                <ScalarProperty Name="TaxRemImage" ColumnName="TaxRemImage" />
+                <ScalarProperty Name="REMINDER_NEW_DATE" ColumnName="REMINDER_NEW_DATE" />
                 <ScalarProperty Name="CAMERA_IMAGE" ColumnName="CAMERA_IMAGE" />
               </ComplexTypeMapping>
             </ResultMapping>

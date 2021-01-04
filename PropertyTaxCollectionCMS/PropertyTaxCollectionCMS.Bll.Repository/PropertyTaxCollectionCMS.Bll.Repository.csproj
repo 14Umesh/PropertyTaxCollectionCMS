@@ -50,12 +50,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChildRepository\ChildRepository.cs" />
+    <Compile Include="ChildRepository\IChildRepository.cs" />
     <Compile Include="Repository\DBMain.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Repository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PropertyTaxCollectionCMS.Bll.Service\PropertyTaxCollectionCMS.Bll.Service.csproj">
+      <Project>{72E05670-C091-4EDD-B012-1C50697EFC2E}</Project>
+      <Name>PropertyTaxCollectionCMS.Bll.Service</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PropertyTaxCollectionCMS.Bll.ViewModels\PropertyTaxCollectionCMS.Bll.ViewModels.csproj">
       <Project>{56175928-6050-476c-9444-a8734113aaa1}</Project>
       <Name>PropertyTaxCollectionCMS.Bll.ViewModels</Name>
