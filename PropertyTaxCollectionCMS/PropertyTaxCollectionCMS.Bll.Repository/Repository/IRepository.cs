@@ -19,7 +19,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
         List<SelectListItem> GetDistrictList();
         //List<SelectListItem> GetLanguageList();
         #endregion
-        List<EmployeeVM> getEmployeeDetails();
+        List<EmployeeVM> getEmployeeDetails(bool isactive);
 
         EmployeeVM GetEmployeeList();
 

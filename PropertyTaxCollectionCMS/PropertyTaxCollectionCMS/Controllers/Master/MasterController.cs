@@ -64,9 +64,9 @@ namespace PropertyTaxCollectionCMS.Controllers.Master
 
 
         [HttpGet]
-        public JsonResult getEmployeeDetails()
+        public JsonResult getEmployeeDetails(bool isactive)
         {
-            var griddata = Repository.getEmployeeDetails();
+            var griddata = Repository.getEmployeeDetails(isactive);
             return Json(new { data = griddata }, JsonRequestBehavior.AllowGet);
         }
 

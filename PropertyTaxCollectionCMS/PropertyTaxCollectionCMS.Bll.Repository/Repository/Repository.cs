@@ -107,13 +107,15 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
         #endregion
 
-        public List<EmployeeVM> getEmployeeDetails()
+        public List<EmployeeVM> getEmployeeDetails(bool isactive)
         {
             List<EmployeeVM> result = new List<EmployeeVM>();
 
             using (PropertyTaxCollectionCMSMain_Entities db = new PropertyTaxCollectionCMSMain_Entities())
             {
-                var task = db.AD_USER_MST.ToList();
+              if(isactive==true)
+                { 
+                var task = db.AD_USER_MST.Where(x=>x.IS_ACTIVE==true).ToList();
 
                 foreach (var x in task)
                 {
@@ -143,6 +145,41 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         IS_ACTIVE = Convert.ToBoolean(x.IS_ACTIVE),
 
                     });
+                }
+                }
+              else
+                {
+                    var task = db.AD_USER_MST.Where(x => x.IS_ACTIVE == false).ToList();
+
+                    foreach (var x in task)
+                    {
+                        result.Add(new EmployeeVM()
+                        {
+
+                            ADUM_USER_CODE = x.ADUM_USER_CODE,
+                            SERVER_ID = Convert.ToByte(x.SERVER_ID),
+                            APP_ID = x.APP_ID,
+                            ADUM_USER_ID = x.ADUM_USER_ID,
+                            ADUM_USER_NAME = x.ADUM_USER_NAME,
+                            ADUM_LOGIN_ID = x.ADUM_LOGIN_ID,
+                            ADUM_PASSWORD = x.ADUM_PASSWORD,
+                            ADUM_EMPLOYEE_ID = x.ADUM_EMPLOYEE_ID,
+                            ADUM_DESIGNATION = x.ADUM_DESIGNATION,
+                            ADUM_MOBILE = x.ADUM_MOBILE,
+                            ADUM_EMAIL = x.ADUM_EMAIL,
+                            LOCAL_USER_NAME = x.LOCAL_USER_NAME,
+                            PROFILE_IMAGE = "~/Images/" + x.PROFILE_IMAGE,
+                            ADUM_FRDT = Convert.ToDateTime(x.ADUM_FRDT).ToString(),
+                            ADUM_TODT = Convert.ToDateTime(x.ADUM_TODT).ToString(),
+                            ADUM_STATUS = Convert.ToBoolean(x.ADUM_STATUS),
+                            UPDATE_FLAG = Convert.ToBoolean(x.UPDATE_FLAG),
+                            LAST_UPDATE = Convert.ToDateTime(x.LAST_UPDATE).ToString(),
+                            AD_USER_TYPE_ID = Convert.ToInt32(x.AD_USER_TYPE_ID),
+                            MOBILE_ID = x.MOBILE_ID,
+                            IS_ACTIVE = Convert.ToBoolean(x.IS_ACTIVE),
+
+                        });
+                    }
                 }
             }
 
