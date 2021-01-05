@@ -49,14 +49,14 @@ namespace PropertyTaxCollectionCMS.Controllers
             else
                 return Redirect("/Account/Login");
         }
-
-        public ActionResult HouseLocationList(string date, string userid, string areaId, string wardNo, string SearchString, string garbageType, string filterType)
+        [HttpPost]
+        public ActionResult HouseLocationList(string date, string userid, string SearchString, string garbageType, string filterType)
         {
             if (SessionHandler.Current.AppId != 0)
             {
                 int user;
-                int area;
-                int ward;
+                //int area;
+                //int ward;
                 int? GarbageType;
                 int FilterType;
                 if (userid == "-1" || userid == "0" || userid == "null")
@@ -100,10 +100,10 @@ namespace PropertyTaxCollectionCMS.Controllers
                 {
                     FilterType = Convert.ToInt32(filterType);
                 }
-                //if (date == null || date == "")
-                //{
-                //    date = DateTime.Now.ToShortDateString();
-                //}
+                if (date == null || date == "")
+                {
+                    date = DateTime.Now.ToShortDateString();
+                }
 
                 List<PTCUserLocationMapView> obj = new List<PTCUserLocationMapView>();
                 obj = childRepository.GetAllHouseLocation(date, user, SearchString, GarbageType, FilterType);

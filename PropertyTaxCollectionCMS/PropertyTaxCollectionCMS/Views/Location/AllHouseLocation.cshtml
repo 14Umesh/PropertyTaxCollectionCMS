@@ -118,9 +118,7 @@
     <div class="container">
         <h3 style="text-align : center; font-weight : bold">@ViewBag.AppName</h3>
         <div class="row" style="display:flex">
-
-            <div class="col" style="width:20%;padding-right: 5px;">
-
+            <div class="col" style="width:20%;padding-right: 2%">
                 <div class="media" style="border:1px solid #8532fc;padding:5px;">
                     <div class="media-left media-middle" style="padding: 0px 10px;">
                         <img src="/Content/images/img/segregationImg/icn_house.png" class="media-object" />
@@ -131,9 +129,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col" style="width:20%;padding-right: 5px;">
-
-
+            <div class="col" style="width:20%;padding-right: 2%;">
                 <div class="media" style="border:1px solid #6fa570;padding:5px;">
                     <div class="media-left media-middle" style="padding: 0px 10px;">
                         <img src="/Content/images/img/segregationImg/icn_segregated_garbage.png" class="media-object" />
@@ -144,7 +140,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col" style="width:20%;padding-right: 5px;">
+            <div class="col" style="width:20%;padding-right:  2%;">
                 <div class="media" style="border:1px solid #d1655e;padding:5px;">
                     <div class="media-left media-middle" style="padding: 0px 10px;">
                         <img src="/Content/images/img/segregationImg/icn_mixed_garbage.png" class="media-object" />
@@ -155,7 +151,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col" style="width:20%;padding-right: 5px;">
+            <div class="col" style="width:20%;padding-right:  2%;">
                 <div class="media" style="border:1px solid #e89f5f;padding:5px;">
                     <div class="media-left media-middle" style="padding: 0px 10px;">
                         <img src="/Content/images/img/segregationImg/icn_garbage_not_recevied.png" class="media-object" />
@@ -404,7 +400,7 @@
                 $("#googleMap").css("display", "none");
                 $.ajax({
                     type: "post",
-                    url: "/Location/HouseLocationList?date=" + $('#txt_fdate').val() + "&userId=" + $("#selectnumber").val() + "&areaId=" + $("#selectArea").val() + "&wardNo=" + $("#selectWard").val() + "&searchstring=" + $("#houseId_filter").val() +  "&garbageType=" + $("#seg_type").val() + "&FilterType=" + RadioValue,
+                    url: "/Location/HouseLocationList?date=" + $('#txt_fdate').val() + "&userId=" + $("#selectnumber").val() + "&searchstring=" + $("#houseId_filter").val() +  "&garbageType=" + $("#seg_type").val() + "&FilterType=" + RadioValue,
                     //url: "/Location/HouseLocationList",
                     datatype: "json",
                     traditional: true,
@@ -472,8 +468,8 @@
                                 map: map,
 
                                 icon: {
-                                    // labelOrigin: new google.maps.Point(16, 65),
-                                  //  url: mUrl
+                                    labelOrigin: new google.maps.Point(16, 65),
+                                    url: "../Content/assets/images/location.svg"
                                 }
 
                             });
@@ -541,7 +537,7 @@
 
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn5cRS1OJ9s5BPjZ4G0L_5OobNRbdvCqU&callback=myMap" type="text/javascript"></script>
 </fieldset>
-<link href="~/Content/assets/css/datepicker.css" rel="stylesheet" />
+<script src="~/Content/assets/js/datepicker.js"></script>
 <script>
     debugger;
         var date = new Date();
@@ -566,24 +562,24 @@
 <script type="text/javascript">
 
     debugger;
-  //$('.datepicker').datepicker({
-  //    format: 'dd/mm/yyyy',
-  //    weekStart: 1,
-  //    color: 'red',
-  //    pickTime: false
-  //}).on('changeDate', function (e) {
+  $('.datepicker').datepicker({
+      format: 'dd/mm/yyyy',
+      weekStart: 1,
+      color: 'red',
+      pickTime: false
+  }).on('changeDate', function (e) {
 
-  //    $(this).datepicker('hide');
+      $(this).datepicker('hide');
 
-  //});
-  ////hide  show on hover
-  //$('#txt_fdate').focus(function () {
-  //    $('.dtpk_drpdwn').eq(1).hide();
-  //});
+  });
+  //hide  show on hover
+  $('#txt_fdate').focus(function () {
+      $('.dtpk_drpdwn').eq(1).hide();
+  });
 
 
-  //$('#filter_house').click(function () {
-  //    alert($("#houseId_filter").val());
-  //});
+  $('#filter_house').click(function () {
+      alert($("#houseId_filter").val());
+  });
 
 </script>
