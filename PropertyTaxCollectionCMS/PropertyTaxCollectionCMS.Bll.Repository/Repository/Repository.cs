@@ -220,7 +220,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                         obj.LAST_UPDATE = DateTime.Now;//Convert.ToDateTime(_Employee.LAST_UPDATE);
                         obj.AD_USER_TYPE_ID = _Employee.AD_USER_TYPE_ID;
                         obj.IS_ACTIVE = _Employee.IS_ACTIVE;
-                        var deviceid = db.DEVICE_DETAILS.Where(x => x.ADUM_USER_CODE == _Employee.ADUM_USER_CODE).FirstOrDefault();
+                        var deviceid = db.DEVICE_DETAILS.Where(x => x.ADUM_USER_CODE == _Employee.ADUM_USER_CODE).ToList().LastOrDefault();
                         if(deviceid!=null)
                         {
                             deviceid.DEVICE_ID = null;
@@ -274,7 +274,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
 
                 var AD_USER_MST= db.AD_USER_MST.Where(c => c.ADUM_USER_CODE == q).ToList();
                 var DEVICE_DETAILS = db.DEVICE_DETAILS.Where(c => c.ADUM_USER_CODE == q).ToList();
-                if(DEVICE_DETAILS.Count>0)
+                if (DEVICE_DETAILS.Count>0)
                 { 
                 var task = (from UM in AD_USER_MST
                            join DD in DEVICE_DETAILS on UM.ADUM_USER_CODE equals DD.ADUM_USER_CODE
@@ -298,7 +298,7 @@ namespace PropertyTaxCollectionCMS.Bll.Repository.Repository
                                AD_USER_TYPE_ID = Convert.ToInt32(UM.AD_USER_TYPE_ID),
                                IS_ACTIVE = Convert.ToBoolean(UM.IS_ACTIVE),
                                DEVICE_ID = DD.DEVICE_ID
-                           }).FirstOrDefault();
+                           }).LastOrDefault();
                 if (task != null)
                 {
                     data.ADUM_USER_CODE = task.ADUM_USER_CODE;

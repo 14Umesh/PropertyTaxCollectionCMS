@@ -129,9 +129,9 @@
           <Parameter Name="FilterType" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_HouseOnMapDetailsForTax" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="gcDate" Type="datetime" Mode="In" />
+          <Parameter Name="PAYMENT_DATE" Type="datetime" Mode="In" />
           <Parameter Name="UserId" Type="int" Mode="In" />
-          <Parameter Name="GarbageType" Type="int" Mode="In" />
+          <Parameter Name="TCAT_ID" Type="int" Mode="In" />
           <Parameter Name="FilterType" Type="int" Mode="In" />
         </Function>
         <Function Name="SP_HousePointDumpDetails_Scanify" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -294,9 +294,9 @@
           <EntitySet Name="HouseMasters" EntityType="PropertyTaxCollectionCMSChildModel.HouseMaster" />
           <FunctionImport Name="SP_HouseTaxCollection_Count" ReturnType="Collection(PropertyTaxCollectionCMSChildModel.SP_HouseTaxCollection_Count_Result)" />
           <FunctionImport Name="SP_HouseOnMapDetailsForTax" ReturnType="Collection(PropertyTaxCollectionCMSChildModel.SP_HouseOnMapDetailsForTax_Result)">
-            <Parameter Name="gcDate" Mode="In" Type="DateTime" />
+            <Parameter Name="PAYMENT_DATE" Mode="In" Type="DateTime" />
             <Parameter Name="UserId" Mode="In" Type="Int32" />
-            <Parameter Name="GarbageType" Mode="In" Type="Int32" />
+            <Parameter Name="TCAT_ID" Mode="In" Type="Int32" />
             <Parameter Name="FilterType" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -1244,8 +1244,8 @@
                 <ScalarProperty Name="houseOwner" ColumnName="houseOwner" />
                 <ScalarProperty Name="houseOwnerMobile" ColumnName="houseOwnerMobile" />
                 <ScalarProperty Name="houseAddress" ColumnName="houseAddress" />
-                <ScalarProperty Name="TCAT_ID" ColumnName="garbageType" />
-                <ScalarProperty Name="PAYMENT_DATE" ColumnName="gcDate" />
+                <ScalarProperty Name="TCAT_ID" ColumnName="TCAT_ID" />
+                <ScalarProperty Name="PAYMENT_DATE" ColumnName="PAYMENT_DATE" />
                 <ScalarProperty Name="houseLat" ColumnName="houseLat" />
                 <ScalarProperty Name="houseLong" ColumnName="houseLong" />
               </ComplexTypeMapping>
