@@ -45,8 +45,25 @@
                             </div>
                             <div class="card-block">
                                 <div class="dt-responsive table-responsive">
+                                  
                                     <a href="Employee" type="button" class="btn btn-sm btn-primary float-right" style="margin-left: 10px;">Create</a>
-                                    <table id="datatable" class="table table-striped table-bordered nowrap">
+                                    <a href="" id="NotActivebtn" type="button" class="btn btn-sm btn-primary float-right" style="margin-left: 10px;">Not Active Employee</a>
+
+                                    <table id="datatableActive" class="table table-striped table-bordered nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th>USER ID </th>
+                                                <th>USER NAME</th>
+                                                <th>EMPLOYEE ID</th>
+                                                <th>DESIGNATION</th>
+                                                <th>MOBILE</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+
+                                    </table>
+
+                                    <table id="datatableNonActive" class="table table-striped table-bordered nowrap">
                                         <thead>
                                             <tr>
                                                 <th>USER ID </th>
