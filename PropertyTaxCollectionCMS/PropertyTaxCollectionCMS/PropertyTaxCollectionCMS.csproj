@@ -191,7 +191,11 @@
   <ItemGroup>
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\assets\css\datepicker.css" />
-    <Content Include="Content\assets\images\home_on_map.svg" />
+    <Content Include="Content\assets\images\employee.svg" />
+    <Content Include="Content\assets\images\home_on_map.svg">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\assets\images\house.svg" />
     <Content Include="Content\assets\images\location.svg" />
     <Content Include="Content\assets\images\marker24.png" />
     <Content Include="Content\assets\images\QRcode.png" />

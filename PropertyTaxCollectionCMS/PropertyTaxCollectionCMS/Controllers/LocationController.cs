@@ -34,7 +34,11 @@ namespace PropertyTaxCollectionCMS.Controllers
         {
             return View();
         }
-     
+        public ActionResult HouseOnMap()
+        {
+            return View();
+        }
+
         public ActionResult AllHouseLocation()
         {
             if (SessionHandler.Current.AppId != 0)
