@@ -1930,6 +1930,7 @@
     <Content Include="Views\Attendence\HouseRoute.cshtml" />
     <Content Include="Views\Report\TaxSchedule.cshtml" />
     <Content Include="Views\Location\AllHouseLocation.cshtml" />
+    <Content Include="Views\Location\HouseOnMap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
