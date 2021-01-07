@@ -101,6 +101,11 @@
         height: 8px;
         border-radius: 50%;
         background: white;
+       
+    }
+    .btm_line{
+        border:none !important;border-bottom:1px solid #6c6969c9!important;
+        background:#fff !important;border-radius:0px!important;
     }
 </style>
 
@@ -121,7 +126,7 @@
             <div class="col" style="width:20%;padding-right: 2%">
                 <div class="media" style="border:1px solid #8532fc;padding:5px;border-radius: 20%;">
                     <div class="media-left media-middle" style="padding: 0px 10px;">
-                        <img src="/Content/images/img/segregationImg/icn_house.png" class="media-object" />
+                        <img src="../Content/assets/images/house_count.png" class="media-object" />
                     </div>
                     <div class="media-body">
                         <p class="media-heading" style="font-weight:600">House Count</p>
@@ -132,7 +137,7 @@
             <div class="col" style="width:21%;padding-right: 2%;">
                 <div class="media" style="border:1px solid #6fa570;padding:5px;border-radius: 20%;">
                     <div class="media-left media-middle" style="padding: 0px 10px;">
-                        <img src="/Content/images/img/segregationImg/icn_segregated_garbage.png" class="media-object" />
+                        <img src="~/Content/assets/images/payment_count.png" class="media-object" />
                     </div>
                     <div class="media-body">
                         <p class="media-heading" style="font-weight:600">Tax Payment Count</p>
@@ -143,7 +148,7 @@
             <div class="col" style="width:20%;padding-right:  2%;">
                 <div class="media" style="border:1px solid #d1655e;padding:5px;border-radius: 20%;">
                     <div class="media-left media-middle" style="padding: 0px 10px;">
-                        <img src="/Content/images/img/segregationImg/icn_mixed_garbage.png" class="media-object" />
+                        <img src="~/Content/assets/images/recipt_count.png" class="media-object" />
                     </div>
                     <div class="media-body">
                         <p class="media-heading" style="font-weight:600">Tax Receipt Count</p>
@@ -154,7 +159,7 @@
             <div class="col" style="width:21%;padding-right:  2%;">
                 <div class="media" style="border:1px solid #e89f5f;padding:5px;border-radius: 20%;">
                     <div class="media-left media-middle" style="padding: 0px 10px;">
-                        <img src="/Content/images/img/segregationImg/icn_garbage_not_recevied.png" class="media-object" />
+                        <img src="~/Content/assets/images/reminder_count.png" class="media-object" />
                     </div>
                     <div class="media-body">
                         <p class="media-heading" style="font-weight:600">Tax Reminder Count</p>
@@ -199,18 +204,18 @@
                     <input type="hidden" value="@ViewBag.lang" id="deflang" />
                     @*<label>तारीख निवडा / Select Date</label>*@
                     <label>Select Date</label>
-                    <input id="txt_fdate" class="datepicker form-control form-control-sm" type="text" />
+                    <input id="txt_fdate" class="datepicker form-control form-control-sm btm_line" type="text" />
                 </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 @*<label>कर्मचारी निवडा / Select Employee</label>*@
                 <label>Select Employee</label>
-                <select id="selectnumber" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select>
+                <select id="selectnumber" class="form-control minimal-form  RequiredInput validate[required] RequiredInput btm_line"></select>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 @*<label>कर्मचारी निवडा / Select Employee</label>*@
-                <label>Select Segregation </label>
-                <select id="seg_type" class="form-control minimal-form  RequiredInput validate[required] RequiredInput">
+                <label>Select Tax Collection </label>
+                <select id="seg_type" class="form-control minimal-form  RequiredInput validate[required] RequiredInput btm_line">
                     <option value="-1"> All Records</option>
                     <option value="1"> Tax Payment</option>
                     <option value="0"> Tax Receipt</option>
@@ -253,9 +258,8 @@
                 </div>
             </div>*@
 
-            <div class="col-sm-4">
-            </div>
-            <div class="col-sm-3">
+           
+            <div class="col-sm-2">
                 <div class="controls">
 
                     <label style="margin-top:7px">House  Id / House Owner Filter</label>
@@ -469,7 +473,7 @@
 
                                 icon: {
                                     labelOrigin: new google.maps.Point(16, 65),
-                                    url: "../Content/assets/images/house.svg"
+                                    url: "../Content/assets/images/house_count.png"
                                 }
 
                             });
