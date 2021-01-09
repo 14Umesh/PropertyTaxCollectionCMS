@@ -293,7 +293,7 @@ l52.706,47.128c7.147,6.394,17.951,6.394,25.098,0l52.712-47.134l52.706,47.134c7.1
                     //var fname = name.substring(0, name.indexOf(" "));
                     var fname = name.replace(/ .*/, ' ');
                     // alert(data[i]._Count)
-                    payment.push({ y: data[i].TaxPayment, label: fname + lastname_firstchar, color: '#686eb9', intime: data[i].inTime });
+                    payment.push({ y: data[i].TaxPayment, label: fname + lastname_firstchar, color: '#686eb9',z: data[i].Count, intime: data[i].inTime });
                     receipt.push({ y: data[i].TaxReceipt, label: fname + lastname_firstchar, color: '#22e29f', intime: data[i].inTime });                   
                     remainder.push({ y: data[i].TaxRemainder, label: fname + lastname_firstchar, color: '#6fc7c9', intime: data[i].inTime });
                     // seg.push({ y: data[i].Bifur, label: 'Segregated', color: '#388e3c', intime: data[i].inTime });
@@ -342,6 +342,7 @@ l52.706,47.128c7.147,6.394,17.951,6.394,25.098,0l52.712-47.134l52.706,47.134c7.1
                    cursor: "pointer",
                    itemclick: toggleDataSeries
                },
+               dataPointWidth: 30,
                data: [
 
                      {
@@ -353,9 +354,8 @@ l52.706,47.128c7.147,6.394,17.951,6.394,25.098,0l52.712-47.134l52.706,47.134c7.1
                          legendText: "TaxPayment",
                          toolTipContent: "{label}<br>InTime:{intime}<br>TaxPayment:{y} ",
                          color: "#686eb9",
-                         dataPoints: payment
-
-                       
+                         dataPoints: payment,
+                         indexLabel: "{y}",
                      },
                      {
                          //indexLabel: "#total",
@@ -365,17 +365,19 @@ l52.706,47.128c7.147,6.394,17.951,6.394,25.098,0l52.712-47.134l52.706,47.134c7.1
                          legendText: "TaxReceipt",
                          toolTipContent: "TaxReceipt:{y} ",
                          color: '#22e29f',
-                         dataPoints: receipt
+                         dataPoints: receipt,
+                         indexLabel: "{y}"
                      },
                      {
                          //indexLabel: "#total",
                          //indexLabelPlacement: "outside",
                          type: "column",
                          showInLegend: true,
-                         legendText: "TaxRemainder",
-                         toolTipContent: "TaxRemainder:{y} ",
+                         legendText: "TaxReminder",
+                         toolTipContent: "TaxReminder:{y} ",
                          color: "#6fc7c9",
-                         dataPoints: remainder
+                         dataPoints: remainder,
+                         indexLabel: "{y}"
                      },
 
 

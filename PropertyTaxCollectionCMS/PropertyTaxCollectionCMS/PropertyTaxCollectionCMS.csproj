@@ -196,9 +196,13 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\assets\images\house.svg" />
+    <Content Include="Content\assets\images\house_count.png" />
     <Content Include="Content\assets\images\location.svg" />
     <Content Include="Content\assets\images\marker24.png" />
+    <Content Include="Content\assets\images\payment_count.png" />
     <Content Include="Content\assets\images\QRcode.png" />
+    <Content Include="Content\assets\images\recipt_count.png" />
+    <Content Include="Content\assets\images\reminder_count.png" />
     <Content Include="Content\assets\js\datepicker.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
