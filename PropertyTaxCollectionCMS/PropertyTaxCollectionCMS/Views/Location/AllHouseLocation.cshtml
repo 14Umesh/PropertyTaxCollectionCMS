@@ -207,9 +207,9 @@
                 <label>Select Employee</label>
                 <select id="selectnumber" class="form-control minimal-form  RequiredInput validate[required] RequiredInput"></select>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-3">
                 @*<label>कर्मचारी निवडा / Select Employee</label>*@
-                <label>Select Segregation </label>
+                <label>Select Tax Collections </label>
                 <select id="seg_type" class="form-control minimal-form  RequiredInput validate[required] RequiredInput">
                     <option value="-1"> All Records</option>
                     <option value="1"> Tax Payment</option>
@@ -489,7 +489,7 @@
                                         if (data[i].HouseAddress != '') {
                                             poptext = poptext + '<p><b>Address: </b>' + data[i].HouseAddress + '<p>';
                                         }
-                                        poptext = poptext + '<b>Date: </b>' + data[i].date + '</p><div style="height:auto; width:150px"><p><b>Time: </b>' + data[i].gcTime + '</p></div></div>';
+                                        poptext = poptext + '<b>Date: </b>' + data[i].date + '</p><div style="height:auto; width:150px"><p><b>Time: </b>' + data[i].time + '</p></div></div>';
                                         infowindow.setContent(poptext);
                                         infowindow.open(map, marker);
                                     }

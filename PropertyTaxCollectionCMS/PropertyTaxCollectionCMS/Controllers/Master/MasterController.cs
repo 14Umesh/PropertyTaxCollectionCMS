@@ -119,7 +119,7 @@ namespace PropertyTaxCollectionCMS.Controllers.Master
                         file.SaveAs(path);
                     }
                 }
-
+                Employee.APP_ID = SessionHandler.Current.AppId;
                 Result Result = new Result();
                 Result = Repository.EmployeeSave(Employee);
                 ViewBag.Message = Result.message;

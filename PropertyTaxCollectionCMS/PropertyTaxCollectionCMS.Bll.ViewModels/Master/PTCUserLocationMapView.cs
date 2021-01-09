@@ -11,6 +11,8 @@ namespace PropertyTaxCollectionCMS.Bll.ViewModels.Master
         public int userId { get; set; }
         public string userName { get; set; }
         public string date { get; set; }
+
+
         public string time { get; set; }
         public string lat { get; set; }
         public string log { get; set; }

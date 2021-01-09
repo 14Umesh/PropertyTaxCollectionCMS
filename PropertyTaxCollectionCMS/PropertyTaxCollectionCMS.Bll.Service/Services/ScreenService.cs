@@ -40,15 +40,11 @@ namespace PropertyTaxCollectionCMS.Bll.Service.Services
                     //    string json = new WebClient().DownloadString(appdetails.Grampanchayat_Pro + "/api/Get/Complaint?appId=1");
                     //    obj = JsonConvert.DeserializeObject<List<ComplaintVM>>(json).Where(c => Convert.ToDateTime(c.createdDate2).ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")).ToList();
                     //}
-
-
                     var data = db.SP_HouseTaxCollection_Count().First();
-
                     //var date = DateTime.Today;
                     //var houseCount = db.SP_TotalHouseCollection_Count(date).FirstOrDefault();
                     if (data != null)
                     {
-
                         model.TotalHouseCount = data.TotalHouseCount;
                         model.HouseCollection = data.TotalHouseLatLongCount;
                         //   model.TotalScanHouseCount = data.TotalScanHouseCount;
@@ -58,7 +54,6 @@ namespace PropertyTaxCollectionCMS.Bll.Service.Services
                         //   model.NotSpecified = data.NotSpecified;
                         return model;
                     }
-
                     // String.Format("{0:0.00}", 123.4567); 
 
                     else
@@ -78,7 +73,7 @@ namespace PropertyTaxCollectionCMS.Bll.Service.Services
         {
 
             List<PTCUserLocationMapView> houseLocation = new List<PTCUserLocationMapView>();
-            var zoneId = 0;
+           // var zoneId = 0;
             DateTime dt1 = DateTime.ParseExact(date, "d/M/yyyy", CultureInfo.InvariantCulture);
             var data = db.SP_HouseOnMapDetailsForTax(Convert.ToDateTime(dt1), userid == -1 ? 0 : userid, GarbageType, FilterType).ToList();
             foreach (var x in data)
@@ -94,7 +89,7 @@ namespace PropertyTaxCollectionCMS.Bll.Service.Services
                     OwnerMobileNo = (x.houseOwnerMobile == null ? "" : x.houseOwnerMobile),
                     HouseAddress = checkNull(x.houseAddress).Replace("Unnamed Road, ", ""),
                     date = dt.ToString("dd-MM-yyyy"),
-                   // gcTime = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
+                    time = dt.ToString("h:mm tt"), // 7:00 AM // 12 hour clock
                     //string gcTime = x.gcDate.ToString(),
                     //gcTime = x.gcDate.ToString("hh:mm tt"),
                     //myDateTime.ToString("HH:mm:ss")

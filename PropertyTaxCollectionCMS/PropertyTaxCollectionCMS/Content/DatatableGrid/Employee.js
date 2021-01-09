@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     ActiveEmployee();
-   // $('#datatableActive').css("display", "block");
+    $('#datatableActive').css("display", "inline-table");
     $('#datatableNonActive').css("display", "none");
    // $('#datatableNonActive').hide();
     $('#datatableNonActive_wrapper').css("display", "none");
@@ -9,9 +9,7 @@
    
     $('#NotActivebtn').on('click', function (e) {
         debugger;
-       
-     
-        $('#datatableNonActive').css("display", "block");
+        $('#datatableNonActive').css("display", "inline-table");
         $('#datatableActive').css("display", "none");
      //  ('#datatableActive').hide();
       $('#datatableActive_wrapper').css("display", "none");
